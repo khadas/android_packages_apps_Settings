@@ -290,7 +290,21 @@ public class InstalledAppDetails extends Fragment
     }
 
     private void initMoveButton() {
-        if (Environment.isExternalStorageEmulated()) {
+        // if sdcard is mounted, then set the moveApp Button visible
+        boolean hasSdcard = false;
+        final File[] target = new UserEnvironment(UserHandle.USER_OWNER)
+            .getExternalDirsForApp();
+
+        for (File targetFile : target) {
+            if (targetFile.getAbsolutePath().indexOf("sdcard") != -1) {
+                String state = Environment.getStorageState(targetFile);
+                if (Environment.MEDIA_MOUNTED.equals(state)) {
+                    hasSdcard = true;
+                    break;
+                }
+            }
+        }
+        if (!hasSdcard) {
             mMoveAppButton.setVisibility(View.INVISIBLE);
             return;
         }
