@@ -68,6 +68,11 @@ public class CreateShortcut extends LauncherActivity {
                     activities.remove(i);
                 }
             }
+            if (info.activityInfo.name.contains("BluetoothSettingsActivity")) {
+                if (!getPackageManager().hasSystemFeature(android.content.pm.PackageManager.FEATURE_BLUETOOTH)) {
+                    activities.remove(i);
+                }
+            }
         }
         return activities;
     }
