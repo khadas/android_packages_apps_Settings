@@ -43,7 +43,8 @@ public class WifiApEnabler {
     private final Context mContext;
     private final SwitchPreference mSwitch;
     private final CharSequence mOriginalSummary;
-
+    private final int WIFI_STATE_ON = 1;
+    private final int WIFI_STATE_OFF =0;
     private WifiManager mWifiManager;
     private final IntentFilter mIntentFilter;
 
@@ -54,7 +55,7 @@ public class WifiApEnabler {
         @Override
         public void onReceive(Context context, Intent intent) {
             String action = intent.getAction();
-            if (WifiManager.WIFI_AP_STATE_CHANGED_ACTION.equals(action)) {
+            if (WifiManager.WIFI_AP_STATE_CHANGED_ACTION.equals(action) || WifiManager.WIFI_STATE_CHANGED_ACTION.equals(action)) {
                 handleWifiApStateChanged(intent.getIntExtra(
                         WifiManager.EXTRA_WIFI_AP_STATE, WifiManager.WIFI_AP_STATE_FAILED));
             } else if (ConnectivityManager.ACTION_TETHER_STATE_CHANGED.equals(action)) {
@@ -87,6 +88,7 @@ public class WifiApEnabler {
         mIntentFilter = new IntentFilter(WifiManager.WIFI_AP_STATE_CHANGED_ACTION);
         mIntentFilter.addAction(ConnectivityManager.ACTION_TETHER_STATE_CHANGED);
         mIntentFilter.addAction(Intent.ACTION_AIRPLANE_MODE_CHANGED);
+        mIntentFilter.addAction(WifiManager.WIFI_STATE_CHANGED_ACTION);
     }
 
     public void resume() {
@@ -114,6 +116,12 @@ public class WifiApEnabler {
         /**
          * Disable Wifi if enabling tethering
          */
+        int wifiSavedState = WIFI_STATE_OFF;
+        try {
+            wifiSavedState = Settings.Global.getInt(cr, Settings.Global.WIFI_SAVED_STATE);
+        } catch (Settings.SettingNotFoundException e) {
+        }
+
         int wifiState = mWifiManager.getWifiState();
         if (enable && ((wifiState == WifiManager.WIFI_STATE_ENABLING) ||
                     (wifiState == WifiManager.WIFI_STATE_ENABLED))) {
@@ -136,15 +144,8 @@ public class WifiApEnabler {
          *  If needed, restore Wifi on tether disable
          */
         if (!enable) {
-            int wifiSavedState = 0;
-            try {
-                wifiSavedState = Settings.Global.getInt(cr, Settings.Global.WIFI_SAVED_STATE);
-            } catch (Settings.SettingNotFoundException e) {
-                ;
-            }
-            if (wifiSavedState == 1) {
+            if (wifiSavedState == WIFI_STATE_ON) {
                 mWifiManager.setWifiEnabled(true);
-                Settings.Global.putInt(cr, Settings.Global.WIFI_SAVED_STATE, 0);
             }
         }
     }
@@ -183,10 +184,17 @@ public class WifiApEnabler {
     }
 
     private void handleWifiApStateChanged(int state) {
+        int wifiSavedState = WIFI_STATE_OFF;
+        final ContentResolver cr = mContext.getContentResolver();
+        try {
+            wifiSavedState = Settings.Global.getInt(cr, Settings.Global.WIFI_SAVED_STATE);
+        } catch (Settings.SettingNotFoundException e) {
+        }
         switch (state) {
             case WifiManager.WIFI_AP_STATE_ENABLING:
                 mSwitch.setSummary(R.string.wifi_tether_starting);
                 mSwitch.setEnabled(false);
+                mSwitch.setChecked(false);
                 break;
             case WifiManager.WIFI_AP_STATE_ENABLED:
                 /**
@@ -203,9 +211,24 @@ public class WifiApEnabler {
                 mSwitch.setEnabled(false);
                 break;
             case WifiManager.WIFI_AP_STATE_DISABLED:
-                mSwitch.setChecked(false);
-                mSwitch.setSummary(mOriginalSummary);
-                enableWifiSwitch();
+                if (wifiSavedState == WIFI_STATE_OFF) {
+                    mSwitch.setChecked(false);
+                    mSwitch.setSummary(mOriginalSummary);
+                    enableWifiSwitch();
+                    Settings.Global.putInt(cr, Settings.Global.WIFI_SAVED_STATE, WIFI_STATE_OFF);
+                }
+                break;
+            case WifiManager.WIFI_STATE_ENABLING:
+            case WifiManager.WIFI_STATE_DISABLED:
+            case WifiManager.WIFI_STATE_DISABLING:
+                break;
+            case WifiManager.WIFI_STATE_ENABLED:
+                if (wifiSavedState == WIFI_STATE_ON) {
+                    mSwitch.setChecked(false);
+                    mSwitch.setSummary(mOriginalSummary);
+                    enableWifiSwitch();
+                    Settings.Global.putInt(cr, Settings.Global.WIFI_SAVED_STATE, WIFI_STATE_OFF);
+                }
                 break;
             default:
                 mSwitch.setChecked(false);
