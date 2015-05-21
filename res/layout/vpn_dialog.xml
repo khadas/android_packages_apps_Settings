@@ -30,19 +30,25 @@
 
             <TextView style="@style/vpn_label" android:text="@string/vpn_name"/>
             <EditText style="@style/vpn_value" android:id="@+id/name"
-                    android:inputType="textCapWords"/>
+                    android:inputType="textCapWords"
+                    android:nextFocusDown="@+id/type"/>
+
 
             <TextView style="@style/vpn_label" android:text="@string/vpn_type"/>
             <Spinner style="@style/vpn_value" android:id="@+id/type"
                     android:prompt="@string/vpn_type"
+                    android:nextFocusUp="@+id/name"
+                    android:nextFocusDown="@+id/server"
                     android:entries="@array/vpn_types"/>
 
             <TextView style="@style/vpn_label" android:text="@string/vpn_server"/>
-            <EditText style="@style/vpn_value" android:id="@+id/server"/>
+            <EditText style="@style/vpn_value" android:id="@+id/server"
+                    android:nextFocusUp="@+id/type"/>
 
             <CheckBox style="@style/vpn_value" android:id="@+id/mppe"
                     android:text="@string/vpn_mppe"
                     android:singleLine="false"
+                    android:nextFocusUp="@+id/server"
                     android:visibility="gone"/>
 
             <LinearLayout android:id="@+id/l2tp"
