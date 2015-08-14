@@ -155,15 +155,23 @@
     <string name="device_picker" msgid="4978696506172252813">"選擇藍牙裝置"</string>
     <string name="bluetooth_permission_request" msgid="1523129741266262748">"藍牙權限要求"</string>
     <string name="bluetooth_ask_enablement" msgid="637355677176904990">"應用程式要求開啟藍牙功能。"</string>
+    <string name="bluetooth_ask_discovery" product="mbx" msgid="786921566047356213">"應用程式要求將媒體盒設為向其他藍牙裝置顯示，顯示的時間長度為 <xliff:g id="TIMEOUT">%1$d</xliff:g> 秒。"</string>
+    <string name="bluetooth_ask_discovery" product="TV" msgid="786921566047356213">"應用程式要求將電視設為向其他藍牙裝置顯示，顯示的時間長度為 <xliff:g id="TIMEOUT">%1$d</xliff:g> 秒。"</string>
     <string name="bluetooth_ask_discovery" product="tablet" msgid="786921566047356213">"應用程式要求將平板電腦設為向其他藍牙裝置顯示，顯示的時間長度為 <xliff:g id="TIMEOUT">%1$d</xliff:g> 秒。"</string>
     <string name="bluetooth_ask_discovery" product="default" msgid="5510358858113713272">"應用程式要求將手機設為向其他藍牙裝置顯示，顯示的時間長度為 <xliff:g id="TIMEOUT">%1$d</xliff:g> 秒。"</string>
+    <string name="bluetooth_ask_lasting_discovery" product="mbx" msgid="8863617309580598607">"應用程式要求將媒體盒設為向其他裝置顯示。您稍後可在 [藍牙] 設定中更改這項設定。"</string>
+    <string name="bluetooth_ask_lasting_discovery" product="TV" msgid="8863617309580598607">"應用程式要求將電視設為向其他裝置顯示。您稍後可在 [藍牙] 設定中更改這項設定。"</string>
     <string name="bluetooth_ask_lasting_discovery" product="tablet" msgid="8863617309580598607">"應用程式要求將平板電腦設為向其他裝置顯示。您稍後可在 [藍牙] 設定中更改這項設定。"</string>
     <string name="bluetooth_ask_lasting_discovery" product="default" msgid="6487606808683607975">"應用程式要求將手機設為向其他裝置顯示。您稍後可在 [藍牙] 設定中更改這項設定。"</string>
     <string name="bluetooth_ask_start_broadcast" product="default" msgid="3535628155254187911">"「<xliff:g id="APP_NAME">%1$s</xliff:g>」要求開啟藍牙廣播功能，這是為了連接附近的其他裝置。您之後可以在「藍牙」設定中變更這項設定。"</string>
     <string name="bluetooth_ask_enablement_and_start_broadcast" product="default" msgid="8810858601242763295">"「<xliff:g id="APP_NAME">%1$s</xliff:g>」要求開啟藍牙和藍牙廣播功能，這是為了連接附近的其他裝置。您之後可以在「藍牙」設定中變更這項設定。"</string>
     <string name="bluetooth_broadcasting_explaination" product="default" msgid="4249322115655011799">"開啟這項功能後，您的手機便可與附近的其他裝置連接。\n\n廣播功能會使用低耗電量的藍牙訊號。"</string>
+    <string name="bluetooth_ask_enablement_and_discovery" product="mbx" msgid="3346529092809011149">"應用程式要求開啟藍牙功能 <xliff:g id="TIMEOUT">%1$d</xliff:g> 秒，在這段時間內將媒體盒設為向其他裝置顯示。"</string>
+    <string name="bluetooth_ask_enablement_and_discovery" product="TV" msgid="3346529092809011149">"應用程式要求開啟藍牙功能 <xliff:g id="TIMEOUT">%1$d</xliff:g> 秒，在這段時間內將電視設為向其他裝置顯示。"</string>
     <string name="bluetooth_ask_enablement_and_discovery" product="tablet" msgid="3346529092809011149">"應用程式要求開啟藍牙功能 <xliff:g id="TIMEOUT">%1$d</xliff:g> 秒，在這段時間內將平板電腦設為向其他裝置顯示。"</string>
     <string name="bluetooth_ask_enablement_and_discovery" product="default" msgid="4724094889807196118">"應用程式要求開啟藍牙功能 <xliff:g id="TIMEOUT">%1$d</xliff:g> 秒，在這段時間內將手機設為向其他裝置顯示。"</string>
+    <string name="bluetooth_ask_enablement_and_lasting_discovery" product="mbx" msgid="989613204829097159">"應用程式要求開啟藍牙功能，將媒體盒設為向其他裝置顯示。您稍後可在 [藍牙] 設定中更改這項設定。"</string>
+    <string name="bluetooth_ask_enablement_and_lasting_discovery" product="TV" msgid="989613204829097159">"應用程式要求開啟藍牙功能，將電視設為向其他裝置顯示。您稍後可在 [藍牙] 設定中更改這項設定。"</string>
     <string name="bluetooth_ask_enablement_and_lasting_discovery" product="tablet" msgid="989613204829097159">"應用程式要求開啟藍牙功能，將平板電腦設為向其他裝置顯示。您稍後可在 [藍牙] 設定中更改這項設定。"</string>
     <string name="bluetooth_ask_enablement_and_lasting_discovery" product="default" msgid="6671615712909139801">"應用程式要求開啟藍牙功能，將手機設為向其他裝置顯示。您稍後可在 [藍牙] 設定中更改這項設定。"</string>
     <string name="bluetooth_turning_on" msgid="4850574877288036646">"藍牙開啟中…"</string>
@@ -269,6 +277,8 @@
     <string name="device_info_label" msgid="6551553813651711205">"裝置資訊"</string>
     <string name="battery_info_label" msgid="4132685016148679403">"電池資訊"</string>
     <string name="display_label" msgid="8074070940506840792">"螢幕"</string>
+    <string name="phone_info_label" product="mbx" msgid="7820855350955963628">"媒體盒資訊"</string>
+    <string name="phone_info_label" product="TV" msgid="7820855350955963628">"電視資訊"</string>
     <string name="phone_info_label" product="tablet" msgid="7820855350955963628">"平板電腦資訊"</string>
     <string name="phone_info_label" product="default" msgid="2127552523124277664">"手機資訊"</string>
     <string name="sd_card_settings_label" product="nosdcard" msgid="8101475181301178428">"USB 儲存裝置"</string>
@@ -299,6 +309,8 @@
     <string name="roaming_reenable_message" msgid="9141007271031717369">"您已離開主網絡覆蓋範圍，且已關閉數據傳輸漫遊服務，因此數據連線已中斷。"</string>
     <string name="roaming_turn_it_on_button" msgid="4387601818162120589">"開啟"</string>
     <string name="roaming_warning" msgid="7625933694709170887">"如果您允許數據漫遊，可能需要支付龐大的漫遊費用！"</string>
+    <string name="roaming_warning_multiuser" product="mbx" msgid="6458990250829214777">"如果您允許數據漫遊，可能需要支付高昂的漫遊費用！\n\n這項設定會影響這部媒體盒的所有使用者。"</string>
+    <string name="roaming_warning_multiuser" product="TV" msgid="6458990250829214777">"如果您允許數據漫遊，可能需要支付高昂的漫遊費用！\n\n這項設定會影響這部電視的所有使用者。"</string>
     <string name="roaming_warning_multiuser" product="tablet" msgid="6458990250829214777">"如果您允許數據漫遊，可能需要支付高昂的漫遊費用！\n\n這項設定會影響這部平板電腦的所有使用者。"</string>
     <string name="roaming_warning_multiuser" product="default" msgid="6368421100292355440">"如果您允許數據漫遊，可能需要支付高昂的漫遊費用！\n\n這項設定會影響這部手機的所有使用者。"</string>
     <string name="roaming_reenable_title" msgid="6068100976707316772">"允許數據漫遊？"</string>
@@ -349,11 +361,17 @@
     <string name="cdma_security_settings_summary" msgid="6068799952798901542">"設定我的位置、螢幕解鎖及認證儲存空間鎖定"</string>
     <string name="security_passwords_title" msgid="2930627259125138363">"密碼"</string>
     <string name="crypt_keeper_settings_title" msgid="4219233835490520414">"加密"</string>
+    <string name="crypt_keeper_encrypt_title" product="mbx" msgid="1060273569887301457">"對媒體盒進行加密"</string>
+    <string name="crypt_keeper_encrypt_title" product="TV" msgid="1060273569887301457">"對電視進行加密"</string>
     <string name="crypt_keeper_encrypt_title" product="tablet" msgid="1060273569887301457">"對平板電腦進行加密"</string>
     <string name="crypt_keeper_encrypt_title" product="default" msgid="1878996487755806122">"對手機進行加密"</string>
     <string name="crypt_keeper_encrypted_summary" msgid="1868233637888132906">"已加密"</string>
+    <string name="crypt_keeper_desc" product="mbx" msgid="2876073029767953111">"您的帳戶、設定、已下載應用程式及其資料、媒體和其他檔案皆可加密。將媒體盒加密後，系統會套用螢幕鎖定 (即解鎖圖案、數字 PIN 或密碼)，您必須在每次開機時解除螢幕鎖定，才能將媒體盒解密。除此之外，唯一的解密方法是將媒體盒回復原廠設定，清除其中所有資料。\n\n加密程序可能需要一個多小時才能完成。開始執行加密程序前，電池必須充滿，而媒體盒在加密過程中必須全程連接電源。如果中斷程序，您將遺失部分或所有資料"</string>
+    <string name="crypt_keeper_desc" product="TV" msgid="2876073029767953111">"您的帳戶、設定、已下載應用程式及其資料、媒體和其他檔案皆可加密。將電視加密後，系統會套用螢幕鎖定 (即解鎖圖案、數字 PIN 或密碼)，您必須在每次開機時解除螢幕鎖定，才能將電視解密。除此之外，唯一的解密方法是將電視回復原廠設定，清除其中所有資料。\n\n加密程序可能需要一個多小時才能完成。開始執行加密程序前，電池必須充滿，而電視在加密過程中必須全程連接電源。如果中斷程序，您將遺失部分或所有資料"</string>
     <string name="crypt_keeper_desc" product="tablet" msgid="2876073029767953111">"您的帳戶、設定、已下載應用程式及其資料、媒體和其他檔案皆可加密。將平板電腦加密後，系統會套用螢幕鎖定 (即解鎖圖案、數字 PIN 或密碼)，您必須在每次開機時解除螢幕鎖定，才能將平板電腦解密。除此之外，唯一的解密方法是將平板電腦回復原廠設定，清除其中所有資料。\n\n加密程序可能需要一個多小時才能完成。開始執行加密程序前，電池必須充滿，而平板電腦在加密過程中必須全程連接電源。如果中斷程序，您將遺失部分或所有資料"</string>
     <string name="crypt_keeper_desc" product="default" msgid="5573427498609458721">"您的帳戶、設定、已下載應用程式及其資料、媒體和其他檔案皆可加密。將手機加密後，系統會套用螢幕鎖定 (即解鎖圖案、數字 PIN 或密碼)，您必須在每次開機時解除螢幕鎖定，才能將手機解密。除此之外，唯一的解密方法是將手機回復原廠設定，清除其中所有資料。\n\n加密程序可能需要一個多小時才能完成。開始執行加密程序前，電池必須充滿，而手機在加密過程中必須全程連接電源。如果中斷程序，您將遺失部分或所有資料。"</string>
+    <string name="crypt_keeper_button_text" product="mbx" msgid="1189623490604750854">"對媒體盒加密"</string>
+    <string name="crypt_keeper_button_text" product="TV" msgid="1189623490604750854">"對電視加密"</string>
     <string name="crypt_keeper_button_text" product="tablet" msgid="1189623490604750854">"對平板電腦加密"</string>
     <string name="crypt_keeper_button_text" product="default" msgid="2008346408473255519">"對手機加密"</string>
     <string name="crypt_keeper_low_charge_text" msgid="2029407131227814893">"請將電池充電，然後再試一次。"</string>
@@ -362,21 +380,33 @@
     <string name="crypt_keeper_dialog_need_password_message" msgid="4071395977297369642">"您必須先設定鎖定螢幕的 PIN 或密碼，才能開始加密。"</string>
     <string name="crypt_keeper_confirm_encrypt" msgid="736289627726831055">"您必須畫出解鎖圖形，以確認為您的裝置加密。"</string>
     <string name="crypt_keeper_confirm_title" msgid="5100339496381875522">"加密？"</string>
+    <string name="crypt_keeper_final_desc" product="mbx" msgid="4453629424172409792">"您無法取消加密操作，如果過程中斷，將會失去資料。加密程序需時 1 個小時或以上，您的媒體盒會在過程中重新啟動數次。"</string>
+    <string name="crypt_keeper_final_desc" product="TV" msgid="4453629424172409792">"您無法取消加密操作，如果過程中斷，將會失去資料。加密程序需時 1 個小時或以上，您的電視會在過程中重新啟動數次。"</string>
     <string name="crypt_keeper_final_desc" product="tablet" msgid="4453629424172409792">"您無法取消加密操作，如果過程中斷，將會失去資料。加密程序需時 1 個小時或以上，您的平板電腦會在過程中重新啟動數次。"</string>
     <string name="crypt_keeper_final_desc" product="default" msgid="5682944380460921880">"您無法取消加密操作，如果過程中斷，將會失去資料。加密程序需時 1 個小時或以上，您的手機會在過程中重新啟動數次。"</string>
     <string name="crypt_keeper_setup_title" msgid="1783951453124244969">"加密中"</string>
+    <string name="crypt_keeper_setup_description" product="mbx" msgid="6689952371032099350">"媒體盒正在進行加密，請稍候 (已完成 <xliff:g id="PERCENT">^1</xliff:g>%)。"</string>
+    <string name="crypt_keeper_setup_description" product="TV" msgid="6689952371032099350">"電視正在進行加密，請稍候 (已完成 <xliff:g id="PERCENT">^1</xliff:g>%)。"</string>
     <string name="crypt_keeper_setup_description" product="tablet" msgid="6689952371032099350">"平板電腦正在進行加密，請稍候 (已完成 <xliff:g id="PERCENT">^1</xliff:g>%)。"</string>
     <string name="crypt_keeper_setup_description" product="default" msgid="951918761585534875">"手機正在進行加密，請稍候 (已完成 <xliff:g id="PERCENT">^1</xliff:g>%)。"</string>
+    <string name="crypt_keeper_setup_time_remaining" product="mbx" msgid="1655047311546745695">"媒體盒加密作業正在進行中，請稍候 (剩餘時間：<xliff:g id="DURATION">^1</xliff:g>)"</string>
+    <string name="crypt_keeper_setup_time_remaining" product="TV" msgid="1655047311546745695">"電視加密作業正在進行中，請稍候 (剩餘時間：<xliff:g id="DURATION">^1</xliff:g>)"</string>
     <string name="crypt_keeper_setup_time_remaining" product="tablet" msgid="1655047311546745695">"平板電腦加密作業正在進行中，請稍候 (剩餘時間：<xliff:g id="DURATION">^1</xliff:g>)"</string>
     <string name="crypt_keeper_setup_time_remaining" product="default" msgid="1862964662304683072">"手機加密作業正在進行中，請稍候 (剩餘時間：<xliff:g id="DURATION">^1</xliff:g>)"</string>
+    <string name="crypt_keeper_force_power_cycle" product="mbx" msgid="556504311511212648">"如要解鎖您的媒體盒，請先將其關閉再開啟。"</string>
+    <string name="crypt_keeper_force_power_cycle" product="TV" msgid="556504311511212648">"如要解鎖您的電視，請先將其關閉再開啟。"</string>
     <string name="crypt_keeper_force_power_cycle" product="tablet" msgid="556504311511212648">"如要解鎖您的平板電腦，請先將其關閉再開啟。"</string>
     <string name="crypt_keeper_force_power_cycle" product="default" msgid="1794353635603020327">"如要解鎖您的手機，請先將其關閉再開啟。"</string>
     <string name="crypt_keeper_warn_wipe" msgid="2738374897337991667">"警告：解鎖嘗試次數只剩 <xliff:g id="COUNT">^1</xliff:g> 次！如果持續失敗，您的裝置將被清除。"</string>
     <string name="crypt_keeper_enter_password" msgid="2223340178473871064">"輸入密碼"</string>
     <string name="crypt_keeper_failed_title" msgid="7133499413023075961">"加密失敗"</string>
+    <string name="crypt_keeper_failed_summary" product="mbx" msgid="4478225241476039013">"加密程序中斷且未完成，因此您無法再存取媒體盒上的資料。\n\n如要繼續使用媒體盒，您必須恢復原廠設定。完成重設後，您可以在設定媒體盒時，還原先前備份至「Google 帳戶」的資料。"</string>
+    <string name="crypt_keeper_failed_summary" product="TV" msgid="4478225241476039013">"加密程序中斷且未完成，因此您無法再存取電視上的資料。\n\n如要繼續使用電視，您必須恢復原廠設定。完成重設後，您可以在設定電視時，還原先前備份至「Google 帳戶」的資料。"</string>
     <string name="crypt_keeper_failed_summary" product="tablet" msgid="4478225241476039013">"加密程序中斷且未完成，因此您無法再存取平板電腦上的資料。\n\n如要繼續使用平板電腦，您必須恢復原廠設定。完成重設後，您可以在設定平板電腦時，還原先前備份至「Google 帳戶」的資料。"</string>
     <string name="crypt_keeper_failed_summary" product="default" msgid="3083477162766772532">"加密程序中斷且未完成，因此您無法再存取手機上的資料。\n\n如要繼續使用手機，您必須恢復原廠設定。完成重設後，您可以在設定手機時，還原先前備份至「Google 帳戶」的資料。"</string>
     <string name="crypt_keeper_data_corrupt_title" msgid="8759119849089795751">"解密失敗"</string>
+    <string name="crypt_keeper_data_corrupt_summary" product="mbx" msgid="3775740783651700375">"您輸入的密碼正確，不過您的數據已損毀。\n\n如要繼續使用，您必須媒體盒恢復原廠設定。經過重設後，您可以在設定媒體盒時將早前備份到個人 Google 帳戶的數據全部還原。"</string>
+    <string name="crypt_keeper_data_corrupt_summary" product="TV" msgid="3775740783651700375">"您輸入的密碼正確，不過您的數據已損毀。\n\n如要繼續使用，您必須電視恢復原廠設定。經過重設後，您可以在設定電視時將早前備份到個人 Google 帳戶的數據全部還原。"</string>
     <string name="crypt_keeper_data_corrupt_summary" product="tablet" msgid="3775740783651700375">"您輸入的密碼正確，不過您的數據已損毀。\n\n如要繼續使用，您必須平板電腦恢復原廠設定。經過重設後，您可以在設定平板電腦時將早前備份到個人 Google 帳戶的數據全部還原。"</string>
     <string name="crypt_keeper_data_corrupt_summary" product="default" msgid="6898436151871328007">"您輸入的密碼正確，不過您的數據已損毀。\n\n如要繼續使用，您必須將手機恢復原廠設定。經過重設後，您可以在設定手機時將早前備份到個人 Google 帳戶的數據全部還原。"</string>
     <string name="crypt_keeper_switch_input_method" msgid="4168332125223483198">"切換輸入法"</string>
@@ -529,6 +559,8 @@
     <string name="bluetooth_disconnect_headset_profile" msgid="8635908811168780720">"即將中斷「<xliff:g id="DEVICE_NAME">%1$s</xliff:g>」與免提聽筒音頻的連線。"</string>
     <string name="bluetooth_disconnect_hid_profile" msgid="3282295189719352075">"即將中斷「<xliff:g id="DEVICE_NAME">%1$s</xliff:g>」與輸入裝置的連線。"</string>
     <string name="bluetooth_disconnect_pan_user_profile" msgid="8037627994382458698">"即將中斷透過 <xliff:g id="DEVICE_NAME">%1$s</xliff:g> 取得的互聯網連線。"</string>
+    <string name="bluetooth_disconnect_pan_nap_profile" product="mbx" msgid="5455448395850929200">"即將中斷「<xliff:g id="DEVICE_NAME">%1$s</xliff:g>」透過這個媒體盒取得的互聯網連線。"</string>
+    <string name="bluetooth_disconnect_pan_nap_profile" product="TV" msgid="5455448395850929200">"即將中斷「<xliff:g id="DEVICE_NAME">%1$s</xliff:g>」透過這個電視取得的互聯網連線。"</string>
     <string name="bluetooth_disconnect_pan_nap_profile" product="tablet" msgid="5455448395850929200">"即將中斷「<xliff:g id="DEVICE_NAME">%1$s</xliff:g>」透過這個平板電腦取得的互聯網連線。"</string>
     <string name="bluetooth_disconnect_pan_nap_profile" product="default" msgid="5266851881175033601">"即將中斷「<xliff:g id="DEVICE_NAME">%1$s</xliff:g>」透過這部手機取得的互聯網連線。"</string>
     <string name="bluetooth_device_advanced_title" msgid="6066342531927499308">"已配對的藍牙裝置"</string>
@@ -571,6 +603,8 @@
     <string name="wifi_display_options_done" msgid="5703116500357822557">"完成"</string>
     <string name="wifi_display_options_name" msgid="4756080222307467898">"名稱"</string>
     <string name="nfc_quick_toggle_title" msgid="6769159366307299004">"NFC"</string>
+    <string name="nfc_quick_toggle_summary" product="mbx" msgid="8302974395787498915">"允許媒體盒在與其他裝置接觸時交換資料"</string>
+    <string name="nfc_quick_toggle_summary" product="TV" msgid="8302974395787498915">"允許電視在與其他裝置接觸時交換資料"</string>
     <string name="nfc_quick_toggle_summary" product="tablet" msgid="8302974395787498915">"允許平板電腦在與其他裝置接觸時交換資料"</string>
     <string name="nfc_quick_toggle_summary" product="default" msgid="5237208142892767592">"允許手機與其他裝置接觸時交換資料"</string>
     <string name="android_beam_settings_title" msgid="7832812974600338649">"Android Beam"</string>
@@ -695,12 +729,18 @@
     <string name="wifi_cancel" msgid="6763568902542968964">"取消"</string>
     <string name="wifi_skip_anyway" msgid="6965361454438011190">"仍要略過"</string>
     <string name="wifi_dont_skip" msgid="7350341524881124808">"不要略過"</string>
+    <string name="wifi_skipped_message" product="mbx" msgid="6761689889733331124">"警告：如果略過 Wi-Fi 設定，媒體盒將只能透過流動數據連線，以作初始下載及更新。如要避免產生數據傳輸費用，請連線至 Wi-Fi 網絡。"</string>
+    <string name="wifi_skipped_message" product="TV" msgid="6761689889733331124">"警告：如果略過 Wi-Fi 設定，電視將只能透過流動數據連線，以作初始下載及更新。如要避免產生數據傳輸費用，請連線至 Wi-Fi 網絡。"</string>
     <string name="wifi_skipped_message" product="tablet" msgid="6761689889733331124">"警告：如果略過 Wi-Fi 設定，平板電腦將只能透過流動數據連線，以作初始下載及更新。如要避免產生數據傳輸費用，請連線至 Wi-Fi 網絡。"</string>
     <string name="wifi_skipped_message" product="device" msgid="1385490367826852775">"警告：如果略過 Wi-Fi 設定，裝置將只能透過流動數據連線，以作初始下載及更新。如要避免產生數據傳輸費用，請連線至 Wi-Fi 網絡。"</string>
     <string name="wifi_skipped_message" product="default" msgid="6084295135297772350">"警告：如果略過 Wi-Fi 設定，手機將只能透過流動數據連線，以作初始下載及更新。如要避免產生數據傳輸費用，請連線至 Wi-Fi 網絡。"</string>
+    <string name="wifi_and_mobile_skipped_message" product="mbx" msgid="5872240361944591105">"如果略過 Wi-Fi 設定：\n\n您的媒體盒將無法連線至互聯網。\n\n您必須連線至互聯網，才能取得軟件更新。\n\n目前無法啟用裝置保護功能。"</string>
+    <string name="wifi_and_mobile_skipped_message" product="TV" msgid="5872240361944591105">"如果略過 Wi-Fi 設定：\n\n您的電視將無法連線至互聯網。\n\n您必須連線至互聯網，才能取得軟件更新。\n\n目前無法啟用裝置保護功能。"</string>
     <string name="wifi_and_mobile_skipped_message" product="tablet" msgid="5872240361944591105">"如果略過 Wi-Fi 設定：\n\n您的平板電腦將無法連線至互聯網。\n\n您必須連線至互聯網，才能取得軟件更新。\n\n目前無法啟用裝置保護功能。"</string>
     <string name="wifi_and_mobile_skipped_message" product="device" msgid="1013689568018268332">"如果略過 Wi-Fi 設定：\n\n您的裝置將無法連線至互聯網。\n\n您必須連線至互聯網，才能取得軟件更新。\n\n這時，您無法啟用裝置保護功能。"</string>
     <string name="wifi_and_mobile_skipped_message" product="default" msgid="5245835374169369770">"如果略過 Wi-Fi 設定：\n\n您的手機將無法連線至互聯網。\n\n您必須連線至互聯網，才能取得軟件更新。\n\n目前無法啟用裝置保護功能。"</string>
+    <string name="wifi_connect_failed_message" product="mbx" msgid="4474691090681670156">"媒體盒無法連接這個 Wi-Fi 網絡。"</string>
+    <string name="wifi_connect_failed_message" product="TV" msgid="4474691090681670156">"電視無法連接這個 Wi-Fi 網絡。"</string>
     <string name="wifi_connect_failed_message" product="tablet" msgid="4474691090681670156">"平板電腦無法連接這個 Wi-Fi 網絡。"</string>
     <string name="wifi_connect_failed_message" product="device" msgid="8870885845666880869">"裝置無法連線至這個 Wi-Fi 網絡。"</string>
     <string name="wifi_connect_failed_message" product="default" msgid="2185803140161396572">"手機無法連接這個 Wi-Fi 網絡。"</string>
@@ -787,15 +827,23 @@
     <string name="dock_audio_settings_title" msgid="3324750259959570305">"音效設定"</string>
     <string name="dock_audio_summary_desk" msgid="6487784412371139335">"隨附的桌上型座架設定"</string>
     <string name="dock_audio_summary_car" msgid="6740897586006248450">"隨附的車用座架設定"</string>
+    <string name="dock_audio_summary_none" product="mbx" msgid="8215337394914283607">"媒體盒未安置於座架上"</string>
+    <string name="dock_audio_summary_none" product="TV" msgid="8215337394914283607">"電視未安置於座架上"</string>
     <string name="dock_audio_summary_none" product="tablet" msgid="8215337394914283607">"平板電腦未安置於座架上"</string>
     <string name="dock_audio_summary_none" product="default" msgid="289909253741048784">"手機未固定至座架"</string>
     <string name="dock_audio_summary_unknown" msgid="4465059868974255693">"隨附座架設定"</string>
     <string name="dock_not_found_title" msgid="3290961741828952424">"找不到座架"</string>
+    <string name="dock_not_found_text" product="mbx" msgid="8405432495282299143">"您必須先將媒體盒安置於座架上，才能設定座架音效。"</string>
+    <string name="dock_not_found_text" product="TV" msgid="8405432495282299143">"您必須先將電視安置於座架上，才能設定座架音效。"</string>
     <string name="dock_not_found_text" product="tablet" msgid="8405432495282299143">"您必須先將平板電腦安置於座架上，才能設定座架音效。"</string>
     <string name="dock_not_found_text" product="default" msgid="1460497923342627801">"您必須先將手機安置於座架上，才能設定座架音效。"</string>
     <string name="dock_sounds_enable_title" msgid="885839627097024110">"座架插入音效"</string>
+    <string name="dock_sounds_enable_summary_on" product="mbx" msgid="838102386448981339">"將媒體盒置入座架或移出座架時播放音效"</string>
+    <string name="dock_sounds_enable_summary_on" product="TV" msgid="838102386448981339">"將電視置入座架或移出座架時播放音效"</string>
     <string name="dock_sounds_enable_summary_on" product="tablet" msgid="838102386448981339">"將平板電腦置入座架或移出座架時播放音效"</string>
     <string name="dock_sounds_enable_summary_on" product="default" msgid="8491180514199743771">"將手機置入座架或移出座架時播放音效"</string>
+    <string name="dock_sounds_enable_summary_off" product="mbx" msgid="5077843049805652363">"將媒體盒置入座架或移出座架時，不要播放音效"</string>
+    <string name="dock_sounds_enable_summary_off" product="TV" msgid="5077843049805652363">"將電視置入座架或移出座架時，不要播放音效"</string>
     <string name="dock_sounds_enable_summary_off" product="tablet" msgid="5077843049805652363">"將平板電腦置入座架或移出座架時，不要播放音效"</string>
     <string name="dock_sounds_enable_summary_off" product="default" msgid="3151046599205265919">"手機插入底座或離開底座時，不要播放音效"</string>
     <string name="account_settings" msgid="6403589284618783461">"帳戶"</string>
@@ -805,8 +853,12 @@
     <string name="search_settings_summary" msgid="9205656546570654169">"管理搜尋設定和記錄"</string>
     <string name="display_settings" msgid="7965901687241669598">"顯示"</string>
     <string name="accelerometer_title" msgid="7854608399547349157">"自動旋轉螢幕"</string>
+    <string name="accelerometer_summary_on" product="mbx" msgid="429982132339828942">"旋轉媒體盒時自動切換瀏覽模式"</string>
+    <string name="accelerometer_summary_on" product="TV" msgid="429982132339828942">"旋轉電視時自動切換瀏覽模式"</string>
     <string name="accelerometer_summary_on" product="tablet" msgid="429982132339828942">"旋轉平板電腦時自動切換瀏覽模式"</string>
     <string name="accelerometer_summary_on" product="default" msgid="1133737282813048021">"旋轉手機時自動改變顯示方向"</string>
+    <string name="accelerometer_summary_off" product="mbx" msgid="4781734213242521682">"旋轉媒體盒時自動切換瀏覽模式"</string>
+    <string name="accelerometer_summary_off" product="TV" msgid="4781734213242521682">"旋轉電視時自動切換瀏覽模式"</string>
     <string name="accelerometer_summary_off" product="tablet" msgid="4781734213242521682">"旋轉平板電腦時自動切換瀏覽模式"</string>
     <string name="accelerometer_summary_off" product="default" msgid="5485489363715740761">"旋轉手機時自動改變顯示方向"</string>
     <string name="brightness" msgid="8480105032417444275">"亮度"</string>
@@ -839,8 +891,12 @@
     <string name="sim_lock_settings_category" msgid="5136244267576697004">"設定 SIM 卡鎖定"</string>
     <string name="sim_lock_settings_title" msgid="9018585580955414596">"SIM 卡鎖定"</string>
     <string name="sim_pin_toggle" msgid="1742123478029451888">"鎖定 SIM 卡"</string>
+    <string name="sim_lock_on" product="mbx" msgid="5058355081270397764">"需要 PIN 碼才能使用媒體盒"</string>
+    <string name="sim_lock_on" product="TV" msgid="5058355081270397764">"需要 PIN 碼才能使用電視"</string>
     <string name="sim_lock_on" product="tablet" msgid="5058355081270397764">"需要 PIN 碼才能使用平板電腦"</string>
     <string name="sim_lock_on" product="default" msgid="2503536505568814324">"需要 PIN 才能使用手機"</string>
+    <string name="sim_lock_off" product="mbx" msgid="2813800553917012356">"需要 PIN 碼才能使用媒體盒"</string>
+    <string name="sim_lock_off" product="TV" msgid="2813800553917012356">"需要 PIN 碼才能使用電視"</string>
     <string name="sim_lock_off" product="tablet" msgid="2813800553917012356">"需要 PIN 碼才能使用平板電腦"</string>
     <string name="sim_lock_off" product="default" msgid="258981978215428916">"需要 PIN 才能使用手機"</string>
     <string name="sim_pin_change" msgid="6311414184279932368">"更改 SIM PIN"</string>
@@ -870,6 +926,8 @@
     <item quantity="other" msgid="77103619544346451">"SIM PIN 碼不正確，您剩下 <xliff:g id="NUMBER">%d</xliff:g> 次機會輸入。"</item>
   </plurals>
     <string name="pin_failed" msgid="1848423634948587645">"SIM PIN 碼操作失敗！"</string>
+    <string name="device_info_settings" product="mbx" msgid="1119755927536987178">"媒體盒狀態"</string>
+    <string name="device_info_settings" product="TV" msgid="1119755927536987178">"電視狀態"</string>
     <string name="device_info_settings" product="tablet" msgid="1119755927536987178">"平板電腦狀態"</string>
     <string name="device_info_settings" product="default" msgid="475872867864762157">"手機狀態"</string>
     <string name="system_update_settings_list_item_title" msgid="3342887311059985961">"系統更新"</string>
@@ -884,12 +942,16 @@
     <string name="device_info_not_available" msgid="8062521887156825182">"無法使用"</string>
     <string name="device_status_activity_title" msgid="1411201799384697904">"狀態"</string>
     <string name="device_status" msgid="607405385799807324">"狀態"</string>
+    <string name="device_status_summary" product="mbx" msgid="3292717754497039686">"電池、網絡狀態及其他資訊"</string>
+    <string name="device_status_summary" product="TV" msgid="3292717754497039686">"電池、網絡狀態及其他資訊"</string>
     <string name="device_status_summary" product="tablet" msgid="3292717754497039686">"電池、網絡狀態及其他資訊"</string>
     <string name="device_status_summary" product="default" msgid="2599162787451519618">"電話號碼、訊號等。"</string>
     <string name="storage_settings" msgid="4211799979832404953">"儲存空間"</string>
     <string name="storage_settings_title" msgid="8746016738388094064">"儲存設定"</string>
     <string name="storage_settings_summary" product="nosdcard" msgid="3543813623294870759">"卸載 USB 儲存裝置，查看可用的儲存空間"</string>
     <string name="storage_settings_summary" product="default" msgid="9176693537325988610">"卸載 SD 卡，查看可用儲存空間"</string>
+    <string name="status_number" product="mbx" msgid="1138837891091222272">"MDN"</string>
+    <string name="status_number" product="TV" msgid="1138837891091222272">"MDN"</string>
     <string name="status_number" product="tablet" msgid="1138837891091222272">"MDN"</string>
     <string name="status_number" product="default" msgid="5123197324870153205">"我的電話號碼"</string>
     <string name="status_min_number" msgid="3519504522179420597">"MIN"</string>
@@ -1009,8 +1071,12 @@
     <string name="restore_default_apn_completed" msgid="2824775307377604897">"重設預設 APN 設定已完成。"</string>
     <string name="device_reset_title" msgid="2384019005638768076">"重設裝置"</string>
     <string name="master_clear_title" msgid="5907939616087039756">"恢復原廠設定"</string>
+    <string name="master_clear_summary" product="mbx" msgid="4036344100254678429">"清除媒體盒上的所有資料"</string>
+    <string name="master_clear_summary" product="TV" msgid="4036344100254678429">"清除電視上的所有資料"</string>
     <string name="master_clear_summary" product="tablet" msgid="4036344100254678429">"清除平板電腦上的所有資料"</string>
     <string name="master_clear_summary" product="default" msgid="4986154238001088492">"清除手機上的所有資料"</string>
+    <string name="master_clear_desc" product="mbx" msgid="8317211882509025841">"這會清除您媒體盒"<b>"內部儲存裝置"</b>"中的所有資料，包括：\n\n"<li>"您的 Google 帳戶"</li>\n<li>"系統和應用程式資料及設定"</li>\n<li>"已下載的應用程式"</li></string>
+    <string name="master_clear_desc" product="TV" msgid="8317211882509025841">"這會清除您電視"<b>"內部儲存裝置"</b>"中的所有資料，包括：\n\n"<li>"您的 Google 帳戶"</li>\n<li>"系統和應用程式資料及設定"</li>\n<li>"已下載的應用程式"</li></string>
     <string name="master_clear_desc" product="tablet" msgid="8317211882509025841">"這會清除您平板電腦"<b>"內部儲存裝置"</b>"中的所有資料，包括：\n\n"<li>"您的 Google 帳戶"</li>\n<li>"系統和應用程式資料及設定"</li>\n<li>"已下載的應用程式"</li></string>
     <string name="master_clear_desc" product="default" msgid="9165016501623540228">"這會清除您手機"<b>"內部儲存裝置"</b>"中的所有資料，包括：\n\n"<li>"您的 Google 帳戶"</li>\n<li>"系統和應用程式資料及設定"</li>\n<li>"已下載的應用程式"</li></string>
     <string name="master_clear_accounts" product="default" msgid="6412857499147999073">\n\n"您目前已登入下列帳戶：\n"</string>
@@ -1022,6 +1088,8 @@
     <string name="erase_external_storage" product="default" msgid="1397239046334307625">"清除 SD 記憶卡資料"</string>
     <string name="erase_external_storage_description" product="nosdcard" msgid="4728558173931599429">"清除內部 USB 儲存裝置中的所有資料，例如音樂或相片"</string>
     <string name="erase_external_storage_description" product="default" msgid="1737638779582964966">"清除 SD 記憶卡中的所有資料，例如音樂或相片"</string>
+    <string name="master_clear_button_text" product="mbx" msgid="3130786116528304116">"重設媒體盒"</string>
+    <string name="master_clear_button_text" product="TV" msgid="3130786116528304116">"重設電視"</string>
     <string name="master_clear_button_text" product="tablet" msgid="3130786116528304116">"重設平板電腦"</string>
     <string name="master_clear_button_text" product="default" msgid="7550632653343157971">"重設手機"</string>
     <string name="master_clear_final_desc" msgid="7209547812233487345">"您要清除所有個人資訊和已下載的應用程式嗎？您無法復原這項操作！"</string>
@@ -1061,13 +1129,21 @@
     <string name="usb_tethering_turnon_subtext" msgid="4748616058219273033">"連接並開啟"</string>
     <string name="usb_tethering_errored_subtext" msgid="1377574819427841992">"USB 網絡共享發生錯誤"</string>
     <string name="bluetooth_tether_checkbox_text" msgid="2379175828878753652">"藍牙網絡共享"</string>
+    <string name="bluetooth_tethering_available_subtext" product="mbx" msgid="8811610320942954709">"分享這個媒體盒的互聯網連線"</string>
+    <string name="bluetooth_tethering_available_subtext" product="TV" msgid="8811610320942954709">"分享這個電視的互聯網連線"</string>
     <string name="bluetooth_tethering_available_subtext" product="tablet" msgid="8811610320942954709">"分享這個平板電腦的互聯網連線"</string>
     <string name="bluetooth_tethering_available_subtext" product="default" msgid="4229220575771946723">"分享這部手機的互聯網連線"</string>
+    <string name="bluetooth_tethering_device_connected_subtext" product="mbx" msgid="2730938191906597896">"與 1 個裝置分享這個媒體盒的互聯網連線"</string>
+    <string name="bluetooth_tethering_device_connected_subtext" product="TV" msgid="2730938191906597896">"與 1 個裝置分享這個電視的互聯網連線"</string>
     <string name="bluetooth_tethering_device_connected_subtext" product="tablet" msgid="2730938191906597896">"與 1 個裝置分享這個平板電腦的互聯網連線"</string>
     <string name="bluetooth_tethering_device_connected_subtext" product="default" msgid="1666736165420290466">"與 1 個裝置分享這部手機的互聯網連線"</string>
+    <string name="bluetooth_tethering_devices_connected_subtext" product="mbx" msgid="1180765608259580143">"與 <xliff:g id="CONNECTEDDEVICECOUNT">%1$d</xliff:g> 個裝置分享這個媒體盒的互聯網連線"</string>
+    <string name="bluetooth_tethering_devices_connected_subtext" product="TV" msgid="1180765608259580143">"與 <xliff:g id="CONNECTEDDEVICECOUNT">%1$d</xliff:g> 個裝置分享這個電視的互聯網連線"</string>
     <string name="bluetooth_tethering_devices_connected_subtext" product="tablet" msgid="1180765608259580143">"與 <xliff:g id="CONNECTEDDEVICECOUNT">%1$d</xliff:g> 個裝置分享這個平板電腦的互聯網連線"</string>
     <string name="bluetooth_tethering_devices_connected_subtext" product="default" msgid="8248942539362173005">"與 <xliff:g id="CONNECTEDDEVICECOUNT">%1$d</xliff:g> 個裝置分享這部手機的互聯網連線"</string>
     <string name="bluetooth_tethering_off_subtext_config" msgid="1790242032929221788">"共用這部 <xliff:g id="DEVICE_NAME">%1$d</xliff:g> 的互聯網連線"</string>
+    <string name="bluetooth_tethering_off_subtext" product="mbx" msgid="2093881379028235555">"未分享這個媒體盒的互聯網連線"</string>
+    <string name="bluetooth_tethering_off_subtext" product="TV" msgid="2093881379028235555">"未分享這個電視的互聯網連線"</string>
     <string name="bluetooth_tethering_off_subtext" product="tablet" msgid="2093881379028235555">"未分享這個平板電腦的互聯網連線"</string>
     <string name="bluetooth_tethering_off_subtext" product="default" msgid="706860924389041342">"未分享這部手機的互聯網連線"</string>
     <string name="bluetooth_tethering_errored_subtext" msgid="4926566308991142264">"未共用網絡"</string>
@@ -1109,6 +1185,8 @@
     <string name="location_neighborhood_level" msgid="5626515380188353712">"允許應用程式使用 Google 的位置資訊服務，藉此更快確定您的約略位置。系統會收集匿名的位置資料傳送給 Google。"</string>
     <string name="location_neighborhood_level_wifi" msgid="4234820941954812210">"根據 Wi-Fi 確定位置"</string>
     <string name="location_gps" msgid="8392461023569708478">"GPS 衛星"</string>
+    <string name="location_street_level" product="mbx" msgid="1669562198260860802">"允許應用程式使用媒體盒的 GPS 找出您的精確位置"</string>
+    <string name="location_street_level" product="TV" msgid="1669562198260860802">"允許應用程式使用電視的 GPS 找出您的精確位置"</string>
     <string name="location_street_level" product="tablet" msgid="1669562198260860802">"允許應用程式使用平板電腦的 GPS 找出您的精確位置"</string>
     <string name="location_street_level" product="default" msgid="4617445745492014203">"允許應用程式使用手機的 GPS 找出您的精確位置"</string>
     <string name="assisted_gps" msgid="4649317129586736885">"使用輔助 GPS"</string>
@@ -1119,6 +1197,8 @@
     <string name="location_access_title" msgid="7064108942964081243">"存取我的位置資訊"</string>
     <string name="location_access_summary" msgid="69031404093194341">"允許提出權限要求的應用程式使用您的位置資訊"</string>
     <string name="location_sources_heading" msgid="1278732419851088319">"位置資訊來源"</string>
+    <string name="about_settings" product="mbx" msgid="593457295516533765">"關於媒體盒"</string>
+    <string name="about_settings" product="TV" msgid="593457295516533765">"關於電視"</string>
     <string name="about_settings" product="tablet" msgid="593457295516533765">"關於平板電腦"</string>
     <string name="about_settings" product="default" msgid="1743378368185371685">"關於手機"</string>
     <string name="about_settings_summary" msgid="3371517697156165959">"查看法律資訊、狀態、軟件版本"</string>
@@ -1188,6 +1268,8 @@
     <string name="install_applications_title" msgid="4987712352256508946">"允許安裝所有來源的應用程式"</string>
     <string name="install_unknown_applications_title" msgid="663831043139080992">"允許從 Google Play 以外的來源安裝應用程式"</string>
     <string name="install_unknown_applications" msgid="176855644862942064">"允許安裝來源不明的應用程式"</string>
+    <string name="install_all_warning" product="mbx" msgid="3263360446508268880">"來源不明的應用程式可能會損害您的媒體盒及個人資料，如因使用這些應用程式導致媒體盒受損或資料遺失，請自行承擔責任。"</string>
+    <string name="install_all_warning" product="TV" msgid="3263360446508268880">"來源不明的應用程式可能會損害您的電視及個人資料，如因使用這些應用程式導致電視受損或資料遺失，請自行承擔責任。"</string>
     <string name="install_all_warning" product="tablet" msgid="3263360446508268880">"來源不明的應用程式可能會損害您的平板電腦及個人資料，如因使用這些應用程式導致平板電腦受損或資料遺失，請自行承擔責任。"</string>
     <string name="install_all_warning" product="default" msgid="8113734576826384682">"不明來源的應用程式可能會損害您的手機及個人資訊。如因使用這些應用程式而造成手機受損或資料遺失，您必須自行承擔責任。"</string>
     <string name="advanced_settings" msgid="1777249286757067969">"進階設定"</string>
@@ -1259,8 +1341,12 @@
     <string name="app_factory_reset_dlg_text" msgid="6371247225487725860">"即將解除安裝這個 Android 系統應用程式的所有更新。"</string>
     <string name="clear_failed_dlg_title" msgid="2387060805294783175">"清除資料"</string>
     <string name="clear_failed_dlg_text" msgid="1092177570631523106">"無法清除應用程式的資料。"</string>
+    <string name="security_settings_desc" product="mbx" msgid="1292421279262430109">"此應用程式可存取您媒體盒上的下列項目："</string>
+    <string name="security_settings_desc" product="TV" msgid="1292421279262430109">"此應用程式可存取您電視上的下列項目："</string>
     <string name="security_settings_desc" product="tablet" msgid="1292421279262430109">"此應用程式可存取您平板電腦上的下列項目："</string>
     <string name="security_settings_desc" product="default" msgid="61749028818785244">"這個應用程式可存取您手機上的下列各項："</string>
+    <string name="security_settings_desc_multi" product="mbx" msgid="7300932212437084403">"這個應用程式可存取您媒體盒上的下列項目。由於「<xliff:g id="BASE_APP_NAME">%1$s</xliff:g>」可在與「<xliff:g id="ADDITIONAL_APPS_LIST">%2$s</xliff:g>」相同的程序中執行，為增進效能及降低記憶體用量，應用程式可以使用部分權限："</string>
+    <string name="security_settings_desc_multi" product="TV" msgid="7300932212437084403">"這個應用程式可存取您電視上的下列項目。由於「<xliff:g id="BASE_APP_NAME">%1$s</xliff:g>」可在與「<xliff:g id="ADDITIONAL_APPS_LIST">%2$s</xliff:g>」相同的程序中執行，為增進效能及降低記憶體用量，應用程式可以使用部分權限："</string>
     <string name="security_settings_desc_multi" product="tablet" msgid="7300932212437084403">"這個應用程式可存取您平板電腦上的下列項目。由於「<xliff:g id="BASE_APP_NAME">%1$s</xliff:g>」可在與「<xliff:g id="ADDITIONAL_APPS_LIST">%2$s</xliff:g>」相同的程序中執行，為增進效能及降低記憶體用量，應用程式可以使用部分權限："</string>
     <string name="security_settings_desc_multi" product="default" msgid="6610268420793984752">"這個應用程式可存取您手機上的下列項目。由於「<xliff:g id="BASE_APP_NAME">%1$s</xliff:g>」可在與「<xliff:g id="ADDITIONAL_APPS_LIST">%2$s</xliff:g>」相同的程序中執行，為增進效能及降低記憶體用量，應用程式可以使用部分權限："</string>
     <string name="join_two_items" msgid="1336880355987539064">"<xliff:g id="FIRST_ITEM">%1$s</xliff:g>及<xliff:g id="SECOND_ITEM">%2$s</xliff:g>"</string>
@@ -1274,6 +1360,8 @@
     <string name="empty_list_msg" msgid="5993162337235907160">"您並未安裝任何第三方應用程式。"</string>
     <string name="version_text" msgid="9189073826278676425">"版本 <xliff:g id="VERSION_NUM">%1$s</xliff:g>"</string>
     <string name="move_app" msgid="5042838441401731346">"移動"</string>
+    <string name="move_app_to_internal" product="mbx" msgid="2299714147283854957">"移至媒體盒"</string>
+    <string name="move_app_to_internal" product="TV" msgid="2299714147283854957">"移至電視"</string>
     <string name="move_app_to_internal" product="tablet" msgid="2299714147283854957">"移至平板電腦"</string>
     <string name="move_app_to_internal" product="default" msgid="3895430471913858185">"移至手機"</string>
     <string name="move_app_to_sdcard" product="nosdcard" msgid="4350451696315265420">"移至 USB 儲存裝置"</string>
@@ -1342,6 +1430,8 @@
     <string name="process_service_in_use_description" msgid="8993335064403217080">"服務 <xliff:g id="COMP_NAME">%1$s</xliff:g> 正在使用中。"</string>
     <string name="process_provider_in_use_description" msgid="5586603325677678940">"供應商 <xliff:g id="COMP_NAME">%1$s</xliff:g> 正在使用中。"</string>
     <string name="runningservicedetails_stop_dlg_title" msgid="4253292537154337233">"停止系統服務？"</string>
+    <string name="runningservicedetails_stop_dlg_text" product="mbx" msgid="3371302398335665793">"如果您停用這項服務，您媒體盒上的某些功能可能會停止正常運作，待您重新開機後才會恢復正常。"</string>
+    <string name="runningservicedetails_stop_dlg_text" product="TV" msgid="3371302398335665793">"如果您停用這項服務，您電視上的某些功能可能會停止正常運作，待您重新開機後才會恢復正常。"</string>
     <string name="runningservicedetails_stop_dlg_text" product="tablet" msgid="3371302398335665793">"如果您停用這項服務，您平板電腦上的某些功能可能會停止正常運作，待您重新開機後才會恢復正常。"</string>
     <string name="runningservicedetails_stop_dlg_text" product="default" msgid="3920243762189484756">"如果您停用這項服務，您手機上的某些功能可能會停止正常運作，待您重新開機後才會恢復正常。"</string>
     <string name="language_settings" msgid="5292716747264442359">"語言和輸入設定"</string>
@@ -1393,6 +1483,8 @@
     <string name="user_dict_settings_all_languages" msgid="6742000040975959247">"所有語言"</string>
     <string name="user_dict_settings_more_languages" msgid="7316375944684977910">"更多語言..."</string>
     <string name="testing" msgid="6584352735303604146">"測試"</string>
+    <string name="testing_phone_info" product="mbx" msgid="193561832258534798">"媒體盒資訊"</string>
+    <string name="testing_phone_info" product="TV" msgid="193561832258534798">"電視資訊"</string>
     <string name="testing_phone_info" product="tablet" msgid="193561832258534798">"平板電腦資訊"</string>
     <string name="testing_phone_info" product="default" msgid="8656693364332840056">"手機資訊"</string>
     <string name="testing_battery_info" msgid="3497865525976497848">"電池資訊"</string>
@@ -1638,6 +1730,8 @@
     <string name="power_bluetooth" msgid="4373329044379008289">"藍牙"</string>
     <string name="power_cell" msgid="6596471490976003056">"手機待命"</string>
     <string name="power_phone" msgid="5392641106474567277">"語音通話"</string>
+    <string name="power_idle" product="mbx" msgid="4612478572401640759">"媒體盒閒置"</string>
+    <string name="power_idle" product="TV" msgid="4612478572401640759">"電視閒置"</string>
     <string name="power_idle" product="tablet" msgid="4612478572401640759">"平板電腦閒置"</string>
     <string name="power_idle" product="default" msgid="9055659695602194990">"手機閒置"</string>
     <string name="power_unaccounted" msgid="709925017022660740">"其他"</string>
@@ -1647,6 +1741,8 @@
     <string name="usage_type_wake_lock" msgid="5125438890233677880">"保持啟用"</string>
     <string name="usage_type_gps" msgid="7989688715128160790">"全球衛星定位系統 (GPS)"</string>
     <string name="usage_type_wifi_running" msgid="3134357198266380400">"Wi-Fi 執行中"</string>
+    <string name="usage_type_phone" product="mbx" msgid="262638572890253393">"媒體盒"</string>
+    <string name="usage_type_phone" product="TV" msgid="262638572890253393">"電視"</string>
     <string name="usage_type_phone" product="tablet" msgid="262638572890253393">"平板電腦"</string>
     <string name="usage_type_phone" product="default" msgid="9108247984998041853">"電話"</string>
     <string name="usage_type_data_send" msgid="8971710128438365919">"已傳送的流動數據包"</string>
@@ -1668,6 +1764,8 @@
     <string name="battery_action_wifi" msgid="8181553479021841207">"Wi-Fi 設定"</string>
     <string name="battery_action_bluetooth" msgid="8374789049507723142">"藍牙設定"</string>
     <string name="battery_desc_voice" msgid="8980322055722959211">"語音通話耗電量"</string>
+    <string name="battery_desc_standby" product="mbx" msgid="6284747418668280364">"媒體盒閒置時的耗電量"</string>
+    <string name="battery_desc_standby" product="TV" msgid="6284747418668280364">"電視閒置時的耗電量"</string>
     <string name="battery_desc_standby" product="tablet" msgid="6284747418668280364">"平板電腦閒置時的耗電量"</string>
     <string name="battery_desc_standby" product="default" msgid="3009080001948091424">"手機閒置時的耗電量"</string>
     <string name="battery_desc_radio" msgid="5479196477223185367">"手機無線電耗電量"</string>
@@ -1953,6 +2051,8 @@
     <string name="header_add_an_account" msgid="756108499532023798">"新增帳戶"</string>
     <string name="finish_button_label" msgid="481587707657751116">"完成"</string>
     <string name="really_remove_account_title" msgid="8800653398717172460">"您要移除帳戶嗎？"</string>
+    <string name="really_remove_account_message" product="mbx" msgid="1936147502815641161">"移除帳戶後，媒體盒上的訊息、通訊錄和其他資料將被一併刪除！"</string>
+    <string name="really_remove_account_message" product="TV" msgid="1936147502815641161">"移除帳戶後，電視上的訊息、通訊錄和其他資料將被一併刪除！"</string>
     <string name="really_remove_account_message" product="tablet" msgid="1936147502815641161">"移除帳戶後，平板電腦上的訊息、通訊錄和其他資料將被一併刪除！"</string>
     <string name="really_remove_account_message" product="default" msgid="3483528757922948356">"移除帳戶後，手機上的訊息、通訊錄和其他資料將被一併刪除！"</string>
     <string name="remove_account_failed" msgid="4010643669489606536">"您的管理員不允許這項變更"</string>
@@ -2089,6 +2189,8 @@
     <string name="data_usage_app_restrict_dialog" msgid="5871168521456832764">"如果選用這項功能，當只有流動網絡可供使用時，需要使用背景數據的應用程式可能會停止運作。\n\n您可以在應用程式的設定中，找出更多適當的數據用量選項。"</string>
     <string name="data_usage_restrict_denied_dialog" msgid="4674085030810350875">"您必須設定流動數據上限，才能限制背景數據。"</string>
     <string name="data_usage_auto_sync_on_dialog_title" msgid="2438617846762244389">"開啟資料自動同步功能？"</string>
+    <string name="data_usage_auto_sync_on_dialog" product="mbx" msgid="8581983093524041669">"您在網絡上對帳戶作出的任何變更都會自動複製到您的媒體盒。\n\n部分帳戶也可能自動將您在媒體盒上作出的所有變更複製到網絡上。Google 帳戶會按照這種方式運作。"</string>
+    <string name="data_usage_auto_sync_on_dialog" product="TV" msgid="8581983093524041669">"您在網絡上對帳戶作出的任何變更都會自動複製到您的電視。\n\n部分帳戶也可能自動將您在電視上作出的所有變更複製到網絡上。Google 帳戶會按照這種方式運作。"</string>
     <string name="data_usage_auto_sync_on_dialog" product="tablet" msgid="8581983093524041669">"您在網絡上對帳戶作出的任何變更都會自動複製到您的平板電腦。\n\n部分帳戶也可能自動將您在平板電腦上作出的所有變更複製到網絡上。Google 帳戶會按照這種方式運作。"</string>
     <string name="data_usage_auto_sync_on_dialog" product="default" msgid="8651376294887142858">"您在網絡上對帳戶作出的任何變更都會自動複製到您的手機。\n\n部分帳戶也可能自動將您在手機上作出的所有變更複製到網絡上。Google 帳戶會按照這種方式運作。"</string>
     <string name="data_usage_auto_sync_off_dialog_title" msgid="9013139130490125793">"關閉資料自動同步功能？"</string>
@@ -2099,10 +2201,14 @@
     <string name="data_usage_warning_editor_title" msgid="3704136912240060339">"設定數據用量警告"</string>
     <string name="data_usage_limit_editor_title" msgid="9153595142385030015">"設定數據用量上限"</string>
     <string name="data_usage_limit_dialog_title" msgid="3023111643632996097">"限制資料用量"</string>
+    <string name="data_usage_limit_dialog_mobile" product="mbx" msgid="5788774061143636263">"達到指定的流量上限時，媒體盒會關閉流動數據功能。\n\n由於數據用量需依照您的媒體盒計算，而您的流動網絡供應商計費方式可能有所不同，請考慮設定一個保守估計的上限。"</string>
+    <string name="data_usage_limit_dialog_mobile" product="TV" msgid="5788774061143636263">"達到指定的流量上限時，電視會關閉流動數據功能。\n\n由於數據用量需依照您的電視計算，而您的流動網絡供應商計費方式可能有所不同，請考慮設定一個保守估計的上限。"</string>
     <string name="data_usage_limit_dialog_mobile" product="tablet" msgid="5788774061143636263">"達到指定的流量上限時，平板電腦會關閉流動數據功能。\n\n由於數據用量需依照您的平板電腦計算，而您的流動網絡供應商計費方式可能有所不同，請考慮設定一個保守估計的上限。"</string>
     <string name="data_usage_limit_dialog_mobile" product="default" msgid="3511301596446820549">"達到指定的流量上限時，手機會關閉流動數據功能。\n\n由於數據用量需依照您的手機計算，而您的流動網絡供應商計費方式可能有所不同，請考慮設定一個保守估計的上限。"</string>
     <string name="data_usage_restrict_background_title" msgid="2201315502223035062">"限制背景資料？"</string>
     <string name="data_usage_restrict_background" msgid="8210134218644196511">"如果您限制背景流動數據用量，部分應用程式和服務必須在連線至 Wi-Fi 網絡後才能運作。"</string>
+    <string name="data_usage_restrict_background_multiuser" product="mbx" msgid="3262993384666280985">"如果您限制背景流動數據用量，部分應用程式和服務必須在連線至 Wi-Fi 網絡後才能運作。\n\n這項設定會影響這部媒體盒的所有使用者。"</string>
+    <string name="data_usage_restrict_background_multiuser" product="TV" msgid="3262993384666280985">"如果您限制背景流動數據用量，部分應用程式和服務必須在連線至 Wi-Fi 網絡後才能運作。\n\n這項設定會影響這部電視的所有使用者。"</string>
     <string name="data_usage_restrict_background_multiuser" product="tablet" msgid="3262993384666280985">"如果您限制背景流動數據用量，部分應用程式和服務必須在連線至 Wi-Fi 網絡後才能運作。\n\n這項設定會影響這部平板電腦的所有使用者。"</string>
     <string name="data_usage_restrict_background_multiuser" product="default" msgid="4352615206362479722">"如果您限制背景流動數據用量，部分應用程式和服務必須在連線至 Wi-Fi 網絡後才能運作。\n\n這項設定會影響這部手機的所有使用者。"</string>
     <string name="data_usage_sweep_warning" msgid="6387081852568846982"><font size="21">"<xliff:g id="NUMBER">^1</xliff:g>"</font>" "<font size="9">"<xliff:g id="UNIT">^2</xliff:g>"</font>\n<font size="12">"警告"</font></string>
@@ -2111,6 +2217,8 @@
     <string name="data_usage_uninstalled_apps_users" msgid="7986294489899813194">"已移除的應用程式和使用者"</string>
     <string name="data_usage_received_sent" msgid="5039699009276621757">"已接收 <xliff:g id="RECEIVED">%1$s</xliff:g>，已傳送 <xliff:g id="SENT">%2$s</xliff:g>"</string>
     <string name="data_usage_total_during_range" msgid="4091294280619255237">"<xliff:g id="RANGE">%2$s</xliff:g>：已使用約 <xliff:g id="TOTAL">%1$s</xliff:g>。"</string>
+    <string name="data_usage_total_during_range_mobile" product="mbx" msgid="5961720793603268572">"<xliff:g id="RANGE">%2$s</xliff:g>：根據媒體盒計算，已使用約 <xliff:g id="TOTAL">%1$s</xliff:g>。您的流動網絡供應商可能採用不同的方法計算數據用量。"</string>
+    <string name="data_usage_total_during_range_mobile" product="TV" msgid="5961720793603268572">"<xliff:g id="RANGE">%2$s</xliff:g>：根據電視計算，已使用約 <xliff:g id="TOTAL">%1$s</xliff:g>。您的流動網絡供應商可能採用不同的方法計算數據用量。"</string>
     <string name="data_usage_total_during_range_mobile" product="tablet" msgid="5961720793603268572">"<xliff:g id="RANGE">%2$s</xliff:g>：根據平板電腦計算，已使用約 <xliff:g id="TOTAL">%1$s</xliff:g>。您的流動網絡供應商可能採用不同的方法計算數據用量。"</string>
     <string name="data_usage_total_during_range_mobile" product="default" msgid="1625833170144610767">"<xliff:g id="RANGE">%2$s</xliff:g>：根據手機計算，已使用約 <xliff:g id="TOTAL">%1$s</xliff:g>。您的流動網絡供應商可能採用不同的方法計算數據用量。"</string>
     <string name="data_usage_metered_title" msgid="7383175371006596441">"網絡限制"</string>
@@ -2206,6 +2314,8 @@
     <string name="user_setup_profile_dialog_message" msgid="3896568553327558731">"立即設定個人檔案？"</string>
     <string name="user_setup_button_setup_now" msgid="3391388430158437629">"立即設定"</string>
     <string name="user_setup_button_setup_later" msgid="3068729597269172401">"暫時不要"</string>
+    <string name="user_cannot_manage_message" product="mbx" msgid="8440449301994432789">"只有媒體盒的擁有者可以管理使用者。"</string>
+    <string name="user_cannot_manage_message" product="TV" msgid="8440449301994432789">"只有電視的擁有者可以管理使用者。"</string>
     <string name="user_cannot_manage_message" product="tablet" msgid="8440449301994432789">"只有平板電腦的擁有者可以管理使用者。"</string>
     <string name="user_cannot_manage_message" product="default" msgid="1133251987818014757">"只有手機的擁有者可以管理使用者。"</string>
     <string name="user_cannot_add_accounts_message" msgid="5116692653439737050">"限制存取的個人檔案無法新增帳戶"</string>
@@ -2217,6 +2327,8 @@
     <string name="user_confirm_remove_title" msgid="1163721647646152032">"移除這位使用者？"</string>
     <string name="user_profile_confirm_remove_title" msgid="5573161550669867342">"移除這個設定檔？"</string>
     <string name="work_profile_confirm_remove_title" msgid="2017323555783522213">"要移除公司檔案嗎？"</string>
+    <string name="user_confirm_remove_self_message" product="mbx" msgid="8167855311779740207">"您將會失去在這部媒體盒上的空間和資料，您無法復原這項操作。"</string>
+    <string name="user_confirm_remove_self_message" product="TV" msgid="8167855311779740207">"您將會失去在這部電視上的空間和資料，您無法復原這項操作。"</string>
     <string name="user_confirm_remove_self_message" product="tablet" msgid="8167855311779740207">"您將會失去在這部平板電腦上的空間和資料，您無法復原這項操作。"</string>
     <string name="user_confirm_remove_self_message" product="default" msgid="5391888073786090274">"您將會失去在這部手機上的空間和資料，您無法復原這項操作。"</string>
     <string name="user_confirm_remove_message" msgid="1020629390993095037">"所有應用程式和資料都會被刪除。"</string>
@@ -2242,6 +2354,8 @@
     <string name="apps_with_restrictions_settings_button" msgid="3841347287916635821">"展開應用程式設定"</string>
     <string name="home_app_uninstall_button" msgid="6808453012607962899">"解除安裝這個應用程式"</string>
     <string name="only_one_home_message" msgid="3538846733750242759">"主畫面設定將會隱藏，直至您安裝另一個主畫面應用程式為止。"</string>
+    <string name="global_change_warning" product="mbx" msgid="8045013389464294039">"這項設定會影響這部媒體盒的所有使用者。"</string>
+    <string name="global_change_warning" product="TV" msgid="8045013389464294039">"這項設定會影響這部電視的所有使用者。"</string>
     <string name="global_change_warning" product="tablet" msgid="8045013389464294039">"這項設定會影響這部平板電腦的所有使用者。"</string>
     <string name="global_change_warning" product="default" msgid="2461264421590324675">"這項設定會影響這部手機的所有使用者。"</string>
     <string name="global_locale_change_title" msgid="5956281361384221451">"更改語言"</string>
@@ -2295,6 +2409,8 @@
     <string name="restriction_bluetooth_config_summary" msgid="8372319681287562506">"允許修改藍牙配對和設定"</string>
     <string name="restriction_nfc_enable_title" msgid="5888100955212267941">"NFC"</string>
     <string name="restriction_nfc_enable_summary_config" msgid="3232480757215851738">"允許這部 <xliff:g id="DEVICE_NAME">%1$s</xliff:g> 透過與另一部 NFC 裝置輕觸來傳輸數據"</string>
+    <string name="restriction_nfc_enable_summary" product="mbx" msgid="3891097373396149915">"允許媒體盒在與其他裝置接觸時交換資料"</string>
+    <string name="restriction_nfc_enable_summary" product="TV" msgid="3891097373396149915">"允許電視在與其他裝置接觸時交換資料"</string>
     <string name="restriction_nfc_enable_summary" product="tablet" msgid="3891097373396149915">"允許平板電腦在與其他裝置接觸時交換資料"</string>
     <string name="restriction_nfc_enable_summary" product="default" msgid="825331120501418592">"允許手機在與其他裝置接觸時交換資料"</string>
     <string name="restriction_location_enable_title" msgid="5020268888245775164">"位置"</string>
