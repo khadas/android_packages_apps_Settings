@@ -37,6 +37,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
 import android.os.Vibrator;
+import android.os.SystemProperties;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.PreferenceCategory;
@@ -159,6 +160,9 @@ public class NotificationSettings extends SettingsPreferenceFragment implements 
         updateEffectsSuppressor();
         for (VolumeSeekBarPreference volumePref : mVolumePrefs) {
             volumePref.onActivityResume();
+        }
+        if (SystemProperties.getBoolean("ro.platform.has.mbxuimode", false)) {
+            getListView().setItemsCanFocus(true);
         }
     }
 
