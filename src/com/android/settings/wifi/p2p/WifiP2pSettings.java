@@ -51,6 +51,7 @@ import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.android.internal.logging.MetricsLogger;
 import com.android.settings.R;
 import com.android.settings.SettingsPreferenceFragment;
 
@@ -487,6 +488,11 @@ public class WifiP2pSettings extends SettingsPreferenceFragment
             return dialog;
         }
         return null;
+    }
+
+    @Override
+    protected int getMetricsCategory() {
+        return MetricsLogger.WIFI_P2P;
     }
 
     @Override
