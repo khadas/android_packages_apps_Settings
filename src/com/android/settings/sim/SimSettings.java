@@ -16,15 +16,21 @@
 
 package com.android.settings.sim;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.DialogInterface;
 import android.content.res.Resources;
+import android.graphics.Paint;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.ShapeDrawable;
+import android.graphics.drawable.shapes.OvalShape;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceScreen;
 import android.provider.SearchIndexableResource;
 import android.telephony.PhoneStateListener;
+import android.telephony.PhoneNumberUtils;
 import android.telephony.SubscriptionInfo;
 import android.telephony.SubscriptionManager;
 import android.telephony.TelephonyManager;
@@ -32,6 +38,15 @@ import android.telecom.PhoneAccountHandle;
 import android.telecom.TelecomManager;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.Spinner;
+import android.widget.TextView;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
 import com.android.internal.logging.MetricsLogger;
 import com.android.settings.RestrictedSettingsFragment;
 import com.android.settings.Utils;
@@ -257,6 +272,9 @@ public class SimSettings extends RestrictedSettingsFragment implements Indexable
         private SubscriptionInfo mSubInfoRecord;
         private int mSlotId;
         Context mContext;
+        private int[] mTintArr;
+        private String[] mColorStrings;
+        private int mTintSelectorPos;
 
         public SimPreference(Context context, SubscriptionInfo subInfoRecord, int slotId) {
             super(context);
@@ -362,6 +380,7 @@ public class SimSettings extends RestrictedSettingsFragment implements Indexable
                     mSubInfoRecord.setDisplayName(displayName);
                     mSubscriptionManager.setDisplayName(displayName, subId,
                             SubscriptionManager.NAME_SOURCE_USER_INPUT);
+                    /*
                     Utils.findRecordBySubId(getActivity(), subId).setDisplayName(displayName);
 
                     final int tintSelected = tintSpinner.getSelectedItemPosition();
@@ -370,7 +389,7 @@ public class SimSettings extends RestrictedSettingsFragment implements Indexable
                     mSubInfoRecord.setIconTint(tint);
                     mSubscriptionManager.setIconTint(tint, subscriptionId);
                     Utils.findRecordBySubId(getActivity(), subscriptionId).setIconTint(tint);
-
+                    */
                     updateAllOptions();
                     update();
                 }

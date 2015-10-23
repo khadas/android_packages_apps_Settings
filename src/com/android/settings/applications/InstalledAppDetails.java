@@ -149,6 +149,7 @@ public class InstalledAppDetails extends AppInfoBase
     private Button mUninstallButton;
     private boolean mUpdatedSysApp = false;
     private Button mForceStopButton;
+    private Button mMoveAppButton;
     private Preference mNotificationPreference;
     private Preference mStoragePreference;
     private Preference mPermissionsPreference;
@@ -175,7 +176,7 @@ public class InstalledAppDetails extends AppInfoBase
         // if sdcard is mounted, then set the moveApp Button visible
         boolean hasSdcard = false;
         final File[] target = new UserEnvironment(UserHandle.USER_OWNER)
-            .getExternalDirsForApp();
+            .getExternalDirs();
 
         for (File targetFile : target) {
             if (targetFile.getAbsolutePath().indexOf("sdcard") != -1) {
@@ -201,8 +202,8 @@ public class InstalledAppDetails extends AppInfoBase
             moveDisable = false;
         } else {
             mMoveAppButton.setText(R.string.move_app_to_sdcard);
-            mCanBeOnSdCardChecker.init();
-            moveDisable = !mCanBeOnSdCardChecker.check(mAppEntry.info);
+            //mCanBeOnSdCardChecker.init();
+            //moveDisable = !mCanBeOnSdCardChecker.check(mAppEntry.info);
         }
         if (moveDisable || mAppControlRestricted) {
             mMoveAppButton.setEnabled(false);
