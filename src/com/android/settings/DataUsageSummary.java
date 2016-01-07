@@ -904,8 +904,15 @@ public class DataUsageSummary extends HighlightingFragment implements Indexable 
 
         int seriesColor = context.getColor(R.color.sim_noitification);
         if (mCurrentTab != null && mCurrentTab.length() > TAB_MOBILE.length() ){
-            final int slotId = Integer.parseInt(mCurrentTab.substring(TAB_MOBILE.length(),
-                    mCurrentTab.length()));
+            final int slotId;
+            try {
+                slotId = Integer.parseInt(mCurrentTab.substring(TAB_MOBILE.length(),
+                            mCurrentTab.length()));
+            } catch (NumberFormatException e) {
+                Log.w(TAG, "Invalid Tab" + mCurrentTab);
+                return;
+            }
+
             final SubscriptionInfo sir = mSubscriptionManager
                     .getActiveSubscriptionInfoForSimSlotIndex(slotId);
 
