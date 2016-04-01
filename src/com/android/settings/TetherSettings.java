@@ -40,9 +40,11 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.UserHandle;
 import android.os.UserManager;
+import android.os.SystemProperties;
 import android.preference.Preference;
 import android.preference.PreferenceScreen;
 import android.preference.SwitchPreference;
+import android.telephony.CarrierConfigManager;
 import android.widget.TextView;
 
 import com.android.internal.logging.MetricsLogger;
@@ -472,8 +474,7 @@ public class TetherSettings extends SettingsPreferenceFragment
     }
 
     public static boolean isProvisioningNeededButUnavailable(Context context) {
-        return (TetherUtil.isProvisioningNeeded(context)
-                && !isIntentAvailable(context));
+        return (isProvisioningNeeded(context) && !isIntentAvailable(context));
     }
 
     private static boolean isIntentAvailable(Context context) {
@@ -485,6 +486,24 @@ public class TetherSettings extends SettingsPreferenceFragment
 
         return (packageManager.queryIntentActivities(intent,
                 PackageManager.MATCH_DEFAULT_ONLY).size() > 0);
+    }
+
+    private static boolean isProvisioningNeeded(Context context) {
+        String[] provisionApp = context.getResources().getStringArray(
+                com.android.internal.R.array.config_mobile_hotspot_provision_app);
+        if (SystemProperties.getBoolean("net.tethering.noprovisioning", false)
+                || provisionApp == null) {
+            return false;
+        }
+        // Check carrier config for entitlement checks
+        final CarrierConfigManager configManager = (CarrierConfigManager) context
+             .getSystemService(Context.CARRIER_CONFIG_SERVICE);
+        if (configManager.getConfig() != null &&
+            configManager.getConfig().getBoolean(CarrierConfigManager
+                .KEY_REQUIRE_ENTITLEMENT_CHECKS_BOOL) == false) {
+            return false;
+        }
+        return (provisionApp.length == 2);
     }
 
     private void startProvisioningIfNecessary(int choice) {
