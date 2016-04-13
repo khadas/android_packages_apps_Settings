@@ -465,7 +465,7 @@ public class TetherSettings extends SettingsPreferenceFragment
         if (enable) {
             startProvisioningIfNecessary(TETHERING_WIFI);
         } else {
-            if (TetherUtil.isProvisioningNeeded(getActivity())) {
+            if (isProvisioningNeeded(getActivity())) {
                 TetherService.cancelRecheckAlarmIfNecessary(getActivity(), TETHERING_WIFI);
             }
             mWifiApEnabler.setSoftapEnabled(false);
@@ -508,7 +508,7 @@ public class TetherSettings extends SettingsPreferenceFragment
 
     private void startProvisioningIfNecessary(int choice) {
         mTetherChoice = choice;
-        if (TetherUtil.isProvisioningNeeded(getActivity())) {
+        if (isProvisioningNeeded(getActivity())) {
             Intent intent = new Intent(Intent.ACTION_MAIN);
             intent.setClassName(mProvisionApp[0], mProvisionApp[1]);
             intent.putExtra(TETHER_CHOICE, mTetherChoice);
@@ -590,7 +590,7 @@ public class TetherSettings extends SettingsPreferenceFragment
             if (newState) {
                 startProvisioningIfNecessary(TETHERING_USB);
             } else {
-                if (TetherUtil.isProvisioningNeeded(getActivity())) {
+                if (isProvisioningNeeded(getActivity())) {
                     TetherService.cancelRecheckAlarmIfNecessary(getActivity(), TETHERING_USB);
                 }
                 setUsbTethering(newState);
@@ -601,7 +601,7 @@ public class TetherSettings extends SettingsPreferenceFragment
             if (bluetoothTetherState) {
                 startProvisioningIfNecessary(TETHERING_BLUETOOTH);
             } else {
-                if (TetherUtil.isProvisioningNeeded(getActivity())) {
+                if (isProvisioningNeeded(getActivity())) {
                     TetherService.cancelRecheckAlarmIfNecessary(getActivity(), TETHERING_BLUETOOTH);
                 }
                 boolean errored = false;
