@@ -1263,9 +1263,7 @@ public class SettingsActivity extends Activity
                 } else if (id == R.id.battery_settings) {
                     // Remove battery settings when battery is not available. (e.g. TV)
 
-                    if (!mBatteryPresent) {
                         removeTile = true;
-                    }
                 } else if (id == R.id.home_settings) {
                     if (!updateHomeSettingTiles(tile)) {
                         removeTile = true;
