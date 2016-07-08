@@ -1389,4 +1389,15 @@
         <item>0</item>
     </string-array>
 
+   <!-- HDR -->
+   <string-array name="hdmi_hdr_entries">
+        <item>auto</item>
+		<item>on</item>
+		<item>off</item>
+   </string-array>
+   <string-array name="hdmi_hdr_values">
+        <item>2</item>
+		<item>1</item>
+		<item>0</item>
+ </string-array>
 </resources>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+        <ListPreference
+		  android:key="hdmi_resolution"
+          android:title="@string/hdmi_resolution_title"
+          android:defaultValue="true"/>
+
+		<com.android.settings.HdmiScreenZoomPreference
+			android:key="hdmi_screen_zoom"
+			android:title="@string/hdmi_screen_zoom_title"
+			android:dialogTitle="@string/hdmi_screen_zoom_title"/>
+
+		<ListPreference
+		  android:key="hdmi_hdr"
+		  android:title="@string/hdmi_hdr_title"
+		  android:entries="@array/hdmi_hdr_entries"
+          android:entryValues="@array/hdmi_hdr_values"/>
+
+		<SwitchPreference
+		   android:key="hdmi_deepcolor_mode"
+		   android:title="@string/hdmi_deepcolor_mode_title" />
+
+</PreferenceScreen>

@@ -41,4 +41,5 @@
     <!-- When true enable color temperature setting. -->
     <bool name="config_enableColorTemperature">false</bool>
 
+	<string name="display_filter_outputmode">480i60hz,576i50hz</string>
 </resources>

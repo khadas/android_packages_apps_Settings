@@ -3025,4 +3025,10 @@
     <skip />
     <!-- no translation found for color_temperature_toast (4974218172133854827) -->
     <skip />
+    <!--Hdmi-->
+	<string name="hdmi_settings">"HDMI配置"</string>
+	<string name="hdmi_resolution_title">"分辨率设置</string>
+	<string name="hdmi_screen_zoom_title">"屏幕缩放"</string>
+	<string name="hdmi_hdr_title">HDR模式</string>
+	<string name="hdmi_deepcolor_mode_title">深色模式</string>
 </resources>
