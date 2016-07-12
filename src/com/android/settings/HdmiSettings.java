@@ -50,6 +50,7 @@ import android.database.ContentObserver;
 import android.os.RemoteException;
 //import android.os.DisplayOutputManager;
 import android.os.Message;
+import com.droidlogic.app.DisplayPositionManager;
 public class HdmiSettings extends SettingsPreferenceFragment
 		implements OnPreferenceChangeListener {
 	private static final String TAG = "HdmiControllerActivity";
@@ -69,6 +70,7 @@ public class HdmiSettings extends SettingsPreferenceFragment
 	private Context mContext;
 	private IntentFilter mIntentFilter;
     private HdmiOutputManager mOutputManager;
+	private DisplayPositionManager mDisplayPositionManager;
     private HdrManager mHdrManager;
 	private static final int MSG_FRESH_UI = 0;
 
@@ -125,6 +127,7 @@ public class HdmiSettings extends SettingsPreferenceFragment
 			 }
 		 }
 
+		mDisplayPositionManager = new DisplayPositionManager(mContext);
 		mIntentFilter = new IntentFilter("android.intent.action.HDMI_PLUGGED");
 		mIntentFilter.addAction(Intent.ACTION_TIME_TICK);
 	}
@@ -165,6 +168,9 @@ public class HdmiSettings extends SettingsPreferenceFragment
 	}
 	private void updateMainScreen() {
 		mOutputManager.updateUiMode();
+		int value=Integer.valueOf(SystemProperties.get("sys.hdmi_screen.scale","100"));
+		mDisplayPositionManager.zoomByPercent(value);
+		mDisplayPositionManager.saveDisplayPosition();
     }
 
 	private Handler mHandler = new Handler() {
