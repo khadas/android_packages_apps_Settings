@@ -2907,4 +2907,5 @@
     <skip />
     <!-- no translation found for color_temperature_toast (4974218172133854827) -->
     <skip />
+    <string name="ethernet_settings_title">"Ethernet"</string>
 </resources>

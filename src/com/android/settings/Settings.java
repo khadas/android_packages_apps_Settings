@@ -118,5 +118,6 @@ public class Settings extends SettingsActivity {
     public static class WriteSettingsActivity extends SettingsActivity { /* empty */ }
     public static class AppDrawOverlaySettingsActivity extends SettingsActivity { /* empty */ }
     public static class AppWriteSettingsActivity extends SettingsActivity { /* empty */ }
+	public static class EthernetSettingsActivity extends SettingsActivity { /* empty */ }
     public static class HdmiSettingsActivity extends SettingsActivity { /* empty */ }
 }
