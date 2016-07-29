@@ -95,6 +95,7 @@ public class HdmiSettings extends SettingsPreferenceFragment
 		addPreferencesFromResource(R.xml.hdmi_settings);
         mHdrManager = new HdrManager(mContext);
 		mOutputManager = new HdmiOutputManager(mContext);
+		mDisplayPositionManager = new DisplayPositionManager(mContext);
         updateMainScreen();
 		initHdmiResolutionList();
 		mHdmiHdr = (ListPreference) findPreference(KEY_HDMI_HDR);
@@ -127,7 +128,6 @@ public class HdmiSettings extends SettingsPreferenceFragment
 			 }
 		 }
 
-		mDisplayPositionManager = new DisplayPositionManager(mContext);
 		mIntentFilter = new IntentFilter("android.intent.action.HDMI_PLUGGED");
 		mIntentFilter.addAction(Intent.ACTION_TIME_TICK);
 	}
