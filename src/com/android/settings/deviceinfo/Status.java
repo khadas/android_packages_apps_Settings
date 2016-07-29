@@ -207,11 +207,8 @@ public class Status extends InstrumentedPreferenceActivity {
 
         // Remove SimStatus and Imei for Secondary user as it access Phone b/19165700
         // Also remove on Wi-Fi only devices.
-        if (UserHandle.myUserId() != UserHandle.USER_OWNER
-                || Utils.isWifiOnly(this)) {
-            removePreferenceFromScreen(KEY_SIM_STATUS);
-            removePreferenceFromScreen(KEY_IMEI_INFO);
-        }
+        removePreferenceFromScreen(KEY_SIM_STATUS);
+        removePreferenceFromScreen(KEY_IMEI_INFO);
 
         // Make every pref on this screen copy its data to the clipboard on longpress.
         // Super convenient for capturing the IMEI, MAC addr, serial, etc.
