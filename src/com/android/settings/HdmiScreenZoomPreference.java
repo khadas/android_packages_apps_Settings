@@ -71,7 +71,7 @@ public class HdmiScreenZoomPreference extends SeekBarDialogPreference implements
 	protected void onBindDialogView(View view) {
 		super.onBindDialogView(view);
 		mSeekBar = getSeekBar(view);
-		preZoomValue= Integer.valueOf(SystemProperties.get("sys.hdmi_screen.scale","100"));
+		preZoomValue= Integer.valueOf(SystemProperties.get("persist.hdmi_screen.scale","100"));
         mSeekBar.setProgress(preZoomValue-MIN_ZOOM_VALUE);
 		mSeekBar.setOnSeekBarChangeListener(this);
 	}
@@ -103,9 +103,9 @@ public class HdmiScreenZoomPreference extends SeekBarDialogPreference implements
 		if (positiveResult) {
 			int value = mSeekBar.getProgress() + MIN_ZOOM_VALUE;
 			mDisplayPositionManager.zoomByPercent(value);
-			SystemProperties.set("sys.hdmi_screen.scale",String.valueOf(value));
+			SystemProperties.set("persist.hdmi_screen.scale",String.valueOf(value));
 		} else {
-			SystemProperties.set("sys.hdmi_screen.scale",String.valueOf(preZoomValue));
+			SystemProperties.set("persist.hdmi_screen.scale",String.valueOf(preZoomValue));
 			mDisplayPositionManager.zoomByPercent(preZoomValue);
 		}
 

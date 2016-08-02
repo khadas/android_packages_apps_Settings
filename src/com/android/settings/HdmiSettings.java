@@ -168,7 +168,7 @@ public class HdmiSettings extends SettingsPreferenceFragment
 	}
 	private void updateMainScreen() {
 		mOutputManager.updateUiMode();
-		int value=Integer.valueOf(SystemProperties.get("sys.hdmi_screen.scale","100"));
+		int value=Integer.valueOf(SystemProperties.get("persist.hdmi_screen.scale","100"));
 		mDisplayPositionManager.zoomByPercent(value);
 		mDisplayPositionManager.saveDisplayPosition();
     }
