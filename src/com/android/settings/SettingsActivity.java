@@ -1260,9 +1260,7 @@ public class SettingsActivity extends Activity
                     }
                 } else if (id == R.id.data_usage_settings) {
                     // Remove data usage when kernel module not enabled
-                    if (!Utils.isBandwidthControlEnabled()) {
                         removeTile = true;
-                    }
                 } else if (id == R.id.battery_settings) {
                     // Remove battery settings when battery is not available. (e.g. TV)
 
