@@ -209,7 +209,8 @@ public class Status extends InstrumentedPreferenceActivity {
         // Also remove on Wi-Fi only devices.
         removePreferenceFromScreen(KEY_SIM_STATUS);
         removePreferenceFromScreen(KEY_IMEI_INFO);
-
+        removePreferenceFromScreen(KEY_BATTERY_STATUS);
+		removePreferenceFromScreen(KEY_BATTERY_LEVEL);
         // Make every pref on this screen copy its data to the clipboard on longpress.
         // Super convenient for capturing the IMEI, MAC addr, serial, etc.
         getListView().setOnItemLongClickListener(
