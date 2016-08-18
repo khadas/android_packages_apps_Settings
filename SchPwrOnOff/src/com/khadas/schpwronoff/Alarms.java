@@ -16,7 +16,19 @@ import android.provider.Settings;
 import android.text.format.DateFormat;
 import android.util.Log;
 
-import android.util.Log;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
+import java.io.RandomAccessFile;
+
+import android.os.AsyncTask;
+
 
 import java.util.Calendar;
 
@@ -70,6 +82,61 @@ public class Alarms {
     // Shared with DigitalClock
     static final String M24 = "kk:mm";
 
+	private static final String BootAlarmFileName="/sys/class/rtc/rtc0/bootalarm";
+
+    public static class BootAlarmInfo{
+	  boolean isEnabled;
+      long   timeMillis;
+	  boolean shutdown;
+	  public BootAlarmInfo(boolean isEnabled, long timeMillis, boolean shutdown){
+          this.isEnabled = isEnabled;
+		  this.timeMillis = timeMillis;
+		  this.shutdown = shutdown;
+	  }
+
+    }
+
+
+	private static class BootAlarmTask extends AsyncTask<Void, Void, String>{
+
+	  private BootAlarmInfo info;
+
+	  public BootAlarmTask(BootAlarmInfo info){
+		  this.info = info;
+	   }
+       @Override
+	   protected String  doInBackground(Void... params) {
+	      try{
+				long timeMillis = info.timeMillis;
+				String millis;
+				if(info.isEnabled){
+                   if ( info.shutdown ){
+                      millis= "="+Long.toString(info.timeMillis/1000);
+				   }else {
+                      millis= "+"+Long.toString(info.timeMillis/1000);
+				   }
+				}else{
+
+                   millis= "-1471417030";
+				}
+                RandomAccessFile rdf = null;
+				rdf = new RandomAccessFile(BootAlarmFileName, "rw");
+				rdf.writeBytes(millis);
+				rdf.close();
+
+           }catch (IOException re) {
+               Log.e(TAG, "IO Exception");
+			   re.printStackTrace();
+		   }
+		   return "0";
+       }
+
+	}
+
+	public static void setBootAlarm(BootAlarmInfo info){
+       BootAlarmTask mBootAlarmTask = new BootAlarmTask(info);
+	   mBootAlarmTask.execute();
+	}
     /**
      * Creates a new Alarm.
      * @param contentResolver ContentResolver
@@ -185,7 +252,7 @@ public class Alarms {
 
         if (id == 1) {
             // power on
-            setNextAlertPowerOn(context);
+            setNextAlertPowerOn(context, false);
         } else if (id == 2) {
             // power off
             setNextAlertPowerOff(context);
@@ -201,7 +268,7 @@ public class Alarms {
     public static void enableAlarm(final Context context, final int id, boolean enabled) {
         enableAlarmInternal(context, id, enabled);
         if (id == 1) {
-            setNextAlertPowerOn(context);
+            setNextAlertPowerOn(context, false);
         } else if (id == 2) {
             setNextAlertPowerOff(context);
         }
@@ -322,7 +389,7 @@ public class Alarms {
         if (alarm == null) {
             disableAlertPowerOn(context);
         } else {
-            enableAlertPowerOn(context, alarm, alarm.mTime);
+            enableAlertPowerOn(context, alarm, alarm.mTime, false);
         }
 
         alarm = calculateNextAlert(context, 2);
@@ -412,12 +479,12 @@ public class Alarms {
      * set, otherwise loads all alarms, activates next alert.
      * @param context Context
      */
-    public static void setNextAlertPowerOn(final Context context) {
+    public static void setNextAlertPowerOn(final Context context, boolean shutdown) {
         Alarm alarm = calculateNextAlert(context, 1);
         if (alarm == null) {
             disableAlertPowerOn(context);
         } else {
-            enableAlertPowerOn(context, alarm, alarm.mTime);
+            enableAlertPowerOn(context, alarm, alarm.mTime, false);
         }
     }
 
@@ -429,7 +496,7 @@ public class Alarms {
      * @param atTimeInMillis
      *            milliseconds since epoch
      */
-    private static void enableAlertPowerOn(Context context, final Alarm alarm, final long atTimeInMillis) {
+    private static void enableAlertPowerOn(Context context, final Alarm alarm, final long atTimeInMillis, boolean shutdown) {
         AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
 
         Log.d(TAG, "** setAlert id " + alarm.mId + " atTime " + atTimeInMillis);
@@ -454,7 +521,10 @@ public class Alarms {
 
         PendingIntent sender = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_CANCEL_CURRENT);
 
-       am.setExact(7, atTimeInMillis, sender);
+		/* yangjinqing need add the function for write rtc */
+       //am.setExact(7, atTimeInMillis, sender);
+	    BootAlarmInfo info =new BootAlarmInfo(true, atTimeInMillis, shutdown);
+	    setBootAlarm(info);
     Log.d(TAG, "Alarms.enableAlertPowerOn(): setAlert id " + alarm.mId + " atTime " + atTimeInMillis);
 
         // setStatusBarIcon(context, true);
@@ -475,9 +545,11 @@ public class Alarms {
         Intent intent = new Intent(context, com.khadas.schpwronoff.SchPwrOnReceiver.class);
         AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         PendingIntent sender = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_CANCEL_CURRENT);
-        
-        am.setExact(7, 0, sender);
-       //yangjinqing am.cancelPoweroffAlarm(context.getPackageName());
+        /*yangjinqing need to add the function for write rtc*/
+       // am.setExact(7, 0, sender);
+		BootAlarmInfo info =new BootAlarmInfo(false,0,false);
+		setBootAlarm(info);
+        am.cancelPoweroffAlarm(context.getPackageName());
         Log.d(TAG, "Alarms.disableAlertPowerOn(): disableForPowerOn");
         // am.cancel(sender);
         // setStatusBarIcon(context, false);

@@ -44,6 +44,8 @@ public class SchPwrOffReceiver extends BroadcastReceiver {
         // ALPS00881041 hold a cpu wake lock, if Shutdown thread received the shutdown request, release the lock
         } else if (ACTION_SHUTDOWN.equals(intent.getAction())) {
             SchPwrWakeLock.releaseCpuWakeLock();
+			Log.d(TAG,"ACTION_SHUTDOWN");
+			Alarms.setNextAlertPowerOn(context,true);
             return;
         }
 
