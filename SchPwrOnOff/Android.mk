@@ -17,4 +17,3 @@ LOCAL_STATIC_JAVA_LIBRARIES := android-support-v4
 
 include $(BUILD_PACKAGE)
 
-include $(call all-makefiles-under,$(LOCAL_PATH))
