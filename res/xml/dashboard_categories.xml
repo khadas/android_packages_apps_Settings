@@ -239,6 +239,14 @@
                 android:icon="@drawable/ic_settings_date_time"
                 />
 
+		<!--Scheduled power on&off-->
+		<dashboard-tile
+		   android:id="@+id/power_settings"
+		   android:icon="@drawable/ic_settings_schpwronoff"
+		   android:title="@string/schedule_power_on_off_settings_title">
+		   <intent android:action="com.khadas.schpwronoff.SCHEDULE_POWER_ON_OFF_SETTING" />
+		</dashboard-tile>
+
         <!-- Accessibility feedback -->
         <dashboard-tile
                 android:id="@+id/accessibility_settings"

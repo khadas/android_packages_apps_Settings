@@ -7403,4 +7403,6 @@
      <!--Used as title on second screen after selecting Ethernet settings -->
      <string name="ethernet_mode_title">Ethernet Ip mode</string>
      <string name="ethernet_info_getting">"getting IP info..."</string>
+
+	 <string name="schedule_power_on_off_settings_title">Timer</string>
 </resources>
