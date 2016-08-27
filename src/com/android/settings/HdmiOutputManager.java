@@ -43,7 +43,6 @@ public class HdmiOutputManager {
     public static final String HDMI_MODE = "hdmi";
 
     private static final String[] HDMI_LIST = {
-        "smpte24hz",
         "2160p60hz420",
         "2160p50hz420",
         "2160p30hz",
@@ -53,7 +52,6 @@ public class HdmiOutputManager {
         "1080i60hz",
         "1080p50hz",
         "1080i50hz",
-        "1080p24hz",
         "720p60hz",
         "720p50hz",
         "576p50hz",
@@ -62,7 +60,6 @@ public class HdmiOutputManager {
         "480i60hz",
     };
     private static final String[] HDMI_TITLE = {
-        "4k2k-smpte",
         "4k2k-60hz",
         "4k2k-50hz",
         "4k2k-30hz",
@@ -72,7 +69,6 @@ public class HdmiOutputManager {
         "1080i-60hz",
         "1080p-50hz",
         "1080i-50hz",
-        "1080p-24hz",
         "720p-60hz",
         "720p-50hz",
         "576p-50hz",
