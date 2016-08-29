@@ -120,4 +120,5 @@ public class Settings extends SettingsActivity {
     public static class AppWriteSettingsActivity extends SettingsActivity { /* empty */ }
 	public static class EthernetSettingsActivity extends SettingsActivity { /* empty */ }
     public static class HdmiSettingsActivity extends SettingsActivity { /* empty */ }
+    public static class LedSettingsActivity extends SettingsActivity { /* empty */ }
 }

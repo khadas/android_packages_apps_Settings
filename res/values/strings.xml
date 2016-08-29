@@ -7405,4 +7405,6 @@
      <string name="ethernet_info_getting">"getting IP info..."</string>
 
 	 <string name="schedule_power_on_off_settings_title">Timer</string>
+	 <!--Led trigger -->
+     <string name="led_settings">Leds trigger</string>
 </resources>

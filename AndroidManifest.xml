@@ -2602,6 +2602,21 @@
                 android:value="com.android.settings.applications.WriteSettingsDetails" />
         </activity>
 
+		<activity android:name="Settings$LedSettingsActivity"
+		        android:label="@string/led_settings">
+		     <intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.DEFAULT" />
+				<category android:name="android.intent.category.VOICE_LAUNCH" />
+			 </intent-filter>
+        </activity>
+
+		<receiver android:name="LedSettings$InitLedReceiver">
+		     <intent-filter>
+			    <action android:name="android.intent.action.BOOT_COMPLETED" />
+			 </intent-filter>
+		</receiver>
+
 		<!-- HDMI -->
         <activity android:name="Settings$HdmiSettingsActivity"
                 android:label="@string/hdmi"

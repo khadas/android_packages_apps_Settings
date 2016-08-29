@@ -127,6 +127,8 @@ import com.android.settings.wifi.WifiSettings;
 import com.android.settings.wifi.p2p.WifiP2pSettings;
 import android.os.SystemProperties;
 import com.android.settings.HdmiSettings;
+import com.android.settings.LedSettings;
+
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 
@@ -360,6 +362,7 @@ public class SettingsActivity extends Activity
             DrawOverlayDetails.class.getName(),
             WriteSettingsDetails.class.getName(),
 			HdmiSettings.class.getName(),
+            LedSettings.class.getName(),
     };
 
 

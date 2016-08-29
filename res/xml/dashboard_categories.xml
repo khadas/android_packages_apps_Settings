@@ -172,6 +172,13 @@
                 android:fragment="com.android.settings.HdmiSettings"
                 android:icon="@drawable/ic_settings_hdmi" />
 
+         <!-- Led trigger -->
+         <dashboard-tile
+                android:id="@+id/led_settings"
+                android:title="@string/led_settings"
+                android:fragment="com.android.settings.LedSettings"
+                android:icon="@drawable/ic_settings_led"
+         />
     </dashboard-category>
 
     <!-- PERSONAL -->
