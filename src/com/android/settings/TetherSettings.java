@@ -653,6 +653,7 @@ public class TetherSettings extends SettingsPreferenceFragment
                     mWifiManager.setWifiApEnabled(mWifiConfig, true);
                 } else {
                     mWifiManager.setWifiApConfiguration(mWifiConfig);
+                    mWifiManager.setWifiApEnabled(null, false);
                 }
                 int index = WifiApDialog.getSecurityTypeIndex(mWifiConfig);
                 mCreateNetwork.setSummary(String.format(getActivity().getString(CONFIG_SUBTEXT),
