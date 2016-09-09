@@ -79,7 +79,7 @@ public class LedSettings extends SettingsPreferenceFragment {
 
 	private static final String AMLOGIC_RED_TRIGGER_SYSFILE = "/sys/class/leds/led-sys/trigger";
 
-    private static final String DEFAULT_RED_TRIGGER="off";
+    private static final String DEFAULT_RED_TRIGGER="default-on";
 	private static final String DEFAULT_BLUE_TRIGGER="default-on";
 
     private Context mContext;
