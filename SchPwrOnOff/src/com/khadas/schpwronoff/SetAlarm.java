@@ -13,6 +13,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TimePicker;
 import android.widget.Toast;
+import android.view.View;
+import android.content.res.Resources;
 
 import android.util.Log;
 
@@ -77,7 +79,9 @@ public class SetAlarm extends PreferenceActivity
         //setHasOptionsMenu(true);
 		getActionBar().setHomeButtonEnabled(true);
 		getActionBar().setDisplayHomeAsUpEnabled(true);
-
+		Resources resources = getResources();
+		int margin = (int) resources.getDimension(R.dimen.listview_side_margin);
+        getListView().setPadding(margin, 0, margin, 0);
     }
 
     @Override
