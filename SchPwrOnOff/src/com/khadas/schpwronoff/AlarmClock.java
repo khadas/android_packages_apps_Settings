@@ -172,6 +172,10 @@ public class AlarmClock extends PreferenceActivity implements OnItemClickListene
             mAlarmsList.setOnCreateContextMenuListener(this);
         }
         registerForContextMenu(mAlarmsList);
+
+		getActionBar().setHomeButtonEnabled(true);
+		getActionBar().setDisplayHomeAsUpEnabled(true);
+
     }
 
     @Override
@@ -234,6 +238,15 @@ public class AlarmClock extends PreferenceActivity implements OnItemClickListene
         }
     }
 
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item){
+
+		if(item.getItemId() == android.R.id.home){
+			  finish();
+			  return true;
+		}
+		return super.onOptionsItemSelected(item);
+	}
     @Override
     public void onItemClick(AdapterView parent, View v, int pos, long id) {
         Log.d(TAG, "onItemClick, id is " + id);

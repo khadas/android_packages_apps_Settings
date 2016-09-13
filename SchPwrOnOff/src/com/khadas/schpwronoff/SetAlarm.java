@@ -31,6 +31,7 @@ public class SetAlarm extends PreferenceActivity
     private boolean mEnabled;
     private int mHour;
     private int mMinutes;
+	private static final int MENU_BACK = android.R.id.home;
     private static final int MENU_REVET = Menu.FIRST;
     private static final int MENU_SAVE = Menu.FIRST + 1;
     private String mPrevTitle;
@@ -74,6 +75,9 @@ public class SetAlarm extends PreferenceActivity
         }
         updateTime();
         //setHasOptionsMenu(true);
+		getActionBar().setHomeButtonEnabled(true);
+		getActionBar().setDisplayHomeAsUpEnabled(true);
+
     }
 
     @Override
@@ -117,6 +121,9 @@ public class SetAlarm extends PreferenceActivity
             saveAlarm();
             finish();
             return true;
+		case MENU_BACK:
+			finish();
+			return true;
         default:
             break;
         }
