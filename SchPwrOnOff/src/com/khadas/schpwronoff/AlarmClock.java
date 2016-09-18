@@ -24,6 +24,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.view.KeyEvent;
 
 import android.util.Log;
 
@@ -54,6 +55,8 @@ public class AlarmClock extends PreferenceActivity implements OnItemClickListene
     private String mAm;
     private String mPm;
     private boolean mUserCheckedFlag;
+
+	private Context mContext;
     /*
      * FIXME: it would be nice for this to live in an xml config file.
      */
@@ -154,6 +157,7 @@ public class AlarmClock extends PreferenceActivity implements OnItemClickListene
     @Override
     public void onCreate(Bundle icicle) {
         super.onCreate(icicle);
+		mContext = this;
         String[] ampm = new DateFormatSymbols().getAmPmStrings();
         mAm = ampm[0];
         mPm = ampm[1];
@@ -257,4 +261,26 @@ public class AlarmClock extends PreferenceActivity implements OnItemClickListene
         intent.putExtras(bundle);
         startActivity(intent);
     }
+
+	@Override
+	public boolean dispatchKeyEvent(KeyEvent event) {
+		// TODO Auto-generated method stub
+		int keyCode = event.getKeyCode();
+		if(keyCode == KeyEvent.KEYCODE_DPAD_LEFT || keyCode == KeyEvent.KEYCODE_DPAD_RIGHT ){
+			final Cursor c = (Cursor) mAlarmsList.getAdapter().getItem(getSelectedItemPosition());
+			final Alarm alarm = new Alarm(c);
+			if(keyCode == KeyEvent.KEYCODE_DPAD_LEFT){
+			 if(alarm.mEnabled)
+               Alarms.enableAlarm(mContext, alarm.mId, false);
+			}else{
+             if(!alarm.mEnabled){
+            Alarms.enableAlarm(mContext, alarm.mId, true);
+            SetAlarm.popAlarmSetToast(mContext, alarm.mHour, alarm.mMinutes, alarm.mDaysOfWeek, alarm.mId);          }
+			}
+
+			return true;
+        }
+	     return super.dispatchKeyEvent(event);
+	}
+
 }
