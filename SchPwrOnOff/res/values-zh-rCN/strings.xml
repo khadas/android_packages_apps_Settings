@@ -78,4 +78,7 @@
     <string name="revert">"还原"</string>
     <string name="schpwr_shutdown_message">"您的设备将于 <xliff:g id="second">%s</xliff:g> 秒后关机"</string>
     <string name="schpwr_shutdown_message_second">"您的设备将于 <xliff:g id="second">%s</xliff:g> 秒后关机"</string>
+
+	<string name="settime_button_ok">确认</string>
+	<string name="settime_button_canel">取消</string>
 </resources>

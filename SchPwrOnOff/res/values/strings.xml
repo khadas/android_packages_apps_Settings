@@ -88,4 +88,7 @@
     <string name="revert">Revert</string>
     <string name="schpwr_shutdown_message">"Your device will shut down in <xliff:g id="seconds">%s</xliff:g> seconds"</string>
     <string name="schpwr_shutdown_message_second">"Your device will shut down in <xliff:g id="second">%s</xliff:g> second"</string>
+
+	<string name="settime_button_ok">OK</string>
+	<string name="settime_button_canel">Cancel</string>
 </resources>

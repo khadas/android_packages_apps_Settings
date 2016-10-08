@@ -43,6 +43,7 @@ import android.util.AttributeSet;
 
 import java.text.DateFormatSymbols;
 import java.util.Calendar;
+import android.content.Intent;
 
 public class RepeatPreference extends ListPreference {
 
@@ -54,6 +55,8 @@ public class RepeatPreference extends ListPreference {
 
     public boolean mIsPressedPositive = false;
 
+    private Context mContext;
+
     /**
      * RepeatPreference
      * @param context Context
@@ -61,6 +64,7 @@ public class RepeatPreference extends ListPreference {
      */
     public RepeatPreference(Context context, AttributeSet attrs) {
         super(context, attrs);
+        mContext = context;
 
         String[] weekdays = new DateFormatSymbols().getWeekdays();
         String[] values = new String[] { weekdays[Calendar.MONDAY], weekdays[Calendar.TUESDAY],
@@ -76,6 +80,8 @@ public class RepeatPreference extends ListPreference {
             mIsPressedPositive = true;
             mDaysOfWeek.set(mNewDaysOfWeek);
             setSummary(mDaysOfWeek.toString(getContext(), true));
+            Intent alarmChange = new Intent(SetAlarm.ACTION_UPDATEALARM_INTENT);
+            mContext.sendBroadcast(alarmChange);
         } else {
             //resotre to init data.
             mNewDaysOfWeek.set(mDaysOfWeek);
