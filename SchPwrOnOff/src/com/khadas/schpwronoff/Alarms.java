@@ -549,7 +549,7 @@ public class Alarms {
        // am.setExact(7, 0, sender);
 		BootAlarmInfo info =new BootAlarmInfo(false,0,false);
 		setBootAlarm(info);
-        am.cancelPoweroffAlarm(context.getPackageName());
+       // am.cancelPoweroffAlarm(context.getPackageName());
         Log.d(TAG, "Alarms.disableAlertPowerOn(): disableForPowerOn");
         // am.cancel(sender);
         // setStatusBarIcon(context, false);
