@@ -282,6 +282,7 @@ public class SetAlarm extends PreferenceActivity {
                       if(action == 1)
                          break;
                       if(mHourSpinner.isFocused()){
+                         if(KeyCount == 1) break;
                          int hourValue;
                          if(keyCode == KeyEvent.KEYCODE_DPAD_DOWN){
                              hourValue = mHourSpinner.getValue()+KeyCount;
@@ -295,6 +296,7 @@ public class SetAlarm extends PreferenceActivity {
                          mHourSpinner.setValue(hourValue);
                          break;
                        }else if(mMinuteSpinner.isFocused()){
+                         if(KeyCount == 1) break;
                          int minuteValue;
                          if(keyCode == KeyEvent.KEYCODE_DPAD_DOWN){
                              minuteValue = mMinuteSpinner.getValue()+KeyCount;
