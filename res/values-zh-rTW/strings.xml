@@ -3026,4 +3026,5 @@
     <string name="color_temperature" msgid="2070126836910615605">"冷色溫"</string>
     <string name="color_temperature_desc" msgid="4793729830226404052">"使用較冷的顯示器色溫"</string>
     <string name="color_temperature_toast" msgid="4974218172133854827">"如要套用色溫變更設定，請關閉螢幕"</string>
+    <string name="schedule_power_on_off_settings_title">開關機排程</string>
 </resources>

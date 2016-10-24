@@ -3073,4 +3073,5 @@
      <!--Used as title on second screen after selecting Ethernet settings -->
      <string name="ethernet_mode_title">以太网模式</string>
      <string name="ethernet_info_getting">"正在获取IP地址..."</string>
+     <string name="schedule_power_on_off_settings_title">定时开关机</string>
 </resources>
