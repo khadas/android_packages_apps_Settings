@@ -568,4 +568,15 @@
     <item msgid="6131821495505931173">"紅色"</item>
   </string-array>
     <!-- no translation found for usb_configuration_titles:0 (292902998500371970) -->
+  <string-array name="led_title">
+    <item>紅色LED模式</item>
+    <item>藍色LED模式</item>
+  </string-array>
+  <string-array name="led_mode">
+    <item>CPU過載時亮燈</item>
+    <item>心跳</item>
+    <item>呼吸</item>
+    <item>常亮</item>
+    <item>常滅</item>
+  </string-array>
 </resources>

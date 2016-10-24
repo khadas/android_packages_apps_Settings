@@ -7407,5 +7407,5 @@
 
 	 <string name="schedule_power_on_off_settings_title">Timer</string>
 	 <!--Led trigger -->
-     <string name="led_settings">Leds trigger</string>
+     <string name="led_settings">LED</string>
 </resources>

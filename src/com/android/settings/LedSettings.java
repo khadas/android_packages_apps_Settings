@@ -91,7 +91,6 @@ public class LedSettings extends SettingsPreferenceFragment {
 	private List<String> mTriggerSupportListDes = new ArrayList<String>();
 
     String[] userList=new String[]{"temp","heartbeat","breathe","default-on","off"};
-    String[] userListTitle=new String[]{"High Temprerature","Heartbeat","Breathe","Always On","Always Off"}; 
 	HashMap<String,String> mHashMap=new HashMap<String,String>();
 
     public class LedInfo {
@@ -368,13 +367,14 @@ public class LedSettings extends SettingsPreferenceFragment {
 
    public void InitCurrentSupportList(List<String> list){
 
+    String[] mode=mContext.getResources().getStringArray(R.array.led_mode);
     for(int i=0;i<userList.length;i++){
 	   for(int j=0;j<list.size();j++){
 	      if(userList[i].equals(list.get(j))){
 
-                mHashMap.put(userList[i],userListTitle[i]);
+                mHashMap.put(userList[i],mode[i]);
 				mTriggerSupportList.add(userList[i]);
-				mTriggerSupportListDes.add(userListTitle[i]);
+				mTriggerSupportListDes.add(mode[i]);
             }
 	  }
     }

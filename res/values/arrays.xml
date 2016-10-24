@@ -1413,12 +1413,20 @@
         <item>DHCP</item>
     </string-array>
 
+  <string-array name="led_mode">
+        <item>High Temprerature</item>
+	    <item>Heartbeat</item>
+	    <item>Breathe</item>
+	    <item>Always On</item>
+	    <item>Always Off</item>
+  </string-array>
+
    <string-array name="led_list" >
         <item>red</item>
         <item>blue</item>
    </string-array>
   <string-array name="led_title" >
-        <item>Red Led Trigger Mode</item>
-        <item>Blue Led Trigger Mode</item>
+        <item>Red LED Mode</item>
+        <item>Blue LED Mode</item>
   </string-array>
 </resources>
