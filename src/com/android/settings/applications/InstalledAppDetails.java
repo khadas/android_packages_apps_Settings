@@ -74,6 +74,8 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.KeyEvent;
+import android.content.IntentFilter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -140,6 +142,7 @@ public class InstalledAppDetails extends AppInfoBase
     private static final String KEY_LAUNCH = "preferred_settings";
     private static final String KEY_BATTERY = "battery";
     private static final String KEY_MEMORY = "memory";
+    public static final String ACTION_BUTTON = "android.action.button.key.click";
 
     private final HashSet<String> mHomePackages = new HashSet<String>();
 
@@ -214,7 +217,14 @@ public class InstalledAppDetails extends AppInfoBase
     }
 
     private BroadcastReceiver mPermissionReceiver;
+    private ButtonKeyClickReceiver mButtonKeyClickReceiver;
 
+    private class ButtonKeyClickReceiver extends BroadcastReceiver {
+         @Override
+         public void onReceive(Context context, Intent intent) {
+             onKey(intent.getIntExtra("isleft",-1));
+         }
+    }
     private boolean handleDisableable(Button button) {
         boolean disableable = false;
         // Try to prevent the user from bricking their phone
@@ -373,6 +383,10 @@ public class InstalledAppDetails extends AppInfoBase
         if (mPermissionReceiver != null) {
             getContext().unregisterReceiver(mPermissionReceiver);
             mPermissionReceiver = null;
+        }
+        if (mButtonKeyClickReceiver != null) {
+            getContext().unregisterReceiver(mButtonKeyClickReceiver);
+            mButtonKeyClickReceiver = null;
         }
 
         super.onDestroy();
@@ -559,6 +573,17 @@ public class InstalledAppDetails extends AppInfoBase
         }
         mPermissionReceiver = PermissionsSummaryHelper.getPermissionSummary(getContext(),
                 mPackageName, mPermissionCallback);
+        if (mButtonKeyClickReceiver != null) {
+            getContext().unregisterReceiver(mButtonKeyClickReceiver);
+			mButtonKeyClickReceiver = null;
+		}
+        mButtonKeyClickReceiver = new ButtonKeyClickReceiver();
+
+        final IntentFilter filter = new IntentFilter();
+        filter.addAction(ACTION_BUTTON);
+        getContext().registerReceiver(mButtonKeyClickReceiver,filter);
+
+
         mLaunchPreference.setSummary(Utils.getLaunchByDeafaultSummary(mAppEntry, mUsbManager,
                 mPm, context));
         mNotificationPreference.setSummary(getNotificationSummary(mAppEntry, context,
@@ -759,6 +784,36 @@ public class InstalledAppDetails extends AppInfoBase
      * Method implementing functionality of buttons clicked
      * @see android.view.View.OnClickListener#onClick(android.view.View)
      */
+    public void onKey(int isleft) {
+        if (mAppEntry == null) {
+            setIntentAndFinish(true, true);
+            return;
+        }
+        String packageName = mAppEntry.info.packageName;
+        if(isleft == 1) {
+            if ((mAppEntry.info.flags & ApplicationInfo.FLAG_SYSTEM) != 0) {
+                if (mAppEntry.info.enabled && !isDisabledUntilUsed()) {
+                    if (mUpdatedSysApp) {
+                        showDialogInner(DLG_SPECIAL_DISABLE, 0);
+                    } else {
+                        showDialogInner(DLG_DISABLE, 0);
+                    }
+                } else {
+                    new DisableChanger(this, mAppEntry.info,
+                            PackageManager.COMPONENT_ENABLED_STATE_DEFAULT)
+                                    .execute((Object) null);
+                }
+            } else if ((mAppEntry.info.flags & ApplicationInfo.FLAG_INSTALLED) == 0) {
+                uninstallPkg(packageName, true, false);
+            } else {
+                uninstallPkg(packageName, false, false);
+            }
+        } else if (isleft == 0) {
+            showDialogInner(DLG_FORCE_STOP, 0);
+            //forceStopPackage(mAppInfo.packageName);
+        }
+    }
+
     public void onClick(View v) {
         if (mAppEntry == null) {
             setIntentAndFinish(true, true);

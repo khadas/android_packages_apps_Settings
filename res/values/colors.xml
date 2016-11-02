@@ -101,6 +101,10 @@
 
     <!-- Accent color that matches the settings launcher icon -->
     <color name="icon_accent">#ffabffec</color>
+    <color name="uninstall_button_selected_color">#ffafafaf</color>
+    <color name="uninstall_button_enabled_color">#ffcfcfcf</color>
+    <color name="uninstall_button_diabled_color">#00ffffff</color>
+
 	<!-- Led Trigger -->
 	<color name="led_info_list_text_color">#ff000000</color>
 	<color name="led_trigger_dialog_background">#ffffffff</color>
