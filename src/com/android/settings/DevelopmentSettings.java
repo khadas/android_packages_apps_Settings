@@ -143,6 +143,7 @@ public class DevelopmentSettings extends SettingsPreferenceFragment
     private static final String FORCE_RTL_LAYOUT_KEY = "force_rtl_layout_all_locales";
     private static final String WINDOW_ANIMATION_SCALE_KEY = "window_animation_scale";
     private static final String TRANSITION_ANIMATION_SCALE_KEY = "transition_animation_scale";
+    private static final String KEY_FUNCTION_KEY = "key_function";
     private static final String ANIMATOR_DURATION_SCALE_KEY = "animator_duration_scale";
     private static final String OVERLAY_DISPLAY_DEVICES_KEY = "overlay_display_devices";
     private static final String ENABLE_MULTI_WINDOW_KEY = "enable_multi_window";
@@ -187,6 +188,7 @@ public class DevelopmentSettings extends SettingsPreferenceFragment
     private static final int[] MOCK_LOCATION_APP_OPS = new int[] {AppOpsManager.OP_MOCK_LOCATION};
 
     private static final String MULTI_WINDOW_SYSTEM_PROPERTY = "persist.sys.debug.multi_window";
+    private static final String KEY_FUNCTION_SYSTEM_PROPERTY = "persist.sys.function.key.state";
     private IWindowManager mWindowManager;
     private IBackupManager mBackupManager;
     private DevicePolicyManager mDpm;
@@ -242,6 +244,7 @@ public class DevelopmentSettings extends SettingsPreferenceFragment
     private ListPreference mUsbConfiguration;
     private ListPreference mTrackFrameTime;
     private ListPreference mShowNonRectClip;
+    private ListPreference mKeyFunction;
     private ListPreference mWindowAnimationScale;
     private ListPreference mTransitionAnimationScale;
     private ListPreference mAnimatorDurationScale;
@@ -383,6 +386,7 @@ public class DevelopmentSettings extends SettingsPreferenceFragment
         mUsbConfiguration = addListPreference(USB_CONFIGURATION_KEY);
 
         mWindowAnimationScale = addListPreference(WINDOW_ANIMATION_SCALE_KEY);
+        mKeyFunction = addListPreference(KEY_FUNCTION_KEY);
         mTransitionAnimationScale = addListPreference(TRANSITION_ANIMATION_SCALE_KEY);
         mAnimatorDurationScale = addListPreference(ANIMATOR_DURATION_SCALE_KEY);
         mOverlayDisplayDevices = addListPreference(OVERLAY_DISPLAY_DEVICES_KEY);
@@ -634,6 +638,7 @@ public class DevelopmentSettings extends SettingsPreferenceFragment
         updateBugreportOptions();
         updateForceRtlOptions();
         updateLogdSizeValues();
+        updateKeyFunctionOptions();
         updateWifiDisplayCertificationOptions();
         updateWifiVerboseLoggingOptions();
         updateWifiAggressiveHandoverOptions();
@@ -1368,6 +1373,18 @@ public class DevelopmentSettings extends SettingsPreferenceFragment
         }
     }
 
+    private void writeKeyFunctionOptions(Object newValue) {
+       String function = newValue.toString();
+       SystemProperties.set(KEY_FUNCTION_SYSTEM_PROPERTY,function);
+       updateKeyFunctionOptions();
+    }
+
+    private void updateKeyFunctionOptions() {
+       String value = SystemProperties.get(KEY_FUNCTION_SYSTEM_PROPERTY,"Home");
+       mKeyFunction.setValue(value);
+       mKeyFunction.setSummary(value);
+    }
+
     private void updateCpuUsageOptions() {
         updateSwitchPreference(mShowCpuUsage,
                 Settings.Global.getInt(getActivity().getContentResolver(),
@@ -1801,6 +1818,8 @@ public class DevelopmentSettings extends SettingsPreferenceFragment
         } else if (preference == mSimulateColorSpace) {
             writeSimulateColorSpace(newValue);
             return true;
+        } else if (preference == mKeyFunction) {
+            writeKeyFunctionOptions(newValue);
         }
         return false;
     }

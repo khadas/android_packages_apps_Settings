@@ -1157,6 +1157,23 @@
         <item>show_deuteranomaly</item>
     </string-array>
 
+    <string-array name="debug_key_function_entries">
+        <item>Home</item>
+        <item>Back</item>
+        <item>Menu</item>
+        <item>Enter</item>
+        <item>VolumeUp</item>
+        <item>VolumeDown</item>
+    </string-array>
+
+    <string-array name="debug_key_function_values">
+        <item>Home</item>
+        <item>Back</item>
+        <item>Menu</item>
+        <item>Enter</item>
+        <item>VolumeUp</item>
+        <item>VolumeDown</item>
+    </string-array>
     <!-- Titles for app process limit preference. [CHAR LIMIT=35] -->
     <string-array name="app_process_limit_entries">
         <item>Standard limit</item>

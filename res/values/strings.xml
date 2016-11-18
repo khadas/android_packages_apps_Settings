@@ -5285,6 +5285,7 @@
     <!-- Preference category for input debugging development settings. [CHAR LIMIT=25] -->
     <string name="debug_input_category">Input</string>
 
+    <string name="debug_key_category">Button</string>
     <!-- Preference category for drawing debugging development settings. [CHAR LIMIT=25] -->
     <string name="debug_drawing_category">Drawing</string>
 
@@ -5384,6 +5385,7 @@
     <!-- UI debug setting: scaling factor for transition animations [CHAR LIMIT=25] -->
     <string name="transition_animation_scale_title">Transition animation scale</string>
 
+    <string name="debug_key_function_title">Define Function button as</string>
     <!-- UI debug setting: scaling factor for all Animator-based animations [CHAR LIMIT=25] -->
     <string name="animator_duration_scale_title">Animator duration scale</string>
 

@@ -179,6 +179,18 @@
 
     </PreferenceCategory>
 
+    <PreferenceCategory android:key="debug_key_category"
+	        android:title="@string/debug_key_category">
+
+        <ListPreference
+                android:key="key_function"
+                android:title="@string/debug_key_function_title"
+                android:persistent="false"
+                android:entries="@array/debug_key_function_entries"
+                android:entryValues="@array/debug_key_function_values" />
+
+    </PreferenceCategory>
+
     <PreferenceCategory android:key="debug_drawing_category"
             android:title="@string/debug_drawing_category">
 
