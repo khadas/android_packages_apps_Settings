@@ -3082,7 +3082,7 @@
 
     <!-- About --> <skip />
     <!-- Main settings screen, setting title for the user to go into the About MediaBox screen -->
-    <string name="about_settings" product="mbx">About MediaBox</string>
+    <string name="about_settings" product="mbx">About Device</string>
     <!-- Main settings screen, setting title for the user to go into the About TV screen -->
     <string name="about_settings" product="TV">About TV</string>
     <!-- Main settings screen, setting title for the user to go into the About phone screen -->
