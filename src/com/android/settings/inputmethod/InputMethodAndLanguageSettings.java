@@ -63,6 +63,8 @@ import com.android.settings.VoiceInputOutputSettings;
 import com.android.settings.search.BaseSearchIndexProvider;
 import com.android.settings.search.Indexable;
 import com.android.settings.search.SearchIndexableRaw;
+import android.os.SystemProperties;
+import android.util.Log;
 
 import java.text.Collator;
 import java.util.ArrayList;
@@ -79,6 +81,7 @@ public class InputMethodAndLanguageSettings extends SettingsPreferenceFragment
         KeyboardLayoutDialogFragment.OnSetupKeyboardLayoutsListener, Indexable,
         InputMethodPreference.OnSavePreferenceListener {
     private static final String KEY_SPELL_CHECKERS = "spellcheckers_settings";
+    private static final String KEY_CEC_LANGUAGE = "ceclanguage_settings";
     private static final String KEY_PHONE_LANGUAGE = "phone_language";
     private static final String KEY_CURRENT_INPUT_METHOD = "current_input_method";
     private static final String KEY_INPUT_METHOD_SELECTOR = "input_method_selector";
@@ -86,6 +89,7 @@ public class InputMethodAndLanguageSettings extends SettingsPreferenceFragment
     private static final String KEY_PREVIOUSLY_ENABLED_SUBTYPES = "previously_enabled_subtypes";
     // false: on ICS or later
     private static final boolean SHOW_INPUT_METHOD_SWITCHER_SETTINGS = false;
+    private static final String CEC_LANGUAGE_PROP = "persist.sys.cec.language.prop";
 
     private int mDefaultInputMethodSelectorVisibility = 0;
     private ListPreference mShowInputMethodSelectorPref;
@@ -93,6 +97,7 @@ public class InputMethodAndLanguageSettings extends SettingsPreferenceFragment
     private PreferenceCategory mHardKeyboardCategory;
     private PreferenceCategory mGameControllerCategory;
     private Preference mLanguagePref;
+    private SwitchPreference mCecLanguagePref;
     private final ArrayList<InputMethodPreference> mInputMethodPreferenceList = new ArrayList<>();
     private final ArrayList<PreferenceScreen> mHardKeyboardPreferenceList = new ArrayList<>();
     private InputManager mIm;
@@ -131,6 +136,7 @@ public class InputMethodAndLanguageSettings extends SettingsPreferenceFragment
         } else {
             mLanguagePref = findPreference(KEY_PHONE_LANGUAGE);
         }
+        mCecLanguagePref = (SwitchPreference)findPreference(KEY_CEC_LANGUAGE);
         if (SHOW_INPUT_METHOD_SWITCHER_SETTINGS) {
             mShowInputMethodSelectorPref = (ListPreference)findPreference(
                     KEY_INPUT_METHOD_SELECTOR);
@@ -275,6 +281,9 @@ public class InputMethodAndLanguageSettings extends SettingsPreferenceFragment
             }
         }
 
+        String propVal = SystemProperties.get(CEC_LANGUAGE_PROP,"true");
+        mCecLanguagePref.setChecked(Boolean.parseBoolean(propVal));
+
         updateInputDevices();
 
         // Refresh internal states in mInputMethodSettingValues to keep the latest
@@ -330,6 +339,10 @@ public class InputMethodAndLanguageSettings extends SettingsPreferenceFragment
             }
         } else if (preference instanceof SwitchPreference) {
             final SwitchPreference pref = (SwitchPreference) preference;
+            if (pref == mCecLanguagePref) {
+                SystemProperties.set(CEC_LANGUAGE_PROP, pref.isChecked() ? "true" : "false");
+                return true;
+            }
             if (pref == mGameControllerCategory.findPreference("vibrate_input_devices")) {
                 System.putInt(getContentResolver(), Settings.System.VIBRATE_INPUT_DEVICES,
                         pref.isChecked() ? 1 : 0);

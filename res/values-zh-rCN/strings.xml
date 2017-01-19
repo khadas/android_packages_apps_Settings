@@ -3027,6 +3027,7 @@
     <skip />
     <!-- no translation found for color_temperature_toast (4974218172133854827) -->
     <skip />
+    <string name="ceclanguage_settings_title">CEC语言检测</string>
     <!--Hdmi-->
 	<string name="hdmi_settings">"HDMI配置"</string>
 	<string name="hdmi_resolution_title">"分辨率设置</string>

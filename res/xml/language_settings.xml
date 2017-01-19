@@ -19,6 +19,12 @@
         android:key="language_keyboard_settings"
         android:title="@string/language_keyboard_settings_title">
 
+    <SwitchPreference
+            android:key="ceclanguage_settings"
+            android:title="@string/ceclanguage_settings_title"
+            android:persistent="false"
+            />
+
     <PreferenceScreen
             android:key="phone_language"
             android:title="@string/phone_language"

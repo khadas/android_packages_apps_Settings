@@ -7398,6 +7398,7 @@
      <string name="save_failed">Save failed!</string>
      <string name="ethernet_ip_settings_invalid_ip">Please type a valid IP address.</string>
      <string name="eth_ip_settings_please_complete_settings">Please give complete static IP settings!</string>
+     <string name="ceclanguage_settings_title">CEC Language Checker</string>
      <string name="ethernet_quick_toggle_title">Ethernet</string>
      <!-- Ethernet settings check box summary for turning on ethernet -->
      <string name="ethernet_quick_toggle_summary_off">Ethernet is disabled</string>
