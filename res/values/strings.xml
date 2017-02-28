@@ -7330,6 +7330,8 @@
     <!-- Description of setting that controls gesture to open camera by double tapping the power button [CHAR LIMIT=NONE] -->
     <string name="camera_double_tap_power_gesture_desc">Quickly open camera without unlocking your screen</string>
 
+    <string name="statusbar_bottom_title">Show the bottom statusbar</string>
+    <string name="statusbar_upper_title">Show the upper statusbar</string>
     <!-- Name of each color mode for the display. [CHAR LIMIT=40] -->
     <string-array name="color_mode_names">
         <item>Vibrant (default)</item>
