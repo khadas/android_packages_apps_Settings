@@ -123,12 +123,12 @@ public final class SearchIndexableResources {
                         WirelessSettings.class.getName(),
                         R.drawable.ic_settings_more));
 
-        sResMap.put(ScreenZoomSettings.class.getName(),
+        /* sResMap.put(ScreenZoomSettings.class.getName(),
                 new SearchIndexableResource(
                         Ranking.getRankForClassName(ScreenZoomSettings.class.getName()),
                         NO_DATA_RES_ID,
                         ScreenZoomSettings.class.getName(),
-                        R.drawable.ic_settings_display));
+                        R.drawable.ic_settings_display)); */
 
         sResMap.put(DisplaySettings.class.getName(),
                 new SearchIndexableResource(
