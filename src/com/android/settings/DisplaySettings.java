@@ -23,6 +23,7 @@ import android.app.UiModeManager;
 import android.app.WallpaperManager;
 import android.app.IWallpaperManager.Stub;
 import android.app.admin.DevicePolicyManager;
+import android.app.StatusBarManager;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.ComponentName;
@@ -90,11 +91,14 @@ public class DisplaySettings extends SettingsPreferenceFragment implements
     private static final String KEY_AUTO_ROTATE = "auto_rotate";
     private static final String KEY_NIGHT_DISPLAY = "night_display";
     private static final String KEY_NIGHT_MODE = "night_mode";
+    private static final String KEY_STATUSBAR_BOTTOM_SHOW = "statusbar_bottom_show";
+    private static final String KEY_STATUSBAR_UPPER_SHOW = "statusbar_upper_show";
     private static final String KEY_CAMERA_GESTURE = "camera_gesture";
     private static final String KEY_WALLPAPER = "wallpaper";
     private static final String KEY_VR_DISPLAY_PREF = "vr_display_pref";
 
     private Preference mFontSizePref;
+    private StatusBarManager mStatusBarManager;
 
     private TimeoutListPreference mScreenTimeoutPreference;
     private ListPreference mNightModePreference;
@@ -104,6 +108,8 @@ public class DisplaySettings extends SettingsPreferenceFragment implements
     private SwitchPreference mTapToWakePreference;
     private SwitchPreference mAutoBrightnessPreference;
     private SwitchPreference mCameraGesturePreference;
+    private SwitchPreference mStatusBarBottomPreference;
+    private SwitchPreference mStatusBarUpperPreference;
 
     @Override
     protected int getMetricsCategory() {
@@ -116,6 +122,7 @@ public class DisplaySettings extends SettingsPreferenceFragment implements
         final Activity activity = getActivity();
         final ContentResolver resolver = activity.getContentResolver();
 
+        mStatusBarManager = (StatusBarManager) getSystemService(Context.STATUS_BAR_SERVICE);
         addPreferencesFromResource(R.xml.display_settings);
 
         mScreenSaverPreference = findPreference(KEY_SCREEN_SAVER);
@@ -128,6 +135,10 @@ public class DisplaySettings extends SettingsPreferenceFragment implements
         mScreenTimeoutPreference = (TimeoutListPreference) findPreference(KEY_SCREEN_TIMEOUT);
 
         mFontSizePref = findPreference(KEY_FONT_SIZE);
+        mStatusBarBottomPreference = (SwitchPreference) findPreference(KEY_STATUSBAR_BOTTOM_SHOW);
+        mStatusBarBottomPreference.setOnPreferenceChangeListener(this);
+        mStatusBarUpperPreference = (SwitchPreference) findPreference(KEY_STATUSBAR_UPPER_SHOW);
+        mStatusBarUpperPreference.setOnPreferenceChangeListener(this);
 
         if (isAutomaticBrightnessAvailable(getResources())) {
             mAutoBrightnessPreference = (SwitchPreference) findPreference(KEY_AUTO_BRIGHTNESS);
@@ -385,6 +396,15 @@ public class DisplaySettings extends SettingsPreferenceFragment implements
             int value = Settings.Secure.getInt(getContentResolver(), CAMERA_GESTURE_DISABLED, 0);
             mCameraGesturePreference.setChecked(value == 0);
         }
+        if (mStatusBarBottomPreference !=null) {
+           String value = SystemProperties.get("persist.sys.status.bar.bottom","false");
+           mStatusBarBottomPreference.setChecked(value.equals("true"));
+        }
+
+        if (mStatusBarUpperPreference !=null) {
+           String value = SystemProperties.get("persist.sys.status.bar.upper","false");
+           mStatusBarUpperPreference.setChecked(value.equals("true"));
+        }
     }
 
     private void updateScreenSaverSummary() {
@@ -426,6 +446,22 @@ public class DisplaySettings extends SettingsPreferenceFragment implements
         if (preference == mLiftToWakePreference) {
             boolean value = (Boolean) objValue;
             Settings.Secure.putInt(getContentResolver(), WAKE_GESTURE_ENABLED, value ? 1 : 0);
+        }
+        if (preference == mStatusBarBottomPreference) {
+            boolean value = (Boolean) objValue;
+            if (value) {
+              mStatusBarManager.addBottomBar();
+            } else {
+              mStatusBarManager.removeBottomBar();
+            }
+        }
+        if (preference == mStatusBarUpperPreference) {
+            boolean value = (Boolean) objValue;
+            if (value) {
+              mStatusBarManager.addUpperBar();
+            } else {
+              mStatusBarManager.removeUpperBar();
+            }
         }
         if (preference == mDozePreference) {
             boolean value = (Boolean) objValue;
