@@ -18,8 +18,10 @@ package com.android.settings;
 
 import android.app.Activity;
 import android.app.ActivityManager;
+import android.app.IWallpaperManager;
 import android.app.UiModeManager;
 import android.app.WallpaperManager;
+import android.app.IWallpaperManager.Stub;
 import android.app.admin.DevicePolicyManager;
 import android.content.ContentResolver;
 import android.content.Context;
@@ -31,6 +33,8 @@ import android.hardware.Sensor;
 import android.hardware.SensorManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.IBinder;
+import android.os.ServiceManager;
 import android.os.SystemProperties;
 import android.os.UserHandle;
 import android.os.UserManager;
@@ -333,6 +337,12 @@ public class DisplaySettings extends SettingsPreferenceFragment implements
             mScreenTimeoutPreference.removeUnusableTimeouts(maxTimeout, admin);
         }
         updateTimeoutPreferenceDescription(currentTimeout);
+
+        IBinder b = ServiceManager.getService(Context.WALLPAPER_SERVICE);
+        IWallpaperManager service = Stub.asInterface(b);
+        if (service == null) {
+            removePreference(KEY_WALLPAPER);
+        }
 
         disablePreferenceIfManaged(KEY_WALLPAPER, UserManager.DISALLOW_SET_WALLPAPER);
     }
