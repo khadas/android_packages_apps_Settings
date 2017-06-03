@@ -45,6 +45,7 @@ public class SetAlarm extends PreferenceActivity {
 
     private int mId;
     private boolean mEnabled;
+    private boolean is24format;
     private int mHour;
     private int mMinutes;
     private static final int MENU_BACK = android.R.id.home;
@@ -364,9 +365,11 @@ public class SetAlarm extends PreferenceActivity {
        Resources mResources= getResources();
        int dividerColor = mResources.getColor(R.color.settime_numberpicker_divider_color);
        if(DateFormat.is24HourFormat(this)){
+           is24format = true;
            window.setContentView(R.layout.is24format_dialog);
            window.setLayout((int)mResources.getDimension(R.dimen.settime_is24format_dialog_width), (int)mResources.getDimension(R.dimen.settime_is24format_dialog_height));
        }else{
+           is24format = false;
            window.setContentView(R.layout.is12format_dialog);
            window.setLayout((int)mResources.getDimension(R.dimen.settime_is12format_dialog_width), (int)mResources.getDimension(R.dimen.settime_is12format_dialog_height));
        }
@@ -393,7 +396,7 @@ public class SetAlarm extends PreferenceActivity {
            mAmPmSpinner.setDisplayedValues(ampm);
            mAmPmSpinner.setMinValue(AMPM_MIN_VALUE);
            mAmPmSpinner.setMaxValue(AMPM_MAX_VALUE);
-           if(mHour > HOUR_MIDDLE_VALUE){
+           if(mCurrentHour > HOUR_MIDDLE_VALUE){
                mHourSpinner.setValue(mCurrentHour - HOUR_MIDDLE_VALUE);
                mAmPmSpinner.setValue(PM_VALUE);
            }else{
@@ -413,8 +416,18 @@ public class SetAlarm extends PreferenceActivity {
        mBtnOk = (Button) window.findViewById(R.id.btn_ok);
        mBtnOk.setOnClickListener(new View.OnClickListener() {
                public void onClick(View v) {
-               mHour = mHourSpinner.getValue();
-               mMinutes = mMinuteSpinner.getValue();
+               if(is24format) {
+                   mHour = mHourSpinner.getValue();
+                   mMinutes = mMinuteSpinner.getValue();
+                } else {
+                   int mAmPm = mAmPmSpinner.getValue();
+                   if (mAmPm == AM_VALUE) {
+                     mHour = mHourSpinner.getValue();
+                   } else {
+                     mHour = mHourSpinner.getValue() + 12 ;
+                   }
+                   mMinutes = mMinuteSpinner.getValue();
+               }
                updateTime();
                mEnabled = true;
                mAlertDialog.dismiss();
