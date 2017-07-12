@@ -1048,4 +1048,11 @@
         <item>90</item>
     </string-array>
 
+    <string-array name="fan_title_list" >
+        <item>Automatic speed control(temperature dependent)</item>
+        <item>Low speed</item>
+        <item>Medium speed</item>
+        <item>High speed</item>
+    </string-array>
+
 </resources>
