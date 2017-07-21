@@ -18,7 +18,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import com.android.settings.R;
-import com.android.settings.dashboard.SummaryLoader;
 import com.android.settings.notification.NotificationBackend;
 
 /**
@@ -27,52 +26,4 @@ import com.android.settings.notification.NotificationBackend;
  */
 public class NotificationApps extends ManageApplications {
 
-    private static class SummaryProvider implements SummaryLoader.SummaryProvider {
-
-        private final Context mContext;
-        private final SummaryLoader mLoader;
-        private final NotificationBackend mNotificationBackend;
-
-        private SummaryProvider(Context context, SummaryLoader loader) {
-            mContext = context;
-            mLoader = loader;
-            mNotificationBackend = new NotificationBackend();
-        }
-
-        @Override
-        public void setListening(boolean listening) {
-            if (listening) {
-                new AppCounter(mContext) {
-                    @Override
-                    protected void onCountComplete(int num) {
-                        updateSummary(num);
-                    }
-
-                    @Override
-                    protected boolean includeInCount(ApplicationInfo info) {
-                        return mNotificationBackend.getNotificationsBanned(info.packageName,
-                                info.uid);
-                    }
-                }.execute();
-            }
-        }
-
-        private void updateSummary(int count) {
-            if (count == 0) {
-                mLoader.setSummary(this, mContext.getString(R.string.notification_summary_none));
-            } else {
-                mLoader.setSummary(this, mContext.getResources().getQuantityString(
-                        R.plurals.notification_summary, count, count));
-            }
-        }
-    }
-
-    public static final SummaryLoader.SummaryProviderFactory SUMMARY_PROVIDER_FACTORY
-            = new SummaryLoader.SummaryProviderFactory() {
-        @Override
-        public SummaryLoader.SummaryProvider createSummaryProvider(Activity activity,
-                                                                   SummaryLoader summaryLoader) {
-            return new SummaryProvider(activity, summaryLoader);
-        }
-    };
 }

@@ -37,7 +37,6 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.android.internal.logging.MetricsProto.MetricsEvent;
-import com.android.settings.dashboard.SummaryLoader;
 import com.android.settings.search.BaseSearchIndexProvider;
 import com.android.settings.search.Index;
 import com.android.settings.search.Indexable;
@@ -379,34 +378,6 @@ public class DeviceInfoSettings extends SettingsPreferenceFragment implements In
         intent.setPackage(reporterPackage);
         startActivityForResult(intent, 0);
     }
-
-    private static class SummaryProvider implements SummaryLoader.SummaryProvider {
-
-        private final Context mContext;
-        private final SummaryLoader mSummaryLoader;
-
-        public SummaryProvider(Context context, SummaryLoader summaryLoader) {
-            mContext = context;
-            mSummaryLoader = summaryLoader;
-        }
-
-        @Override
-        public void setListening(boolean listening) {
-            if (listening) {
-                mSummaryLoader.setSummary(this, mContext.getString(R.string.about_summary,
-                        Build.VERSION.RELEASE));
-            }
-        }
-    }
-
-    public static final SummaryLoader.SummaryProviderFactory SUMMARY_PROVIDER_FACTORY
-            = new SummaryLoader.SummaryProviderFactory() {
-        @Override
-        public SummaryLoader.SummaryProvider createSummaryProvider(Activity activity,
-                                                                   SummaryLoader summaryLoader) {
-            return new SummaryProvider(activity, summaryLoader);
-        }
-    };
 
     /**
      * For Search.

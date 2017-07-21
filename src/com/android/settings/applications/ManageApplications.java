@@ -67,7 +67,6 @@ import com.android.settings.SettingsActivity;
 import com.android.settings.Utils;
 import com.android.settings.applications.AppStateAppOpsBridge.PermissionState;
 import com.android.settings.applications.AppStateUsageBridge.UsageState;
-import com.android.settings.dashboard.SummaryLoader;
 import com.android.settings.fuelgauge.HighPowerDetail;
 import com.android.settings.fuelgauge.PowerWhitelistBackend;
 import com.android.settings.notification.AppNotificationSettings;
@@ -1223,51 +1222,6 @@ public class ManageApplications extends InstrumentedFragment
         }
     }
 
-    private static class SummaryProvider implements SummaryLoader.SummaryProvider {
-
-        private final Context mContext;
-        private final SummaryLoader mLoader;
-        private ApplicationsState.Session mSession;
-
-        private SummaryProvider(Context context, SummaryLoader loader) {
-            mContext = context;
-            mLoader = loader;
-        }
-
-        @Override
-        public void setListening(boolean listening) {
-            if (listening) {
-                new AppCounter(mContext) {
-                    @Override
-                    protected void onCountComplete(int num) {
-                        mLoader.setSummary(SummaryProvider.this,
-                                mContext.getString(R.string.apps_summary, num));
-                    }
-
-                    @Override
-                    protected boolean includeInCount(ApplicationInfo info) {
-                        if ((info.flags & ApplicationInfo.FLAG_UPDATED_SYSTEM_APP) != 0) {
-                            return true;
-                        } else if ((info.flags & ApplicationInfo.FLAG_SYSTEM) == 0) {
-                            return true;
-                        }
-                        Intent launchIntent = new Intent(Intent.ACTION_MAIN, null)
-                                .addCategory(Intent.CATEGORY_LAUNCHER)
-                                .setPackage(info.packageName);
-                        int userId = UserHandle.getUserId(info.uid);
-                        List<ResolveInfo> intents = mPm.queryIntentActivitiesAsUser(
-                                launchIntent,
-                                PackageManager.GET_DISABLED_COMPONENTS
-                                        | PackageManager.MATCH_DIRECT_BOOT_AWARE
-                                        | PackageManager.MATCH_DIRECT_BOOT_UNAWARE,
-                                userId);
-                        return intents != null && intents.size() != 0;
-                    }
-                }.execute();
-            }
-        }
-    }
-
     private static class SectionInfo {
         final String label;
         final int position;
@@ -1282,7 +1236,7 @@ public class ManageApplications extends InstrumentedFragment
             return label;
         }
     }
-
+/*
     public static final SummaryLoader.SummaryProviderFactory SUMMARY_PROVIDER_FACTORY
             = new SummaryLoader.SummaryProviderFactory() {
         @Override
@@ -1291,4 +1245,5 @@ public class ManageApplications extends InstrumentedFragment
             return new SummaryProvider(activity, summaryLoader);
         }
     };
+	*/
 }

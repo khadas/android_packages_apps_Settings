@@ -43,7 +43,6 @@ import com.android.settings.R;
 import com.android.settings.SettingsActivity;
 import com.android.settings.Utils;
 import com.android.settings.applications.InstalledAppDetails;
-import com.android.settings.dashboard.SummaryLoader;
 import com.android.settings.widget.SwitchBar;
 import com.android.settingslib.RestrictedLockUtils;
 import com.android.settingslib.RestrictedSwitchPreference;
@@ -465,38 +464,4 @@ public class LocationSettings extends LocationSettingsBase
         }
     }
 
-    private static class SummaryProvider implements SummaryLoader.SummaryProvider {
-
-        private final Context mContext;
-        private final SummaryLoader mSummaryLoader;
-
-        public SummaryProvider(Context context, SummaryLoader summaryLoader) {
-            mContext = context;
-            mSummaryLoader = summaryLoader;
-        }
-
-        @Override
-        public void setListening(boolean listening) {
-            if (listening) {
-                int mode = Settings.Secure.getInt(mContext.getContentResolver(),
-                        Settings.Secure.LOCATION_MODE, Settings.Secure.LOCATION_MODE_OFF);
-                if (mode != Settings.Secure.LOCATION_MODE_OFF) {
-                    mSummaryLoader.setSummary(this, mContext.getString(R.string.location_on_summary,
-                            mContext.getString(getLocationString(mode))));
-                } else {
-                    mSummaryLoader.setSummary(this,
-                            mContext.getString(R.string.location_off_summary));
-                }
-            }
-        }
-    }
-
-    public static final SummaryLoader.SummaryProviderFactory SUMMARY_PROVIDER_FACTORY
-            = new SummaryLoader.SummaryProviderFactory() {
-        @Override
-        public SummaryLoader.SummaryProvider createSummaryProvider(Activity activity,
-                                                                   SummaryLoader summaryLoader) {
-            return new SummaryProvider(activity, summaryLoader);
-        }
-    };
 }

@@ -62,7 +62,6 @@ import com.android.settings.LinkifyUtils;
 import com.android.settings.R;
 import com.android.settings.RestrictedSettingsFragment;
 import com.android.settings.SettingsActivity;
-import com.android.settings.dashboard.SummaryLoader;
 import com.android.settings.location.ScanningSettings;
 import com.android.settings.search.BaseSearchIndexProvider;
 import com.android.settings.search.Indexable;
@@ -985,56 +984,4 @@ public class WifiSettings extends RestrictedSettingsFragment
                 Settings.Global.WIFI_DEVICE_OWNER_CONFIGS_LOCKDOWN, 0) != 0;
         return !isLockdownFeatureEnabled;
     }
-
-    private static class SummaryProvider extends BroadcastReceiver
-            implements SummaryLoader.SummaryProvider {
-
-        private final Context mContext;
-        private final WifiManager mWifiManager;
-        private final WifiStatusTracker mWifiTracker;
-        private final SummaryLoader mSummaryLoader;
-
-        public SummaryProvider(Context context, SummaryLoader summaryLoader) {
-            mContext = context;
-            mSummaryLoader = summaryLoader;
-            mWifiManager = context.getSystemService(WifiManager.class);
-            mWifiTracker = new WifiStatusTracker(mWifiManager);
-        }
-
-        private CharSequence getSummary() {
-            if (!mWifiTracker.enabled) {
-                return mContext.getString(R.string.wifi_disabled_generic);
-            }
-            if (!mWifiTracker.connected) {
-                return mContext.getString(R.string.disconnected);
-            }
-            return mWifiTracker.ssid;
-        }
-
-        @Override
-        public void setListening(boolean listening) {
-            if (listening) {
-                IntentFilter filter = new IntentFilter();
-                filter.addAction(WifiManager.WIFI_STATE_CHANGED_ACTION);
-                filter.addAction(WifiManager.NETWORK_STATE_CHANGED_ACTION);
-                filter.addAction(WifiManager.RSSI_CHANGED_ACTION);
-                mSummaryLoader.registerReceiver(this, filter);
-            }
-        }
-
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            mWifiTracker.handleBroadcast(intent);
-            mSummaryLoader.setSummary(this, getSummary());
-        }
-    }
-
-    public static final SummaryLoader.SummaryProviderFactory SUMMARY_PROVIDER_FACTORY
-            = new SummaryLoader.SummaryProviderFactory() {
-        @Override
-        public SummaryLoader.SummaryProvider createSummaryProvider(Activity activity,
-                                                                   SummaryLoader summaryLoader) {
-            return new SummaryProvider(activity, summaryLoader);
-        }
-    };
 }

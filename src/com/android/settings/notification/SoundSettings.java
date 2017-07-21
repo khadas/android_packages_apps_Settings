@@ -56,7 +56,6 @@ import com.android.settings.R;
 import com.android.settings.RingtonePreference;
 import com.android.settings.SettingsPreferenceFragment;
 import com.android.settings.Utils;
-import com.android.settings.dashboard.SummaryLoader;
 import com.android.settings.search.BaseSearchIndexProvider;
 import com.android.settings.search.Indexable;
 import com.android.settingslib.RestrictedLockUtils;
@@ -558,68 +557,6 @@ public class SoundSettings extends SettingsPreferenceFragment implements Indexab
             }
         }
     }
-
-    // === Summary ===
-
-    private static class SummaryProvider extends BroadcastReceiver
-            implements SummaryLoader.SummaryProvider {
-
-        private final Context mContext;
-        private final AudioManager mAudioManager;
-        private final SummaryLoader mSummaryLoader;
-        private final int maxVolume;
-
-        public SummaryProvider(Context context, SummaryLoader summaryLoader) {
-            mContext = context;
-            mSummaryLoader = summaryLoader;
-            mAudioManager = (AudioManager) mContext.getSystemService(Context.AUDIO_SERVICE);
-            maxVolume = mAudioManager.getStreamMaxVolume(AudioManager.STREAM_RING);
-        }
-
-        @Override
-        public void setListening(boolean listening) {
-            if (listening) {
-                IntentFilter filter = new IntentFilter();
-                filter.addAction(AudioManager.VOLUME_CHANGED_ACTION);
-                filter.addAction(AudioManager.STREAM_DEVICES_CHANGED_ACTION);
-                filter.addAction(AudioManager.RINGER_MODE_CHANGED_ACTION);
-                filter.addAction(AudioManager.INTERNAL_RINGER_MODE_CHANGED_ACTION);
-                filter.addAction(AudioManager.STREAM_MUTE_CHANGED_ACTION);
-                filter.addAction(NotificationManager.ACTION_EFFECTS_SUPPRESSOR_CHANGED);
-                mContext.registerReceiver(this, filter);
-            } else {
-                mContext.unregisterReceiver(this);
-            }
-        }
-
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            final int ringerMode = mAudioManager.getRingerMode();
-            int resId;
-            String percent = "";
-            if (ringerMode == mAudioManager.RINGER_MODE_SILENT) {
-                resId = R.string.sound_settings_summary_silent;
-            } else if (ringerMode == mAudioManager.RINGER_MODE_VIBRATE){
-                resId = R.string.sound_settings_summary_vibrate;
-            }
-            else {
-                percent =  NumberFormat.getPercentInstance().format(
-                        (double) mAudioManager.getStreamVolume(
-                                AudioManager.STREAM_RING) / maxVolume);
-                resId = R.string.sound_settings_summary;
-            }
-            mSummaryLoader.setSummary(this, mContext.getString(resId, percent));
-        }
-    }
-
-    public static final SummaryLoader.SummaryProviderFactory SUMMARY_PROVIDER_FACTORY
-            = new SummaryLoader.SummaryProviderFactory() {
-        @Override
-        public SummaryLoader.SummaryProvider createSummaryProvider(Activity activity,
-                SummaryLoader summaryLoader) {
-            return new SummaryProvider(activity, summaryLoader);
-        }
-    };
 
     // === Indexing ===
 

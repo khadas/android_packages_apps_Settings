@@ -54,7 +54,6 @@ import com.android.internal.logging.MetricsProto.MetricsEvent;
 import com.android.settings.DialogCreatable;
 import com.android.settings.R;
 import com.android.settings.utils.ProfileSettingsPreferenceFragment;
-import com.android.settings.dashboard.SummaryLoader;
 import com.android.settings.search.BaseSearchIndexProvider;
 import com.android.settings.search.Indexable;
 import com.android.settings.search.SearchIndexableRaw;
@@ -500,70 +499,6 @@ public class PrintSettingsFragment extends ProfileSettingsPreferenceFragment
         }
         return false;
     }
-
-    /**
-     * Provider for the print settings summary
-     */
-    private static class PrintSummaryProvider
-            implements SummaryLoader.SummaryProvider, PrintJobStateChangeListener {
-        private final Context mContext;
-        private final PrintManager mPrintManager;
-        private final SummaryLoader mSummaryLoader;
-
-        /**
-         * Create a new {@link PrintSummaryProvider}.
-         *
-         * @param context The context this provider is for
-         * @param summaryLoader The summary load using this provider
-         */
-        public PrintSummaryProvider(Context context, SummaryLoader summaryLoader) {
-            mContext = context;
-            mSummaryLoader = summaryLoader;
-            mPrintManager = ((PrintManager) context.getSystemService(Context.PRINT_SERVICE))
-                    .getGlobalPrintManagerForUser(context.getUserId());
-        }
-
-        @Override
-        public void setListening(boolean isListening) {
-            if (mPrintManager != null) {
-                if (isListening) {
-                    mPrintManager.addPrintJobStateChangeListener(this);
-                    onPrintJobStateChanged(null);
-                } else {
-                    mPrintManager.removePrintJobStateChangeListener(this);
-                }
-            }
-        }
-
-        @Override
-        public void onPrintJobStateChanged(PrintJobId printJobId) {
-            List<PrintJob> printJobs = mPrintManager.getPrintJobs();
-
-            int numActivePrintJobs = 0;
-            final int numPrintJobs = printJobs.size();
-            for (int i = 0; i < numPrintJobs; i++) {
-                if (shouldShowToUser(printJobs.get(i).getInfo())) {
-                    numActivePrintJobs++;
-                }
-            }
-
-            mSummaryLoader.setSummary(this, mContext.getResources().getQuantityString(
-                    R.plurals.print_settings_title, numActivePrintJobs, numActivePrintJobs));
-        }
-    }
-
-    /**
-     * A factory for {@link PrintSummaryProvider providers} the settings app can use to read the
-     * print summary.
-     */
-    public static final SummaryLoader.SummaryProviderFactory SUMMARY_PROVIDER_FACTORY
-            = new SummaryLoader.SummaryProviderFactory() {
-        @Override
-        public SummaryLoader.SummaryProvider createSummaryProvider(Activity activity,
-                SummaryLoader summaryLoader) {
-            return new PrintSummaryProvider(activity, summaryLoader);
-        }
-    };
 
     public static final SearchIndexProvider SEARCH_INDEX_DATA_PROVIDER =
             new BaseSearchIndexProvider() {

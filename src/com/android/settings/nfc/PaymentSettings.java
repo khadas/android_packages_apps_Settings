@@ -32,7 +32,6 @@ import android.view.ViewGroup;
 import com.android.internal.logging.MetricsProto.MetricsEvent;
 import com.android.settings.R;
 import com.android.settings.SettingsPreferenceFragment;
-import com.android.settings.dashboard.SummaryLoader;
 import com.android.settings.nfc.PaymentBackend.PaymentAppInfo;
 
 import java.util.List;
@@ -100,36 +99,4 @@ public class PaymentSettings extends SettingsPreferenceFragment {
         menuItem.setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_NEVER);
     }
 
-    private static class SummaryProvider implements SummaryLoader.SummaryProvider {
-
-        private final Context mContext;
-        private final SummaryLoader mSummaryLoader;
-
-        public SummaryProvider(Context context, SummaryLoader summaryLoader) {
-            mContext = context;
-            mSummaryLoader = summaryLoader;
-        }
-
-        @Override
-        public void setListening(boolean listening) {
-            if (listening && NfcAdapter.getDefaultAdapter(mContext) != null) {
-                PaymentBackend paymentBackend = new PaymentBackend(mContext);
-                paymentBackend.refresh();
-                PaymentAppInfo app = paymentBackend.getDefaultApp();
-                if (app != null) {
-                    mSummaryLoader.setSummary(this, mContext.getString(R.string.payment_summary,
-                            app.label));
-                }
-            }
-        }
-    }
-
-    public static final SummaryLoader.SummaryProviderFactory SUMMARY_PROVIDER_FACTORY
-            = new SummaryLoader.SummaryProviderFactory() {
-        @Override
-        public SummaryLoader.SummaryProvider createSummaryProvider(Activity activity,
-                                                                   SummaryLoader summaryLoader) {
-            return new SummaryProvider(activity, summaryLoader);
-        }
-    };
 }

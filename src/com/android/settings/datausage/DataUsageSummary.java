@@ -45,7 +45,6 @@ import com.android.internal.logging.MetricsProto.MetricsEvent;
 import com.android.settings.R;
 import com.android.settings.SummaryPreference;
 import com.android.settings.Utils;
-import com.android.settings.dashboard.SummaryLoader;
 import com.android.settings.search.BaseSearchIndexProvider;
 import com.android.settings.search.Indexable;
 import com.android.settingslib.NetworkPolicyEditor;
@@ -373,46 +372,6 @@ public class DataUsageSummary extends DataUsageBase implements Indexable, DataUs
             return NetworkTemplate.buildTemplateEthernet();
         }
     }
-
-    private static class SummaryProvider
-            implements SummaryLoader.SummaryProvider {
-
-        private final Activity mActivity;
-        private final SummaryLoader mSummaryLoader;
-        private final DataUsageController mDataController;
-
-        public SummaryProvider(Activity activity, SummaryLoader summaryLoader) {
-            mActivity = activity;
-            mSummaryLoader = summaryLoader;
-            mDataController = new DataUsageController(activity);
-        }
-
-        @Override
-        public void setListening(boolean listening) {
-            if (listening) {
-                DataUsageController.DataUsageInfo info = mDataController.getDataUsageInfo();
-                String used;
-                if (info == null) {
-                    used = Formatter.formatFileSize(mActivity, 0);
-                } else if (info.limitLevel <= 0) {
-                    used = Formatter.formatFileSize(mActivity, info.usageLevel);
-                } else {
-                    used = Utils.formatPercentage(info.usageLevel, info.limitLevel);
-                }
-                mSummaryLoader.setSummary(this,
-                        mActivity.getString(R.string.data_usage_summary_format, used));
-            }
-        }
-    }
-
-    public static final SummaryLoader.SummaryProviderFactory SUMMARY_PROVIDER_FACTORY
-            = new SummaryLoader.SummaryProviderFactory() {
-        @Override
-        public SummaryLoader.SummaryProvider createSummaryProvider(Activity activity,
-                                                                   SummaryLoader summaryLoader) {
-            return new SummaryProvider(activity, summaryLoader);
-        }
-    };
 
     /**
      * For search

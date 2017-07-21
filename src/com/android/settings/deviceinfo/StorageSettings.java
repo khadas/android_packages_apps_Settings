@@ -48,7 +48,6 @@ import com.android.internal.logging.MetricsProto.MetricsEvent;
 import com.android.settings.R;
 import com.android.settings.SettingsPreferenceFragment;
 import com.android.settings.Utils;
-import com.android.settings.dashboard.SummaryLoader;
 import com.android.settings.search.BaseSearchIndexProvider;
 import com.android.settings.search.Indexable;
 import com.android.settings.search.SearchIndexableRaw;
@@ -490,44 +489,6 @@ public class StorageSettings extends SettingsPreferenceFragment implements Index
             return builder.create();
         }
     }
-
-    private static class SummaryProvider implements SummaryLoader.SummaryProvider {
-        private final Context mContext;
-        private final SummaryLoader mLoader;
-
-        private SummaryProvider(Context context, SummaryLoader loader) {
-            mContext = context;
-            mLoader = loader;
-        }
-
-        @Override
-        public void setListening(boolean listening) {
-            if (listening) {
-                updateSummary();
-            }
-        }
-
-        private void updateSummary() {
-            // TODO: Register listener.
-            final StorageManager storageManager = mContext.getSystemService(StorageManager.class);
-            PrivateStorageInfo info = PrivateStorageInfo.getPrivateStorageInfo(
-                    new StorageManagerVolumeProvider(storageManager));
-            long privateUsedBytes = info.totalBytes - info.freeBytes;
-            mLoader.setSummary(this, mContext.getString(R.string.storage_summary,
-                    Formatter.formatFileSize(mContext, privateUsedBytes),
-                    Formatter.formatFileSize(mContext, info.totalBytes)));
-        }
-    }
-
-
-    public static final SummaryLoader.SummaryProviderFactory SUMMARY_PROVIDER_FACTORY
-            = new SummaryLoader.SummaryProviderFactory() {
-        @Override
-        public SummaryLoader.SummaryProvider createSummaryProvider(Activity activity,
-                                                                   SummaryLoader summaryLoader) {
-            return new SummaryProvider(activity, summaryLoader);
-        }
-    };
 
     /**
      * Enable indexing of searchable data
