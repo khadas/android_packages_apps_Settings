@@ -22,6 +22,7 @@ import com.android.settings.DevelopmentSettings;
 import com.android.settings.DeviceInfoSettings;
 import com.android.settings.DisplaySettings;
 import com.android.settings.FanSettings;
+import com.android.settings.LedSettings;
 import com.android.settings.LegalSettings;
 import com.android.settings.PrivacySettings;
 import com.android.settings.ScreenPinningSettings;
@@ -89,6 +90,7 @@ public final class Ranking {
     public static final int RANK_DEVICE_INFO = 23;
     public static final int RANK_GESTURE = 24;
     public static final int RANK_FAN = 900;
+    public static final int RANK_LED = 901;
 
     public static final int RANK_UNDEFINED = -1;
     public static final int RANK_OTHERS = 1024;
@@ -125,6 +127,8 @@ public final class Ranking {
         // Fan
         sRankMap.put(FanSettings.class.getName(), RANK_FAN);
 
+        // Led
+        sRankMap.put(LedSettings.class.getName(), RANK_LED);
         // Wallpapers
         sRankMap.put(WallpaperTypeSettings.class.getName(), RANK_WALLPAPER);
 

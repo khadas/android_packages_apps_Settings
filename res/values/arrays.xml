@@ -1055,4 +1055,11 @@
         <item>High speed</item>
     </string-array>
 
+    <string-array name="led_title_list">
+        <item>Breathe mode</item>
+        <item>Heartbeat mode</item>
+        <item>Always on</item>
+        <item>Always off</item>
+    </string-array>
+
 </resources>

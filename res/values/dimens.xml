@@ -319,4 +319,6 @@
 
     <!-- khadas fan -->
     <dimen name="fan_list_min_height">60dp</dimen>
+    <!-- khadas led -->
+    <dimen name="led_list_min_height">60dp</dimen>
 </resources>

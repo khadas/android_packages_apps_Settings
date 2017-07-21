@@ -8200,4 +8200,8 @@
     <string name="fan_settings">Cooling fan</string>
     <string name="keywords_fan">fan, cool, cooling, cooling fan</string>
     <string name="fan_settings_disabled_prompt">To control cooling fan, turn fan on.</string>
+
+    <!-- khadas led info -->
+    <string name="led_settings">LED</string>
+    <string name="keywords_fan">led, hint,led hint</string>
 </resources>
