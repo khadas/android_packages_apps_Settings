@@ -37,6 +37,9 @@ import android.os.SystemProperties;
 import android.os.UserManager;
 import android.support.v7.preference.Preference;
 import android.text.TextUtils;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 
 import com.android.internal.logging.MetricsProto.MetricsEvent;
 import com.android.internal.util.ArrayUtils;
@@ -60,6 +63,7 @@ public class Status extends SettingsPreferenceFragment {
     private static final String KEY_BATTERY_LEVEL = "battery_level";
     private static final String KEY_IP_ADDRESS = "wifi_ip_address";
     private static final String KEY_WIFI_MAC_ADDRESS = "wifi_mac_address";
+    private static final String KEY_ETHERNET_MAC_ADDRESS = "ethernet_mac_address";
     private static final String KEY_BT_ADDRESS = "bt_address";
     private static final String KEY_SERIAL_NUMBER = "serial_number";
     private static final String KEY_WIMAX_MAC_ADDRESS = "wimax_mac_address";
@@ -92,6 +96,7 @@ public class Status extends SettingsPreferenceFragment {
     private Preference mBtAddress;
     private Preference mIpAddress;
     private Preference mWifiMacAddress;
+    private Preference mEthernetMacAddress;
     private Preference mWimaxMacAddress;
 
     private Handler mHandler;
@@ -168,6 +173,8 @@ public class Status extends SettingsPreferenceFragment {
         mBatteryStatus = findPreference(KEY_BATTERY_STATUS);
         mBtAddress = findPreference(KEY_BT_ADDRESS);
         mWifiMacAddress = findPreference(KEY_WIFI_MAC_ADDRESS);
+        mEthernetMacAddress = findPreference(KEY_ETHERNET_MAC_ADDRESS);
+        mEthernetMacAddress.setSummary(GetEthernetMacAddr());
         mWimaxMacAddress = findPreference(KEY_WIMAX_MAC_ADDRESS);
         mIpAddress = findPreference(KEY_IP_ADDRESS);
 
@@ -210,6 +217,17 @@ public class Status extends SettingsPreferenceFragment {
             removePreferenceFromScreen(KEY_SIM_STATUS);
             removePreferenceFromScreen(KEY_IMEI_INFO);
         }
+    }
+
+    private String GetEthernetMacAddr() {
+        BufferedReader reader = null;
+        String mac = null;
+        try {
+            reader = new BufferedReader(new FileReader("sys/class/net/eth0/address"));
+            mac = reader.readLine();
+        } catch (Exception e) {
+        }
+        return mac;
     }
 
     @Override

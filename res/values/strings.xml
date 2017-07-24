@@ -2620,6 +2620,8 @@
     <string name="status_operator">Network</string>
     <!-- About phone, status item title.  The MAC address of the Wi-Fi network adapter. -->
     <string name="status_wifi_mac_address">Wi\u2011Fi MAC address</string>
+    <!-- ethernet mac -->
+    <string name="status_ethernet_mac_address">Ethernet MAC address</string>
     <!-- About phone, status item title.  The bluetooth adapter's hardware address-->
     <string name="status_bt_address">Bluetooth address</string>
     <!-- About phone, status item title.  The hardware serial number. [CHAR LIMIT=30]-->
