@@ -1423,7 +1423,7 @@
     <string name="location_access_title" msgid="7064108942964081243">"允许使用我的位置信息"</string>
     <string name="location_access_summary" msgid="69031404093194341">"允许得到您许可的应用使用您的位置信息"</string>
     <string name="location_sources_heading" msgid="1278732419851088319">"位置信息来源"</string>
-    <string name="about_settings" product="mbx">"关于媒体盒"</string>
+    <string name="about_settings" product="mbx">"关于设备"</string>
     <string name="about_settings" product="tablet" msgid="593457295516533765">"关于平板电脑"</string>
     <string name="about_settings" product="tv">"关于电视"</string>
     <string name="about_settings" product="default" msgid="1743378368185371685">"关于手机"</string>
