@@ -19,6 +19,7 @@ package com.android.settings;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.PersistableBundle;
@@ -70,6 +71,8 @@ public class DeviceInfoSettings extends SettingsPreferenceFragment implements In
     private static final String PROPERTY_EQUIPMENT_ID = "ro.ril.fccid";
     private static final String KEY_DEVICE_FEEDBACK = "device_feedback";
     private static final String KEY_SAFETY_LEGAL = "safetylegal";
+    private static final String OTA_UPDATE_PACKAGE = "com.droidlogic.otaupgrade";
+    private static final String OTA_UPDATE_ACTIVITY = "com.droidlogic.otaupgrade.MainActivity";
 
     static final int TAPS_TO_BE_A_DEVELOPER = 7;
 
@@ -159,9 +162,8 @@ public class DeviceInfoSettings extends SettingsPreferenceFragment implements In
         PreferenceGroup parentPreference = getPreferenceScreen();
 
         if (mUm.isAdminUser()) {
-            Utils.updatePreferenceToSpecificActivityOrRemove(act, parentPreference,
-                    KEY_SYSTEM_UPDATE_SETTINGS,
-                    Utils.UPDATE_PREFERENCE_FLAG_SET_TITLE_TO_MATCHING_ACTIVITY);
+            if(!isAppInstalled(OTA_UPDATE_PACKAGE))
+               removePreference(KEY_SYSTEM_UPDATE_SETTINGS);
         } else {
             // Remove for secondary users
             removePreference(KEY_SYSTEM_UPDATE_SETTINGS);
@@ -286,14 +288,22 @@ public class DeviceInfoSettings extends SettingsPreferenceFragment implements In
         } else if (preference.getKey().equals(KEY_DEVICE_FEEDBACK)) {
             sendFeedback();
         } else if(preference.getKey().equals(KEY_SYSTEM_UPDATE_SETTINGS)) {
-            CarrierConfigManager configManager =
-                    (CarrierConfigManager)  getSystemService(Context.CARRIER_CONFIG_SERVICE);
-            PersistableBundle b = configManager.getConfig();
-            if (b != null && b.getBoolean(CarrierConfigManager.KEY_CI_ACTION_ON_SYS_UPDATE_BOOL)) {
-                ciActionOnSysUpdate(b);
-            }
+            Intent intent = new Intent();
+            intent.setClassName(OTA_UPDATE_PACKAGE,OTA_UPDATE_ACTIVITY);
+            startActivity(intent);
         }
         return super.onPreferenceTreeClick(preference);
+    }
+
+    private boolean isAppInstalled(String packageName) {
+        boolean installed = false;
+        try {
+             getPackageManager().getPackageInfo(packageName, PackageManager.GET_ACTIVITIES);
+             installed = true;
+        } catch (PackageManager.NameNotFoundException e) {
+             installed = false;
+        }
+        return installed;
     }
 
     /**
