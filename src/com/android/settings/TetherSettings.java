@@ -31,6 +31,14 @@ import android.hardware.usb.UsbManager;
 import android.net.ConnectivityManager;
 import android.net.wifi.WifiConfiguration;
 import android.net.wifi.WifiManager;
+import android.net.wifi.p2p.WifiP2pManager;
+import android.net.wifi.p2p.WifiP2pGroupList;
+import android.net.wifi.p2p.WifiP2pGroup;
+import android.net.wifi.p2p.WifiP2pInfo;
+import android.net.wifi.p2p.WifiP2pManager.PeerListListener;
+import android.net.wifi.p2p.WifiP2pManager.PersistentGroupInfoListener;
+import java.io.IOException;
+import android.os.SystemProperties;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
@@ -59,10 +67,11 @@ import static android.net.ConnectivityManager.TETHERING_WIFI;
  */
 public class TetherSettings extends RestrictedSettingsFragment
         implements DialogInterface.OnClickListener, Preference.OnPreferenceChangeListener,
-        DataSaverBackend.Listener {
+        DataSaverBackend.Listener, PersistentGroupInfoListener {
 
     private static final String USB_TETHER_SETTINGS = "usb_tether_settings";
     private static final String ENABLE_WIFI_AP = "enable_wifi_ap";
+    private static final String ENABLE_WIFI_RSDB = "enable_wifi_rsdb";
     private static final String ENABLE_BLUETOOTH_TETHERING = "enable_bluetooth_tethering";
     private static final String TETHER_CHOICE = "TETHER_TYPE";
     private static final String DATA_SAVER_FOOTER = "disabled_on_data_saver";
@@ -74,7 +83,10 @@ public class TetherSettings extends RestrictedSettingsFragment
     private SwitchPreference mUsbTether;
 
     private WifiApEnabler mWifiApEnabler;
+    private WifiP2pManager mWifiP2pManager;
+    private WifiP2pManager.Channel mChannel;
     private SwitchPreference mEnableWifiAp;
+    private SwitchPreference mEnableWifiRsdb;
 
     private SwitchPreference mBluetoothTether;
 
@@ -118,6 +130,16 @@ public class TetherSettings extends RestrictedSettingsFragment
     private boolean mDataSaverEnabled;
     private Preference mDataSaverFooter;
 
+    private final String PROP_RSDB_NAME = "persist.sys.wifi.rsdb.name";
+    private final String PROP_RSDB_PASSWD = "persist.sys.wifi.rsdb.passwd";
+    private final String PROP_RSDB_SECURITY_TYPE = "persist.sys.wifi.rsdb.security.type";
+    private final String PROP_RSDB_ENABLE = "sys.wifi.rsdb.enable";
+    private final IntentFilter mIntentFilter = new IntentFilter();
+    private boolean hasRsdb;
+    private boolean mRsdbEnabled;
+    private int mRsdbNetId;
+
+
     @Override
     protected int getMetricsCategory() {
         return MetricsEvent.TETHER;
@@ -153,6 +175,7 @@ public class TetherSettings extends RestrictedSettingsFragment
 
         mEnableWifiAp =
                 (SwitchPreference) findPreference(ENABLE_WIFI_AP);
+        mEnableWifiRsdb = (SwitchPreference) findPreference(ENABLE_WIFI_RSDB);
         Preference wifiApSettings = findPreference(WIFI_AP_SSID_AND_SECURITY);
         mUsbTether = (SwitchPreference) findPreference(USB_TETHER_SETTINGS);
         mBluetoothTether = (SwitchPreference) findPreference(ENABLE_BLUETOOTH_TETHERING);
@@ -161,6 +184,26 @@ public class TetherSettings extends RestrictedSettingsFragment
 
         mCm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         mWifiManager = (WifiManager) getSystemService(Context.WIFI_SERVICE);
+        String mode = SystemProperties.get("ro.product.model", "0");
+        if (mode.equals("VIM2")) {
+            hasRsdb = true;
+        } else {
+            hasRsdb = false;
+        }
+        if (hasRsdb) {
+            mWifiP2pManager = (WifiP2pManager) getSystemService(Context.WIFI_P2P_SERVICE);
+            if (mWifiP2pManager != null) {
+               mChannel = mWifiP2pManager.initialize(activity, getActivity().getMainLooper(), null);
+               if (mChannel == null) {
+                  Log.e(TAG, "Failed to set up connection with wifi p2p service");
+                  mWifiP2pManager = null;
+                }
+             } else {
+               Log.e(TAG, "mWifiP2pManager is null !");
+             }
+        } else {
+            getPreferenceScreen().removePreference(mEnableWifiRsdb);
+        }
 
         mUsbRegexs = mCm.getTetherableUsbRegexs();
         mWifiRegexs = mCm.getTetherableWifiRegexs();
@@ -194,6 +237,16 @@ public class TetherSettings extends RestrictedSettingsFragment
         }
         // Set initial state based on Data Saver mode.
         onDataSaverChanged(mDataSaverBackend.isDataSaverEnabled());
+        if (hasRsdb) {
+            String enable = SystemProperties.get(PROP_RSDB_ENABLE, "0");
+            if (enable.equals("1"))
+               mRsdbEnabled = true;
+            else {
+               mRsdbEnabled = false;
+             }
+            mEnableWifiRsdb.setChecked(mRsdbEnabled);
+            mIntentFilter.addAction(WifiP2pManager.WIFI_P2P_PERSISTENT_GROUPS_CHANGED_ACTION);
+        }
     }
 
     @Override
@@ -203,12 +256,62 @@ public class TetherSettings extends RestrictedSettingsFragment
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        if (hasRsdb)
+           getActivity().registerReceiver(mReceiver, mIntentFilter);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        if (hasRsdb)
+           getActivity().unregisterReceiver(mReceiver);
+    }
+
+    @Override
     public void onDataSaverChanged(boolean isDataSaving) {
         mDataSaverEnabled = isDataSaving;
+        if (hasRsdb) {
+           mEnableWifiRsdb.setEnabled(!mDataSaverEnabled);
+        }
         mEnableWifiAp.setEnabled(!mDataSaverEnabled);
         mUsbTether.setEnabled(!mDataSaverEnabled);
         mBluetoothTether.setEnabled(!mDataSaverEnabled);
         mDataSaverFooter.setVisible(mDataSaverEnabled);
+    }
+
+    private final BroadcastReceiver mReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String action = intent.getAction();
+            Log.d(TAG," WIFI_P2P action=  "+action);
+            if (WifiP2pManager.WIFI_P2P_PERSISTENT_GROUPS_CHANGED_ACTION.equals(action)) {
+                if (mWifiP2pManager != null) {
+                    mWifiP2pManager.requestPersistentGroupInfo(mChannel, TetherSettings.this);
+                 }
+             }
+        }
+    };
+
+    @Override
+    public void onPersistentGroupInfoAvailable(WifiP2pGroupList groups) {
+         if (!hasRsdb)
+             return;
+         for (WifiP2pGroup group: groups.getGroupList()) {
+            Log.d(TAG, " group " + group);
+            Log.d(TAG, "Selecting group " + group.getNetworkName()+ " netId= "+group.getNetworkId());
+            String name =  SystemProperties.get(PROP_RSDB_NAME, "AndroidAP");
+            if (group.getNetworkName().equals(name)) {
+                mRsdbNetId = group.getNetworkId();
+                String enable = SystemProperties.get(PROP_RSDB_ENABLE, "0");
+                if (enable.equals("0")) {
+                    Wifi_Rsdb_control(false);
+                } else {
+                    SystemProperties.set("sys.wifi.rsdb.change", "1");
+                }
+            }
+        }
     }
 
     @Override
@@ -354,6 +457,8 @@ public class TetherSettings extends RestrictedSettingsFragment
             mEnableWifiAp.setOnPreferenceChangeListener(this);
             mWifiApEnabler.resume();
         }
+        if (hasRsdb)
+            mEnableWifiRsdb.setOnPreferenceChangeListener(this);
 
         updateState();
     }
@@ -489,15 +594,88 @@ public class TetherSettings extends RestrictedSettingsFragment
         }
     }
 
+    private void Wifi_Rsdb_control(boolean enable) {
+        if (mWifiP2pManager == null)
+            return;
+        SystemProperties.set(PROP_RSDB_ENABLE, enable ? "1" : "0");
+        if (enable) {
+            String name = SystemProperties.get(PROP_RSDB_NAME,"AndroidAP");
+            Log.d(TAG, "Wifi_Rsdb_control name= "+name);
+            SystemProperties.set(PROP_RSDB_NAME, name);
+
+            mWifiP2pManager.setDeviceName(mChannel, name , new WifiP2pManager.ActionListener() {
+                    public void onSuccess() {
+                    Log.d(TAG, " device rename success");
+                    }
+                    public void onFailure(int reason) {
+                     Log.d(TAG, " device rename fail "+reason);
+                    }
+            });
+             mWifiP2pManager.createGroup(mChannel, new WifiP2pManager.ActionListener() {
+                     public void onSuccess() {
+                     Log.d(TAG, " create group success");
+                     mEnableWifiRsdb.setChecked(true);
+                     }
+                     public void onFailure(int reason) {
+                     Log.d(TAG, " create group fail " + reason);
+                     mEnableWifiRsdb.setChecked(false);
+                     }
+             });
+        } else {
+
+            mWifiP2pManager.removeGroup(mChannel, new WifiP2pManager.ActionListener() {
+                     public void onSuccess() {
+                     Log.d(TAG, " remove group success");
+                     mEnableWifiRsdb.setChecked(false);
+                     }
+                     public void onFailure(int reason) {
+                     Log.d(TAG, " remove group fail " + reason);
+                     mEnableWifiRsdb.setChecked(true);
+                     }
+                });
+
+            mWifiP2pManager.deletePersistentGroup(mChannel, mRsdbNetId, new WifiP2pManager.ActionListener() {
+                    public void onSuccess() {
+                        Log.d(TAG, " delete group success");
+                        mEnableWifiRsdb.setChecked(false);
+                    }
+                    public void onFailure(int reason) {
+                        Log.d(TAG, " delete group fail " + reason);
+                        mEnableWifiRsdb.setChecked(true);
+                    }
+                });
+        }
+
+
+    }
     @Override
     public boolean onPreferenceChange(Preference preference, Object value) {
         boolean enable = (Boolean) value;
+        final String key = preference.getKey();
+        if (ENABLE_WIFI_AP.equals(key)) {
+           if (enable) {
+              if (hasRsdb) {
+                 if (mRsdbEnabled)
+                   Wifi_Rsdb_control(false);
+              }
+              startTethering(TETHERING_WIFI);
+            } else {
+              mCm.stopTethering(TETHERING_WIFI);
+            }
+         } else if (ENABLE_WIFI_RSDB.equals(key)) {
+            if (!hasRsdb)
+               return false;
+            if (mWifiManager.getWifiApState() == WifiManager.WIFI_AP_STATE_ENABLED) {
+                mCm.stopTethering(TETHERING_WIFI);
+                try {
+                    Thread.sleep(500);
+                } catch (Exception e){
+                }
 
-        if (enable) {
-            startTethering(TETHERING_WIFI);
-        } else {
-            mCm.stopTethering(TETHERING_WIFI);
-        }
+            }
+            Wifi_Rsdb_control(enable);
+            mRsdbEnabled = enable;
+         }
         return false;
     }
 
@@ -580,6 +758,16 @@ public class TetherSettings extends RestrictedSettingsFragment
                 mCreateNetwork.setSummary(String.format(getActivity().getString(CONFIG_SUBTEXT),
                         mWifiConfig.SSID,
                         mSecurityType[index]));
+                if (hasRsdb) {
+                   SystemProperties.set(PROP_RSDB_NAME, mWifiConfig.SSID);
+                   SystemProperties.set(PROP_RSDB_PASSWD, mWifiConfig.preSharedKey);
+               //  SystemProperties.set(PROP_RSDB_SECURITY_TYPE, mSecurityType[index]);
+                   String enable = SystemProperties.get(PROP_RSDB_ENABLE, "0");
+                   if (enable.equals("1")) {
+                      Wifi_Rsdb_control(false);
+                      Wifi_Rsdb_control(true);
+                   }
+                }
             }
         }
     }

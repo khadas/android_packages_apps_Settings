@@ -2038,9 +2038,11 @@
 
     <!-- Wifi AP settings-->
     <!-- Label for Wifi tether checkbox. Toggles Access Point on/off -->
-    <string name="wifi_tether_checkbox_text">Portable Wi\u2011Fi hotspot</string>
+    <string name="wifi_tether_checkbox_text">Portable Wi\u2011Fi hotspot(Source from LAN)</string>
     <!-- Label for Wifi tether checkbox. Toggles Access Point on/off  [CHAR LIMIT=30] -->
     <string name="wifi_hotspot_checkbox_text">Wi\u2011Fi hotspot</string>
+    <string name="wifi_rsdb_checkbox_text">Portable Wi\u2011Fi hotspot(Source from WLAN/RSDB)</string>
+
     <!-- Label for Wifi tether checkbox summary. Toggles Access Point on/off  [CHAR LIMIT=60] -->
     <string name="wifi_hotspot_checkbox_text_summary">Use cellular connection to provide Wi\u2011Fi network</string>
     <!-- Summary text when turning hotspot on -->
