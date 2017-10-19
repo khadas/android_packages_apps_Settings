@@ -8208,4 +8208,9 @@
     <!-- khadas led info -->
     <string name="led_settings">LED</string>
     <string name="keywords_fan">led, hint,led hint</string>
+
+    <!-- khadas wol info -->
+    <string name="wol_settings">WOL</string>
+    <string name="wol_title">Wake on LAN</string>
+    <string name="keywords_wol">wol, wake, lan, wake on lan</string>
 </resources>

@@ -52,6 +52,7 @@ public class Settings extends SettingsActivity {
     public static class DisplaySettingsActivity extends SettingsActivity { /* empty */ }
     public static class FanSettingsActivity extends SettingsActivity { /* empty */ }
     public static class LedSettingsActivity extends SettingsActivity { /* empty */ }
+    public static class WolSettingsActivity extends  SettingsActivity { /* empty */ }
     public static class NightDisplaySettingsActivity extends SettingsActivity { /* empty */ }
     public static class DeviceInfoSettingsActivity extends SettingsActivity { /* empty */ }
     public static class ApplicationSettingsActivity extends SettingsActivity { /* empty */ }

@@ -23,6 +23,7 @@ import com.android.settings.DeviceInfoSettings;
 import com.android.settings.DisplaySettings;
 import com.android.settings.FanSettings;
 import com.android.settings.LedSettings;
+import com.android.settings.WolSettings;
 import com.android.settings.LegalSettings;
 import com.android.settings.PrivacySettings;
 import com.android.settings.R;
@@ -152,6 +153,13 @@ public final class SearchIndexableResources {
                         NO_DATA_RES_ID,
                         LedSettings.class.getName(),
                         R.drawable.ic_settings_led));
+
+        sResMap.put(WolSettings.class.getName(),
+                new SearchIndexableResource(
+                        Ranking.getRankForClassName(WolSettings.class.getName()),
+                        NO_DATA_RES_ID,
+                        WolSettings.class.getName(),
+                        R.drawable.ic_settings_wol));
 
         sResMap.put(WallpaperTypeSettings.class.getName(),
                 new SearchIndexableResource(
