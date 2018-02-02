@@ -396,13 +396,13 @@ public class DisplaySettings extends SettingsPreferenceFragment implements
             mCameraGesturePreference.setChecked(value == 0);
         }
         if (mStatusBarBottomPreference !=null) {
-           String value = SystemProperties.get("persist.sys.status.bar.bottom","false");
-           mStatusBarBottomPreference.setChecked(value.equals("true"));
+            int value = Settings.Global.getInt(getContentResolver(), Settings.Global.STATUS_BAR_BOTTOM, 0);
+            mStatusBarBottomPreference.setChecked(value == 1);
         }
 
         if (mStatusBarUpperPreference !=null) {
-           String value = SystemProperties.get("persist.sys.status.bar.upper","false");
-           mStatusBarUpperPreference.setChecked(value.equals("true"));
+            int value = Settings.Global.getInt(getContentResolver(), Settings.Global.STATUS_BAR_UPPER, 0);
+            mStatusBarUpperPreference.setChecked(value == 1);
         }
     }
 
