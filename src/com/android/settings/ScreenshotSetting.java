@@ -75,7 +75,14 @@ public class ScreenshotSetting extends SettingsPreferenceFragment implements OnP
         String summary_delay = mDelay.getSharedPreferences().getString("screenshot_delay", "15");
         mDelay.setSummary(summary_delay + getString(R.string.later));
         mDelay.setValue(summary_delay);
-        String summary_storage = mStorage.getSharedPreferences().getString("screenshot_storage", "flash");
+        String summary_storage = Settings.System.getString(getContentResolver(), Settings.System.SCREENSHOT_LOCATION);
+        if (EXTERNAL_SD_STORAGE.equals(summary_storage)) {
+            summary_storage = "sdcard";
+        } else if (EXTERNAL_USB_STORAGE.equals(summary_storage)) {
+            summary_storage = "usb";
+        } else {
+            summary_storage = "flash";
+        }
         mStorage.setValue(summary_storage);
         mStorage.setSummary(mStorage.getEntry());
         boolean isShow = Settings.System.getInt(mContext.getContentResolver(), Settings.System.SCREENSHOT_BUTTON_SHOW, 1) == 1;
