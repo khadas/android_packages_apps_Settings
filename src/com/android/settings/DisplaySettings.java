@@ -302,6 +302,8 @@ public class DisplaySettings extends SettingsPreferenceFragment implements
         } else if (currentTimeout < 0) {
             // Unsupported value
             summary = "";
+        } else if (0 == currentTimeout || Integer.MAX_VALUE == currentTimeout) {
+            summary = preference.getContext().getResources().getStringArray(R.array.dream_timeout_entries)[0];
         } else {
             final CharSequence[] entries = preference.getEntries();
             final CharSequence[] values = preference.getEntryValues();
@@ -331,8 +333,11 @@ public class DisplaySettings extends SettingsPreferenceFragment implements
     public void onResume() {
         super.onResume();
         updateState();
-        final long currentTimeout = Settings.System.getLong(getActivity().getContentResolver(),
+        long currentTimeout = Settings.System.getLong(getActivity().getContentResolver(),
                 SCREEN_OFF_TIMEOUT, FALLBACK_SCREEN_TIMEOUT_VALUE);
+        if(currentTimeout > 1800000){
+            currentTimeout = 0;
+        }
         mScreenTimeoutPreference.setValue(String.valueOf(currentTimeout));
         mScreenTimeoutPreference.setOnPreferenceChangeListener(this);
         final DevicePolicyManager dpm = (DevicePolicyManager) getActivity().getSystemService(
@@ -416,6 +421,9 @@ public class DisplaySettings extends SettingsPreferenceFragment implements
         if (KEY_SCREEN_TIMEOUT.equals(key)) {
             try {
                 int value = Integer.parseInt((String) objValue);
+                if (value == 0) {
+                    value = Integer.MAX_VALUE;
+                }
                 Settings.System.putInt(getContentResolver(), SCREEN_OFF_TIMEOUT, value);
                 updateTimeoutPreferenceDescription(value);
             } catch (NumberFormatException e) {
