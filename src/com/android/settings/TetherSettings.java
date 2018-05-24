@@ -184,8 +184,8 @@ public class TetherSettings extends RestrictedSettingsFragment
 
         mCm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         mWifiManager = (WifiManager) getSystemService(Context.WIFI_SERVICE);
-        String mode = SystemProperties.get("ro.product.model", "0");
-        if (mode.equals("VIM2")) {
+        String model = SystemProperties.get("persist.sys.wifi.model", "6212");
+        if (model.equals("6359")) {
             hasRsdb = true;
         } else {
             hasRsdb = false;
