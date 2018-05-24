@@ -747,6 +747,8 @@ public class TetherSettings extends RestrictedSettingsFragment
                  * else restart with new config
                  * TODO: update config on a running access point when framework support is added
                  */
+
+                SystemProperties.set("persist.sys.softap.band", String.valueOf(mWifiConfig.apBand));
                 if (mWifiManager.getWifiApState() == WifiManager.WIFI_AP_STATE_ENABLED) {
                     Log.d("TetheringSettings",
                             "Wifi AP config changed while enabled, stop and restart");

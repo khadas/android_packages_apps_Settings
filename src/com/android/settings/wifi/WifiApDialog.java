@@ -24,6 +24,7 @@ import android.net.wifi.WifiConfiguration.AuthAlgorithm;
 import android.net.wifi.WifiConfiguration.KeyMgmt;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
+import android.os.SystemProperties;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
@@ -147,6 +148,12 @@ public class WifiApDialog extends AlertDialog implements View.OnClickListener,
                     R.array.wifi_ap_band_config_full, android.R.layout.simple_spinner_item);
         }
 
+        String model = SystemProperties.get("persist.sys.wifi.model", "6212");
+        if (model.equals("6255") || model.equals("6356") || model.equals("6359"))
+	    {
+            channelAdapter = ArrayAdapter.createFromResource(mContext,
+                    R.array.wifi_ap_band_config_full, android.R.layout.simple_spinner_item);
+        }
         channelAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         setButton(BUTTON_SUBMIT, context.getString(R.string.wifi_save), mListener);
@@ -160,6 +167,9 @@ public class WifiApDialog extends AlertDialog implements View.OnClickListener,
             } else {
                mBandIndex = 1;
             }
+
+            String type = SystemProperties.get("persist.sys.softap.band", "0");
+            mBandIndex = Integer.parseInt(type);
 
             mSecurity.setSelection(mSecurityTypeIndex);
             if (mSecurityTypeIndex == WPA2_INDEX) {
