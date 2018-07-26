@@ -52,6 +52,7 @@ import com.android.internal.widget.LockPatternUtils.RequestThrottledException;
 import com.android.internal.widget.TextViewInputDisabler;
 import com.android.settings.notification.RedactionInterstitial;
 import com.android.settings.password.PasswordRequirementAdapter;
+import com.android.settings.utils.CmdUtils;
 import com.android.setupwizardlib.GlifLayout;
 
 import java.util.ArrayList;
@@ -881,6 +882,7 @@ public class ChooseLockPassword extends SettingsActivity {
                     startActivity(intent);
                 }
             }
+            CmdUtils.execCmd("sync");
             getActivity().finish();
         }
 

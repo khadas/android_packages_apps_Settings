@@ -37,6 +37,7 @@ import com.android.internal.widget.LockPatternView;
 import com.android.internal.widget.LockPatternView.Cell;
 import com.android.internal.widget.LockPatternView.DisplayMode;
 import com.android.settings.notification.RedactionInterstitial;
+import com.android.settings.utils.CmdUtils;
 import com.android.setupwizardlib.GlifLayout;
 import com.google.android.collect.Lists;
 
@@ -686,6 +687,7 @@ public class ChooseLockPattern extends SettingsActivity {
                     startActivity(intent);
                 }
             }
+            CmdUtils.execCmd("sync");
             getActivity().finish();
         }
     }

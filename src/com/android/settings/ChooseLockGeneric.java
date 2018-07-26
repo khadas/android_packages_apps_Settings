@@ -316,7 +316,9 @@ public class ChooseLockGeneric extends SettingsActivity {
             mWaitingForConfirmation = false;
             if (requestCode == CONFIRM_EXISTING_REQUEST && resultCode == Activity.RESULT_OK) {
                 mPasswordConfirmed = true;
-                mUserPassword = data.getStringExtra(ChooseLockSettingsHelper.EXTRA_KEY_PASSWORD);
+                if (data != null) {
+                    mUserPassword = data.getStringExtra(ChooseLockSettingsHelper.EXTRA_KEY_PASSWORD);
+                }
                 updatePreferencesOrFinish();
                 if (mForChangeCredRequiredForBoot) {
                     if (!TextUtils.isEmpty(mUserPassword)) {
