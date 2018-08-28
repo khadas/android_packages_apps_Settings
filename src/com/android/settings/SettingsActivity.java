@@ -53,6 +53,7 @@ import android.widget.Button;
 import android.widget.SearchView;
 
 import com.android.internal.util.ArrayUtils;
+import com.android.settings.EthernetSettings;
 import com.android.settings.Settings.WifiSettingsActivity;
 import com.android.settings.accessibility.AccessibilitySettings;
 import com.android.settings.accessibility.AccessibilitySettingsForSetupWizard;
@@ -362,6 +363,7 @@ public class SettingsActivity extends SettingsDrawerActivity
             ScreenshotSetting.class.getName(),
             HdmiSettings.class.getName(),
             ManageDomainUrls.class.getName(),
+            EthernetSettings.class.getName(),
             AutomaticStorageManagerSettings.class.getName()
     };
 
