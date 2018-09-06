@@ -49,6 +49,7 @@ import android.os.Bundle;
 import android.os.IBinder;
 import android.os.Parcel;
 import android.os.RemoteException;
+import android.os.RkDisplayOutputManager;
 import android.os.ServiceManager;
 import android.os.StrictMode;
 import android.os.SystemProperties;
@@ -166,7 +167,7 @@ public class DevelopmentSettings extends RestrictedSettingsFragment
     private static final String SELECT_LOGD_SIZE_KEY = "select_logd_size";
     private static final String SELECT_LOGD_SIZE_PROPERTY = "persist.logd.size";
     private static final String SELECT_LOGD_TAG_PROPERTY = "persist.log.tag";
-    private static final String SELECT_COLOR_TEMPERATURE_PROPERTY = "sys.color.temperature";
+    private static final String SELECT_COLOR_TEMPERATURE_PROPERTY = "persist.sys.color.temperature";
     // Tricky, isLoggable only checks for first character, assumes silence
     private static final String SELECT_LOGD_TAG_SILENCE = "Settings";
     private static final String SELECT_LOGD_SNET_TAG_PROPERTY = "persist.log.tag.snet_event_log";
@@ -342,6 +343,8 @@ public class DevelopmentSettings extends RestrictedSettingsFragment
     private boolean mLogpersistCleared;
     private Dialog mLogpersistClearDialog;
 
+    private RkDisplayOutputManager mRkDisplayOutputManager;
+
     public DevelopmentSettings() {
         super(UserManager.DISALLOW_DEBUGGING_FEATURES);
     }
@@ -368,6 +371,8 @@ public class DevelopmentSettings extends RestrictedSettingsFragment
         mUm = (UserManager) getSystemService(Context.USER_SERVICE);
 
         mWifiManager = (WifiManager) getSystemService(Context.WIFI_SERVICE);
+
+        mRkDisplayOutputManager = new RkDisplayOutputManager();
 
         setIfOnlyAvailableForAdmins(true);
         if (isUiRestricted() || !Utils.isDeviceProvisioned(getActivity())) {
@@ -780,11 +785,21 @@ public class DevelopmentSettings extends RestrictedSettingsFragment
     private void updateColorTemperatureOptions() {
         Log.d(TAG,"updateColorTemperatureOptions");
         if(mColorTemperature != null) {
-            String currentValue = SystemProperties.get(SELECT_COLOR_TEMPERATURE_PROPERTY);
+            String currentValue = null;
+            int rgb[] = mRkDisplayOutputManager.getGamma(0);
+            if (rgb.length == 1024 * 3) {
+                currentValue = String.valueOf(rgbToColorTemperature(rgb[1024 - 1], rgb[2 * 1024 - 1], rgb[3 * 1024 - 1]));
+                Log.d(TAG, "getGamma color " + currentValue);
+                if (!currentValue.equals(SystemProperties.get(SELECT_COLOR_TEMPERATURE_PROPERTY))) {
+                    SystemProperties.set(SELECT_COLOR_TEMPERATURE_PROPERTY, currentValue);
+                }
+            } else {
+                currentValue = SystemProperties.get(SELECT_COLOR_TEMPERATURE_PROPERTY);
+            }
             String[] values = getResources().getStringArray(R.array.select_color_temperature_values);
             String[] summaries = getResources().getStringArray(R.array.select_color_temperature_summaries);
             int index = 2; // Defaults to drm-only. Needs to match with R.array.hdcp_checking_values
-            for (int i = 0; i < values.length; i++) {
+            for (int i = 0; currentValue != null && i < values.length; i++) {
                 if (currentValue.equals(values[i])) {
                     index = i;
                     break;
@@ -2733,4 +2748,19 @@ public class DevelopmentSettings extends RestrictedSettingsFragment
         0.62774186,  0.75306977,  1.00000000, /* 25000K */
         0.62740336,  0.75282962,  1.00000000  /* 25100K */
     };
+
+    private int rgbToColorTemperature(int r, int g, int b) {
+        for (int i = 0; i < blackbody_color.length; i += 3) {
+            if (format4DigitDecimal(blackbody_color[i]) == format4DigitDecimal((double) r / 65535)
+                    && format4DigitDecimal(blackbody_color[i + 1]) == format4DigitDecimal((double) g / 65535)
+                    && format4DigitDecimal(blackbody_color[i + 2]) == format4DigitDecimal((double) b / 65535)) {
+                return (1000 + 100 * i / 3);
+            }
+        }
+        return 6500;
+    }
+
+    private double format4DigitDecimal(double x) {
+        return (double) (Math.round(x * 10000) / 10000.0);
+    }
 }
