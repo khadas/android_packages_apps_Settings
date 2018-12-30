@@ -167,6 +167,13 @@
             </intent-filter>
         </receiver>
 
+        <receiver android:name=".AtxAgent">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+            </intent-filter>
+        </receiver>
+        <service android:name=".AtxAgentService" />
+
         <activity android:name=".SubSettings"
                 android:taskAffinity="com.android.settings"
                 android:parentActivityName="Settings">
