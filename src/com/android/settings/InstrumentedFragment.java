@@ -33,6 +33,8 @@ public abstract class InstrumentedFragment extends PreferenceFragment {
     public static final int UNDECLARED = 100000;
 
     public static final int SCREENSHOT = 100001;
+
+    public static final int COOLINGFAN = 100002;
     // Used by PreferenceActivity for the dummy fragment it adds, no useful data here.
     public static final int PREFERENCE_ACTIVITY_FRAGMENT = UNDECLARED + 1;
 

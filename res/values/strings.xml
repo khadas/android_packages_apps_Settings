@@ -7983,4 +7983,9 @@
     <string name="color_temperature_mode_desc">Color temperature mode</string>
     <!-- temperature of the color for the display [CHAR LIMIT=60] -->
     <string name="select_color_temperature_dialog_title">Select Color temperature </string>
+
+    <!-- khadas fan info -->
+    <string name="fan_settings">Cooling fan</string>
+    <string name="keywords_fan">fan, cool, cooling, cooling fan</string>
+    <string name="fan_settings_disabled_prompt">To control cooling fan, turn fan on.</string>
 </resources>
