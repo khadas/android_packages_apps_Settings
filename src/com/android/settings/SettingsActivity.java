@@ -132,6 +132,7 @@ import com.android.settings.wifi.WifiAPITest;
 import com.android.settings.wifi.WifiInfo;
 import com.android.settings.wifi.WifiSettings;
 import com.android.settings.FanSettings;
+import com.android.settings.LedSettings;
 import com.android.settings.wifi.p2p.WifiP2pSettings;
 import com.android.settingslib.drawer.DashboardCategory;
 import com.android.settingslib.drawer.SettingsDrawerActivity;
@@ -252,6 +253,7 @@ public class SettingsActivity extends SettingsDrawerActivity
             Settings.GestureSettingsActivity.class.getName(),
             Settings.ScreenshotSettingsActivity.class.getName(),
             Settings.FanSettingsActivity.class.getName(),
+            Settings.LedSettingsActivity.class.getName(),
             //personal_section
             Settings.LocationSettingsActivity.class.getName(),
             Settings.SecuritySettingsActivity.class.getName(),
@@ -364,6 +366,7 @@ public class SettingsActivity extends SettingsDrawerActivity
             NightDisplaySettings.class.getName(),
             ScreenshotSetting.class.getName(),
             FanSettings.class.getName(),
+            LedSettings.class.getName(),
             HdmiSettings.class.getName(),
             ManageDomainUrls.class.getName(),
             EthernetSettings.class.getName(),
