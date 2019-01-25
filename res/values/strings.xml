@@ -7988,4 +7988,10 @@
     <string name="fan_settings">Cooling fan</string>
     <string name="keywords_fan">fan, cool, cooling, cooling fan</string>
     <string name="fan_settings_disabled_prompt">To control cooling fan, turn fan on.</string>
+    <!-- enable root -->
+    <string name="root_settings">Root</string>
+    <string name="root_title">Root access</string>
+    <string name="root_summary">Enable root access privileges</string>
+    <string name="root_warn">Enable root, restart required</string>
+    <string name="unroot_warn">Disable root, restart required</string>
 </resources>

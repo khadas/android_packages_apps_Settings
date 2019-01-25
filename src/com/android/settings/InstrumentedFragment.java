@@ -37,6 +37,8 @@ public abstract class InstrumentedFragment extends PreferenceFragment {
     public static final int COOLINGFAN = 100002;
 
     public static final int LED = 100003;
+
+    public static final int ROOT = 100004;
     // Used by PreferenceActivity for the dummy fragment it adds, no useful data here.
     public static final int PREFERENCE_ACTIVITY_FRAGMENT = UNDECLARED + 1;
 

@@ -133,6 +133,7 @@ import com.android.settings.wifi.WifiInfo;
 import com.android.settings.wifi.WifiSettings;
 import com.android.settings.FanSettings;
 import com.android.settings.LedSettings;
+import com.android.settings.RootSettings;
 import com.android.settings.wifi.p2p.WifiP2pSettings;
 import com.android.settingslib.drawer.DashboardCategory;
 import com.android.settingslib.drawer.SettingsDrawerActivity;
@@ -262,6 +263,7 @@ public class SettingsActivity extends SettingsDrawerActivity
             Settings.AccountSettingsActivity.class.getName(),
             //system_section
             Settings.DateTimeSettingsActivity.class.getName(),
+            Settings.RootSettingsActivity.class.getName(),
             Settings.DeviceInfoSettingsActivity.class.getName(),
             Settings.AccessibilitySettingsActivity.class.getName(),
             Settings.PrintSettingsActivity.class.getName(),
@@ -280,6 +282,7 @@ public class SettingsActivity extends SettingsDrawerActivity
             WifiP2pSettings.class.getName(),
             VpnSettings.class.getName(),
             DateTimeSettings.class.getName(),
+            RootSettings.class.getName(),
             LocaleListEditor.class.getName(),
             InputMethodAndLanguageSettings.class.getName(),
             AvailableVirtualKeyboardFragment.class.getName(),
@@ -1123,6 +1126,10 @@ public class SettingsActivity extends SettingsDrawerActivity
         // Reveal development-only quick settings tiles
         DevelopmentTiles.setTilesEnabled(this, showDev);
 
+       final boolean showRoot = SystemProperties.getBoolean("persist.sys.root.menu",false);
+       setTileEnabled(new ComponentName(packageName,
+                           Settings.RootSettingsActivity.class.getName()),
+                   showRoot, isAdmin, pm);
         if (UserHandle.MU_ENABLED && !isAdmin) {
             // When on restricted users, disable all extra categories (but only the settings ones).
             List<DashboardCategory> categories = getDashboardCategories();
