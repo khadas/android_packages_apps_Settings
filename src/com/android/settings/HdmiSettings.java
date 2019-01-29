@@ -156,16 +156,12 @@ public class HdmiSettings extends SettingsPreferenceFragment
         mHdmiDualScreen.setOnPreferenceChangeListener(this);
  
         mHdmiDualScreenVH = (CheckBoxPreference)findPreference(KEY_HDMI_DUAL_SCREEN_VH);
-        mHdmiDualScreenVH.setEnabled(enable);
-        if(enable) {
-            mHdmiDualScreenVH.setChecked(SystemProperties.getBoolean("persist.orientation.vhshow", false));
-        }
+        mHdmiDualScreenVH.setChecked(SystemProperties.getBoolean("persist.sys.rotation.efull", false));
         mHdmiDualScreenVH.setOnPreferenceChangeListener(this);
         mHdmiDualScreenList = (ListPreference)findPreference(KEY_HDMI_DUAL_SCREEN_LIST);
         mHdmiDualScreenList.setOnPreferenceChangeListener(this);
         mHdmiDualScreenList.setOnPreferenceClickListener(this);
-        mHdmiDualScreenList.setEnabled(SystemProperties.getBoolean("persist.orientation.vhshow", false));
-        Log.d(TAG, "onCreate---------------------");
+        Log.d(TAG, "---------onCreate---------------------");
     }
 
 
@@ -205,16 +201,8 @@ public class HdmiSettings extends SettingsPreferenceFragment
         mDisplayManager.registerDisplayListener(mDisplayListener, null);
         if (android.provider.Settings.System.getInt(getActivity().getContentResolver(),DOUBLE_SCREEN_STATE,0) == 0) {
             mHdmiDualScreen.setEnabled(true);
-            if(android.provider.Settings.System.getInt(getActivity().getContentResolver(),DOUBLE_SCREEN_CONFIG,0) == 1) {
-                mHdmiDualScreenVH.setEnabled(true);
-            } else {
-                mHdmiDualScreenVH.setEnabled(false);
-            }
-            mHdmiDualScreenList.setEnabled(SystemProperties.getBoolean("persist.orientation.vhshow", false));
         } else {
             mHdmiDualScreen.setEnabled(false);
-            mHdmiDualScreenVH.setEnabled(false);
-            mHdmiDualScreenList.setEnabled(false);
         }
     }
 
@@ -288,12 +276,6 @@ public class HdmiSettings extends SettingsPreferenceFragment
             mHdmiResolution.setEnabled(false);
             mHdmiScale.setEnabled(false);
             mHdmiRotation.setEnabled(false);
-	        //mHdmiDualScreen.setEnabled(false);
-	        //mHdmiDualScreenVH.setEnabled(false);
-	        mHdmiDualScreenList.setEnabled(false);
-            SystemProperties.set("persist.orientation.vhshow", "false");
-            SystemProperties.set("persist.orientation.vhinit", "0");
-            mHdmiDualScreenVH.setChecked(false);
         } else {
             new Handler().postDelayed(new Runnable() {
                 public void run() {
@@ -309,8 +291,6 @@ public class HdmiSettings extends SettingsPreferenceFragment
                         if(getActivity() != null && getActivity().getContentResolver() != null) {
 			                if (android.provider.Settings.System.getInt(getActivity().getContentResolver(),DOUBLE_SCREEN_STATE,0) == 0) {
                                 mHdmiDualScreen.setEnabled(true);
-                                mHdmiDualScreenVH.setEnabled(android.provider.Settings.System.getInt(getActivity().getContentResolver(),DOUBLE_SCREEN_CONFIG,0) == 1);
-                                mHdmiDualScreenList.setEnabled(SystemProperties.getBoolean("persist.orientation.vhshow", false));
                     	    }
                         }
                     }
@@ -355,7 +335,7 @@ public class HdmiSettings extends SettingsPreferenceFragment
         } else if (preference == mHdmiResolution) {
             updateHDMIState();
         } else if (preference == mHdmiDualScreenList) {
-            String value = SystemProperties.get("persist.orientation.vhinit","0");
+            String value = SystemProperties.get("persist.sys.rotation.einit","0");
             mHdmiDualScreenList.setValue(value);
         }
         return true;
@@ -401,28 +381,35 @@ public class HdmiSettings extends SettingsPreferenceFragment
             }
 	    } else if (preference == mHdmiDualScreen) {
             android.provider.Settings.System.putInt(getActivity().getContentResolver(),DOUBLE_SCREEN_CONFIG,(Boolean)obj?1:0);
-            SystemProperties.set("persist.orientation.vhinit", "0");
-            SystemProperties.set("persist.orientation.vhshow", "false");
-            mHdmiDualScreenVH.setEnabled((Boolean)obj);
-            mHdmiDualScreenVH.setChecked(false);
-            mHdmiDualScreenList.setEnabled(false);
             this.finish();
 	    } else if (preference == mHdmiDualScreenVH) {
             if((Boolean)obj) {
-                SystemProperties.set("persist.orientation.vhshow", "true");   
-                mHdmiDualScreenList.setEnabled(true);
+                SystemProperties.set("persist.sys.rotation.efull", "true");
             } else {
-                SystemProperties.set("persist.orientation.vhshow", "false");   
-                mHdmiDualScreenList.setEnabled(false);
-                SystemProperties.set("persist.orientation.vhinit", "0");
+                SystemProperties.set("persist.sys.rotation.efull", "false");
             }
-            SystemProperties.set("persist.orientation.vhinit", "0");
+            SystemProperties.set("sys.hdmi_status.aux", "off");
+            mSwitchBar.setEnabled(false);
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    SystemProperties.set("sys.hdmi_status.aux", "on");
+                    mSwitchBar.setEnabled(true);
+                }
+            },500);
 	    } else if (preference == mHdmiDualScreenList) {
-            if("0".equals(obj.toString())) {
-                SystemProperties.set("persist.orientation.vhinit", "0");
-            } else if ("1".equals(obj.toString())) {
-                SystemProperties.set("persist.orientation.vhinit", "1");
-            }
+                SystemProperties.set("persist.sys.rotation.einit", obj.toString());
+                //mDisplayManager.forceScheduleTraversalLocked();
+                SystemProperties.set("sys.hdmi_status.aux", "off");
+                mSwitchBar.setEnabled(false);
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        SystemProperties.set("sys.hdmi_status.aux", "on");
+                        mSwitchBar.setEnabled(true);
+                    }
+                },500);
+
         }
         return true;
     }
