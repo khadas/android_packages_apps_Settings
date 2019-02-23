@@ -71,9 +71,9 @@ public class FanSettings extends SettingsPreferenceFragment implements
     private static final String PROP_FAN_INDEX = "persist.sys.fna.index";
 
 
-    private static final String SYS_FAN_MODE = "/sys/class/fan/ctrl/mode";
-    private static final String SYS_FAN_LEVEL = "/sys/class/fan/ctrl/level";
-    private static final String SYS_FAN_ENABLE = "/sys/class/fan/ctrl/enable";
+    private static final String SYS_FAN_MODE = "/sys/class/fan/mode";
+    private static final String SYS_FAN_LEVEL = "/sys/class/fan/level";
+    private static final String SYS_FAN_ENABLE = "/sys/class/fan/enable";
 
     private static final int MANUAL_MODE = 0;
     private static final int AUTO_MODE = 1;
