@@ -39,7 +39,7 @@ public class DrmDisplaySetting {
 
     private final static String SYS_NODE_STATUS_DISCONNECTED = "disconnected";
 
-    public final static int DISPLAY_TYPE_HDMI = 1;//mid hdmi is aux
+    public final static int DISPLAY_TYPE_HDMI = 0;//mid hdmi is aux
     public final static int DISPLAY_TYPE_DP = 1;
 
 
@@ -194,7 +194,7 @@ public class DrmDisplaySetting {
     private final static String SYS_NODE_HDMI_STATUS =
             "/sys/devices/platform/display-subsystem/drm/card0/card0-HDMI-A-1/status";
 
-    private final static String PROP_RESOLUTION_HDMI = "persist.sys.resolution.aux";
+    private final static String PROP_RESOLUTION_HDMI = "persist.sys.resolution.main";
 
     private static String tmpSetHdmiMode = null;
     private static String curSetHdmiMode = "Auto";
