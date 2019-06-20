@@ -131,8 +131,8 @@ public class HdmiSettings extends SettingsPreferenceFragment
             }
             default: {
                 mShowSettings = DOUBLE_SHOW;
-                String primary = SystemProperties.get("sys.hwc.device.primary", "");
-                String extend = SystemProperties.get("sys.hwc.device.extend", "");
+                String primary = SystemProperties.get("vendor.hwc.device.primary", "");
+                String extend = SystemProperties.get("vendor.hwc.device.extend", "");
                 if (primary.contains("HDMI")) {//配置hdmi为主显
                     sys_main_state = SYS_HDMI_STATE;
                     sys_aux_state = SYS_DP_STATE;
