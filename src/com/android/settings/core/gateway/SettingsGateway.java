@@ -17,6 +17,7 @@
 package com.android.settings.core.gateway;
 
 import com.android.settings.FanSettings;
+import com.android.settings.LedSettings;
 import com.android.settings.DateTimeSettings;
 import com.android.settings.DeviceAdminSettings;
 import com.android.settings.DisplaySettings;
@@ -153,6 +154,7 @@ public class SettingsGateway {
             WifiSettings.class.getName(),
             ScreenshotSetting.class.getName(),
 			FanSettings.class.getName(),
+			LedSettings.class.getName(),
             HdmiSettings.class.getName(),
             ConfigureWifiSettings.class.getName(),
             SavedAccessPointsWifiSettings.class.getName(),
@@ -279,6 +281,7 @@ public class SettingsGateway {
             Settings.ConnectedDeviceDashboardActivity.class.getName(),
             Settings.ScreenshotSettingsActivity.class.getName(),
 			Settings.FanSettingsActivity.class.getName(),
+			Settings.LedSettingsActivity.class.getName(),
             Settings.AppAndNotificationDashboardActivity.class.getName(),
             Settings.DisplaySettingsActivity.class.getName(),
             Settings.SoundSettingsActivity.class.getName(),			
