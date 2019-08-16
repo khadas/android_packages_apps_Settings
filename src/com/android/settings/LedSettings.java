@@ -77,7 +77,7 @@ public class LedSettings extends SettingsPreferenceFragment {
     private static final int INDEX_ON = 1;
     private static final int INDEX_OFF = 2;
 
-    private static final int DEFAULT_MODE = INDEX_HEARTBEAT;
+    private static final int DEFAULT_MODE = INDEX_OFF;
 
     private static final int INDEX_LED[] = {
         INDEX_HEARTBEAT,
