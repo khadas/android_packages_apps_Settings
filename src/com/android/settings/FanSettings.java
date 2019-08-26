@@ -71,9 +71,9 @@ public class FanSettings extends SettingsPreferenceFragment implements
     private static final String PROP_FAN_INDEX = "persist.sys.fna.index";
 
 
-    private static final String SYS_FAN_MODE = "/sys/class/hwmon/hwmon0/mode";
+    private static final String SYS_FAN_MODE = "/sys/class/hwmon/hwmon1/mode";
     private static final String SYS_FAN_LEVEL = "/sys/class/thermal/cooling_device0/cur_state";
-    private static final String SYS_FAN_ENABLE = "/sys/class/hwmon/hwmon0/enable";
+    private static final String SYS_FAN_ENABLE = "/sys/class/hwmon/hwmon1/enable";
 
     private static final int MANUAL_MODE = 0;
     private static final int AUTO_MODE = 1;
