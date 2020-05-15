@@ -421,4 +421,6 @@
     <!-- Battery meter icon size of advanced bluetooth device -->
     <dimen name="advanced_bluetooth_battery_meter_width">7.8dp</dimen>
     <dimen name="advanced_bluetooth_battery_meter_height">13dp</dimen>
+    <!-- khadas fan -->
+    <dimen name="fan_list_min_height">60dp</dimen>
 </resources>

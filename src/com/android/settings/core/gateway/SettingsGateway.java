@@ -16,6 +16,7 @@
 
 package com.android.settings.core.gateway;
 
+import com.android.settings.FanSettings;
 import com.android.settings.DateTimeSettings;
 import com.android.settings.DisplaySettings;
 import com.android.settings.IccLockSettings;
@@ -162,6 +163,7 @@ public class SettingsGateway {
             CreateShortcut.class.getName(),
             WifiSettings.class.getName(),
             ScreenshotSettings.class.getName(),
+			FanSettings.class.getName(),
             HdmiSettings.class.getName(),
             ConfigureWifiSettings.class.getName(),
             SavedAccessPointsWifiSettings.class.getName(),
@@ -297,9 +299,10 @@ public class SettingsGateway {
             Settings.NetworkDashboardActivity.class.getName(),
             Settings.ConnectedDeviceDashboardActivity.class.getName(),
             Settings.ScreenshotSettingsActivity.class.getName(),
+			Settings.FanSettingsActivity.class.getName(),
             Settings.AppAndNotificationDashboardActivity.class.getName(),
             Settings.DisplaySettingsActivity.class.getName(),
-            Settings.SoundSettingsActivity.class.getName(),
+            Settings.SoundSettingsActivity.class.getName(),			
             Settings.StorageDashboardActivity.class.getName(),
             Settings.PowerUsageSummaryActivity.class.getName(),
             Settings.AccountDashboardActivity.class.getName(),
