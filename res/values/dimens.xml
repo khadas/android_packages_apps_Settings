@@ -423,4 +423,8 @@
     <dimen name="advanced_bluetooth_battery_meter_height">13dp</dimen>
     <!-- khadas fan -->
     <dimen name="fan_list_min_height">60dp</dimen>
+    <!-- khadas led -->
+    <dimen name="led_list_min_height">60dp</dimen>
+    <string name="led_settings">LED</string>
+    <string name="keywords_fan">led, hint,led hint</string>
 </resources>
