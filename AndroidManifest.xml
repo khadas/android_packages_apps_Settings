@@ -3339,7 +3339,7 @@
             android:name="Settings$FanSettingsActivity"
             android:taskAffinity="com.android.settings"
             android:label="@string/fan_settings"
-            android:icon="@drawable/ic_settings_fan"
+            android:icon="@drawable/ic_homepage_fan"
             android:parentActivityName="Settings">
             <intent-filter android:priority="1">
                 <action android:name="com.android.settings.FAN_SETTINGS" />
@@ -3375,7 +3375,7 @@
             android:name="Settings$LedSettingsActivity"
             android:taskAffinity="com.android.settings"
                 android:label="@string/led_settings"
-                android:icon="@drawable/ic_settings_led"
+                android:icon="@drawable/ic_homepage_led"
             android:parentActivityName="Settings">
             <intent-filter android:priority="1">
                 <action android:name="com.android.settings.LED_SETTINGS" />
