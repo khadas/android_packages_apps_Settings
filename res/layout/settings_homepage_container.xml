@@ -27,14 +27,15 @@
         android:id="@+id/main_content_scrollable_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:descendantFocusability="blocksDescendants"	
         app:layout_behavior="com.android.settings.widget.FloatingAppBarScrollingViewBehavior">
 
         <LinearLayout
             android:id="@+id/homepage_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:descendantFocusability="blocksDescendants">
+            android:orientation="vertical">
 
             <FrameLayout
                 android:id="@+id/contextual_cards_content"
