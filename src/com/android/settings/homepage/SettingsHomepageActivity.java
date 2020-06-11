@@ -48,15 +48,15 @@ public class SettingsHomepageActivity extends FragmentActivity {
         root.setSystemUiVisibility(
                 View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
 
-        setHomepageContainerPaddingTop();
+        //setHomepageContainerPaddingTop();
 
-        final Toolbar toolbar = findViewById(R.id.search_action_bar);
-        FeatureFactory.getFactory(this).getSearchFeatureProvider()
-                .initSearchToolbar(this /* activity */, toolbar, SettingsEnums.SETTINGS_HOMEPAGE);
+        //final Toolbar toolbar = findViewById(R.id.search_action_bar);
+        //FeatureFactory.getFactory(this).getSearchFeatureProvider()
+                //.initSearchToolbar(this /* activity */, toolbar, SettingsEnums.SETTINGS_HOMEPAGE);
 
-        final ImageView avatarView = findViewById(R.id.account_avatar);
-        getLifecycle().addObserver(new AvatarViewMixin(this, avatarView));
-        getLifecycle().addObserver(new HideNonSystemOverlayMixin(this));
+        //final ImageView avatarView = findViewById(R.id.account_avatar);
+        //getLifecycle().addObserver(new AvatarViewMixin(this, avatarView));
+        //getLifecycle().addObserver(new HideNonSystemOverlayMixin(this));
 
         if (!getSystemService(ActivityManager.class).isLowRamDevice()) {
             // Only allow contextual feature on high ram devices.
