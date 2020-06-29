@@ -81,7 +81,7 @@ public class FanSettings extends SettingsPreferenceFragment implements
 
     private static final boolean STATE_DISABLE = false;
     private static final boolean STATE_ENABLE  = true;
-    private static final boolean STATE_DEFAULT = STATE_DISABLE;
+    private static final boolean STATE_DEFAULT = STATE_ENABLE;
 
 
     private Context mContext;
