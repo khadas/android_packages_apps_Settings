@@ -3402,6 +3402,40 @@
             </intent-filter>
         </receiver>
 		
+		<!-- wol -->
+        <activity
+            android:name="Settings$WolActivity"
+            android:taskAffinity="com.android.settings"
+                android:label="@string/device_wol"
+                android:icon="@drawable/ic_homepage_wol"
+            android:parentActivityName="Settings">
+            <intent-filter android:priority="1">
+                <action android:name="com.android.settings.WOL_SETTINGS" />
+                <action android:name="android.settings.WOL_SETTINGS" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.VOICE_LAUNCH" />
+                <category android:name="com.android.settings.SHORTCUT" />
+            </intent-filter>
+
+            <intent-filter android:priority="9">
+                <action android:name="com.android.settings.action.SETTINGS" />
+            </intent-filter>
+            <meta-data android:name="com.android.settings.FRAGMENT_CLASS"
+                android:value="com.android.settings.WolFragment" />
+            <meta-data android:name="com.android.settings.PRIMARY_PROFILE_CONTROLLED"
+                android:value="true" />
+        </activity>
+
+        <receiver android:name="WolFragment$InitLedReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>		
+		
         <!-- HDMI -->
         <activity android:name="Settings$HdmiSettingsActivity"
             android:label="@string/hdmi_settings"

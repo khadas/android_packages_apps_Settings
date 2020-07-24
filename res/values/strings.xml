@@ -11507,4 +11507,9 @@
     <string name="fan_settings">Cooling fan</string>
     <string name="keywords_fan">fan, cool, cooling, cooling fan</string>
     <string name="fan_settings_disabled_prompt">To control cooling fan, turn fan on.</string>
+    <!-- khadas wol info -->
+    <string name="device_wol">WOL</string>
+    <string name="wol_title">Wake on LAN</string>
+    <string name="keywords_wol">wol, wake, lan, wake on lan</string>
+    <string name="ethernet_mac_addr">Ethernet MAC address</string>    
 </resources>

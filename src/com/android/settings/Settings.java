@@ -181,6 +181,7 @@ public class Settings extends SettingsActivity {
     public static class ScreenshotSettingsActivity extends SettingsActivity { /* empty */ }
     public static class FanSettingsActivity extends SettingsActivity { /* empty */ }	
 	public static class LedSettingsActivity extends SettingsActivity { /* empty */ }
+	public static class WolActivity extends SettingsActivity { /* empty */ }
     public static class HdmiSettingsActivity extends SettingsActivity {}
 
 }

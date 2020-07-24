@@ -53,6 +53,14 @@
         android:icon="@drawable/ic_homepage_led"
         android:order="-108"
         android:fragment="com.android.settings.LedSettings"/>
+
+    <Preference
+        android:key="wol"
+        android:title="@string/device_wol"
+        android:summary="@string/device_wol"
+        android:icon="@drawable/ic_homepage_wol"
+        android:order="-107"
+        android:fragment="com.android.settings.WolFragment"/>		
 		
     <Preference
         android:key="top_level_apps_and_notifs"
