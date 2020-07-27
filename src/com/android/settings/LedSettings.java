@@ -27,6 +27,7 @@ import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.SystemProperties;
 import androidx.preference.Preference;
+import androidx.preference.ListPreference;
 import androidx.preference.PreferenceViewHolder;
 import android.util.Log;
 import android.view.Menu;
@@ -51,10 +52,12 @@ import com.android.settingslib.dream.DreamBackend.DreamInfo;
 
 import java.util.List;
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
@@ -62,193 +65,165 @@ import java.io.PrintWriter;
 import java.io.RandomAccessFile;
 
 
-public class LedSettings extends SettingsPreferenceFragment {
-
+public class LedSettings extends SettingsPreferenceFragment
+         implements Preference.OnPreferenceChangeListener {
     private static final String TAG = LedSettings.class.getSimpleName();
+    private static final String LED_RADIO_GROUP = "led";
     private static final boolean DEBUG = false;
-    private static final String PROP_LED_TRIGGER = "persist.sys.led.trigger";
-    private static final String SYS_LED_TRIGGER = "/sys/class/leds/sys_led/trigger";
-
+    private static final String PROP_LED_WHITE_TRIGGER = "persist.sys.white.led.trigger";
+	private static final String PROP_LED_RED_TRIGGER = "persist.sys.red.led.trigger";
+    //private static final String PROP_LED_RED_MODE = "persist.sys.red.led.mode";
+    private static final String SYS_LED_WHITE_TRIGGER = "/sys/class/leds/sys_led/trigger";
+    private static final String SYS_LED_RED_TRIGGER = "/sys/class/leds/red_led/trigger";	
+    //private static final String SYS_LED_RED_MODE = "/sys/class/redled/mode";
+    private static final String KEY_LED_WHITE = "whiteLed";
+    private static final String KEY_LED_RED = "redLed";
+    //private BoardInfo mBoardInfo;
+    private static int mLedType;
 
     private Context mContext;
-
 
     private static final int INDEX_HEARTBEAT = 0;
     private static final int INDEX_ON = 1;
     private static final int INDEX_OFF = 2;
-
-    private static final int DEFAULT_MODE = INDEX_OFF;
+    private static final int DEFAULT_MODE = INDEX_ON;
+    public static final int LED_WHITE = 0;
+    public static final int LED_RED   = 1;
 
     private static final int INDEX_LED[] = {
-        INDEX_HEARTBEAT,
-        INDEX_ON,
-        INDEX_OFF,
+            INDEX_HEARTBEAT,
+            INDEX_ON,
+            INDEX_OFF,
     };
 
     private static final String ModeList[] = {
-        "heartbeat",
-        "default-on",
-        "off",
+            "heartbeat",
+            "default-on",
+            "off",
     };
 
-    public class LedInfo {
-        private int index;
-        private String title;
-        private boolean isChecked;
-
-        public LedInfo(int index,String title, boolean isChecked) {
-            this.index = index;
-            this.title = title;
-            this.isChecked = isChecked;
-        }
-    }
-
-    public static class InitLedReceiver extends BroadcastReceiver{
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            if(DEBUG) Log.d(TAG,"BOOT UPDATE");
-              setLedMode(getLedModeProp());
-        }
+    public static LedSettings newInstance() {
+        return new LedSettings();
     }
 
     @Override
-    public int getHelpResource() {
-        return R.string.help_url_dreams;
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        mContext = context;
     }
 
     @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        mContext = activity;
-    }
+    public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
+        int mode = 0;
+        setPreferencesFromResource(R.xml.leds, null);
+        String[] list= mContext.getResources().getStringArray(R.array.led_title_entries);
+        final ListPreference whitePref = (ListPreference) findPreference(KEY_LED_WHITE);
+        final ListPreference redPref = (ListPreference) findPreference(KEY_LED_RED);
+		mode = getLedModeProp(LED_WHITE);
+		whitePref.setValue(Integer.toString(mode));
+		whitePref.setSummary(list[mode]);
+		whitePref.setOnPreferenceChangeListener(this);
 
-    @Override
-    public int getMetricsCategory() {
-        //return InstrumentedFragment.LED;
-		return 7;
-    }
-
-    @Override
-    public void onCreate(Bundle icicle) {
-        super.onCreate(icicle);
-        initDisplayInfo();
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-    }
-
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-    }
-
-
-    private void initDisplayInfo() {
-        if (getPreferenceScreen() == null) {
-            setPreferenceScreen(getPreferenceManager().createPreferenceScreen(getContext()));
-        }
-        int activeIndex = getLedModeProp();
-        String[] list= mContext.getResources().getStringArray(R.array.led_title_list);
-        for (int i =0; i < INDEX_LED.length; i++) {
-              LedInfo info = new LedInfo(i, list[i], i == activeIndex ? true : false);
-              getPreferenceScreen().addPreference(new LedInfoPreference(getPrefContext(), info));
-         }
-
-    }
-
-    private static int setLedMode(int mode) {
-
-        if (DEBUG) Log.d(TAG,"setLedMode: " + mode);
-        File file = new File(SYS_LED_TRIGGER);
-        if((file == null) || !file.exists()){
-            Log.e(TAG, "" + SYS_LED_TRIGGER + " no exist");
-            return -1;
-        }
-        try {
-            FileOutputStream fout = new FileOutputStream(file);
-            PrintWriter pWriter = new PrintWriter(fout);
-            pWriter.println(ModeList[mode]);
-            pWriter.flush();
-            pWriter.close();
-            fout.close();
-
-        } catch (IOException e) {
-
-            Log.e(TAG, "setLedMode ERR: " + e);
-            return -1;
-        }
-        return 0;
-    }
-
-
-    private static void setLedModeProp(int mode) {
-
-        SystemProperties.set(PROP_LED_TRIGGER, String.valueOf(mode));
-    }
-
-    private static int getLedModeProp() {
-
-        int mode = SystemProperties.getInt(PROP_LED_TRIGGER, DEFAULT_MODE);
-        return mode;
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
+		mode = getLedModeProp(LED_RED);
+		redPref.setValue(Integer.toString(mode));
+		redPref.setSummary(list[mode]);
+		redPref.setOnPreferenceChangeListener(this);
     }
 
     @Override
     public void onResume() {
         super.onResume();
+        refreshFromBackend();
     }
 
-    private class LedInfoPreference extends Preference {
+    public static int setLedMode(int type, int mode) {
 
-        private final LedInfo mInfo;
+        if (DEBUG) Log.d(TAG,"setLedMode: " + mode);
 
-        public LedInfoPreference(Context context, LedInfo info) {
-            super(context);
-            mInfo = info;
-            setLayoutResource(R.layout.led_info_row);
-            setTitle(mInfo.title);
+        try {
+            BufferedWriter bufWriter = null;
+			if (type == LED_WHITE) {
+			   bufWriter = new BufferedWriter(new FileWriter(SYS_LED_WHITE_TRIGGER));
+			   bufWriter.write(ModeList[mode]);
+			} else {
+			   bufWriter = new BufferedWriter(new FileWriter(SYS_LED_RED_TRIGGER));
+			   //bufWriter.write(String.valueOf(INDEX_LED[mode]));
+			   bufWriter.write(ModeList[mode]);
+			}
+            bufWriter.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+            Log.e(TAG,"can't write the led node");
+            return -1;
         }
+        return 0;
+    }
 
-        public void onBindViewHolder(final PreferenceViewHolder holder) {
-            super.onBindViewHolder(holder);
+    public static void setLedModeProp(int type, int mode) {
 
-            RadioButton radioButton = (RadioButton) holder.findViewById(android.R.id.button1);
-            radioButton.setChecked(mInfo.isChecked);
-            radioButton.setOnTouchListener(new OnTouchListener() {
-                @Override
-                public boolean onTouch(View v, MotionEvent event) {
-                    holder.itemView.onTouchEvent(event);
-                    return false;
-                }
-            });
-     }
+        if (type == LED_WHITE)
+            SystemProperties.set(PROP_LED_WHITE_TRIGGER, String.valueOf(mode));
+        else
+            //SystemProperties.set(PROP_LED_RED_MODE, String.valueOf(mode));
+			SystemProperties.set(PROP_LED_RED_TRIGGER, String.valueOf(mode));		
+    }
 
-        @Override
-        public void performClick() {
-            if (mInfo.isChecked)
-                return;
-            for (int i = 0; i < getPreferenceScreen().getPreferenceCount(); i++) {
-                LedInfoPreference preference =
-                        (LedInfoPreference) getPreferenceScreen().getPreference(i);
-                preference.mInfo.isChecked = false;
-                preference.notifyChanged();
-            }
-            mInfo.isChecked = true;
-            final int index = mInfo.index;
-            setLedMode(index);
-            setLedModeProp(index);
-            notifyChanged();
+    public static int getLedModeProp(int type) {
+
+        int mode;
+        if (type == LED_WHITE)
+            mode = SystemProperties.getInt(PROP_LED_WHITE_TRIGGER, DEFAULT_MODE);
+        else
+            //mode = SystemProperties.getInt(PROP_LED_RED_MODE, DEFAULT_MODE);
+			mode = SystemProperties.getInt(PROP_LED_RED_TRIGGER, INDEX_OFF);
+        return mode;
+    }
+
+    @Override
+    public boolean onPreferenceChange(Preference preference, Object newValue) {
+        int mode = Integer.parseInt((String) newValue);
+        switch (preference.getKey()) {
+             case KEY_LED_WHITE:
+                  setLedMode(LED_WHITE, mode);
+                  setLedModeProp(LED_WHITE, mode);
+                  break;
+             case KEY_LED_RED:
+                  setLedMode(LED_RED, mode);
+                  setLedModeProp(LED_RED, mode);
+                  break;
         }
+        return true;
+    }
+
+    @Override
+    public boolean onPreferenceTreeClick(Preference preference) {
+        return super.onPreferenceTreeClick(preference);
+    }
+
+    private void refreshFromBackend() {
+        int mode;
+        if (getActivity() == null) {
+            Log.d(TAG, "No activity, not refreshing");
+            return;
+        }
+        String[] list= mContext.getResources().getStringArray(R.array.led_title_entries);
+        final ListPreference whitePref = (ListPreference) findPreference(KEY_LED_WHITE);
+        if (whitePref != null) {
+            mode = getLedModeProp(LED_WHITE);
+            whitePref.setValue(Integer.toString(mode));
+            whitePref.setSummary(list[mode]);
+        }
+        final ListPreference redPref = (ListPreference) findPreference(KEY_LED_RED);
+        if (redPref != null) {
+            mode = getLedModeProp(LED_RED);
+            redPref.setValue(Integer.toString(mode));
+            redPref.setSummary(list[mode]);
+        }
+    }
+
+    @Override
+    public int getMetricsCategory() {
+        //return MetricsProto.MetricsEvent.KHADAS_LED;
+		return 7;
     }
 }

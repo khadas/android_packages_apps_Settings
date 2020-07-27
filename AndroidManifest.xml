@@ -3396,11 +3396,12 @@
                 android:value="true" />
         </activity>
 
-        <receiver android:name="LedSettings$InitLedReceiver">
-            <intent-filter>
+        <receiver android:name="LedSettings$InitLedReceiver"
+            android:exported="true">
+            <intent-filter android:priority="1000">
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
-        </receiver>
+        </receiver>		
 		
 		<!-- wol -->
         <activity
@@ -3429,13 +3430,7 @@
             <meta-data android:name="com.android.settings.PRIMARY_PROFILE_CONTROLLED"
                 android:value="true" />
         </activity>
-
-        <receiver android:name="WolFragment$InitLedReceiver">
-            <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED" />
-            </intent-filter>
-        </receiver>		
-		
+	
         <!-- HDMI -->
         <activity android:name="Settings$HdmiSettingsActivity"
             android:label="@string/hdmi_settings"
