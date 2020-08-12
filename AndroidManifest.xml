@@ -3362,12 +3362,13 @@
                 android:value="true" />
         </activity>
 
-        <receiver android:name="FanSettings$InitFanReceiver">
+        <receiver android:name=".FanSettings$InitFanReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
+				<action android:name="android.intent.action.LOCKED_BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
-
+		
 		<!-- LedSet -->
         <activity
             android:name="Settings$LedSettingsActivity"
@@ -3396,12 +3397,12 @@
                 android:value="true" />
         </activity>
 
-        <receiver android:name="LedSettings$InitLedReceiver"
-            android:exported="true">
-            <intent-filter android:priority="1000">
+        <receiver android:name=".LedInitReceiver">
+            <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.LOCKED_BOOT_COMPLETED" />
             </intent-filter>
-        </receiver>		
+        </receiver>	
 		
 		<!-- wol -->
         <activity
