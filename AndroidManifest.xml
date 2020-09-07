@@ -3363,9 +3363,8 @@
         </activity>
 
         <receiver android:name=".FanSettings$InitFanReceiver">
-            <intent-filter>
+            <intent-filter android:priority="2147483647">
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
-				<action android:name="android.intent.action.LOCKED_BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
 		
@@ -3398,9 +3397,8 @@
         </activity>
 
         <receiver android:name=".LedInitReceiver">
-            <intent-filter>
+            <intent-filter android:priority="2147483647">
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
-                <action android:name="android.intent.action.LOCKED_BOOT_COMPLETED" />
             </intent-filter>
         </receiver>	
 		
