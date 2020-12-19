@@ -204,7 +204,7 @@ public class FanSettings extends SettingsPreferenceFragment implements
 
     private void initDisplayInfo() {
         mRefreshing = true;
-        boolean fanEnabled = SystemProperties.getBoolean(PROP_FAN_ENABLE,false);
+        boolean fanEnabled = SystemProperties.getBoolean(PROP_FAN_ENABLE,STATE_DEFAULT);
         if (mSwitchBar.isChecked() != fanEnabled) {
             mSwitchBar.setChecked(fanEnabled);
         }
