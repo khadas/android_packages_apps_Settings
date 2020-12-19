@@ -93,12 +93,16 @@ public class FanSettings extends SettingsPreferenceFragment implements
     private static final int INDEX_LEVEL_1 = 1;
     private static final int INDEX_LEVEL_2 = 2;
     private static final int INDEX_LEVEL_3 = 3;
+    private static final int INDEX_LEVEL_4 = 4;
+    private static final int INDEX_LEVEL_5 = 5;
 
     private static final int INDEX_FAN[] = {
-        INDEX_AUTO,
-        INDEX_LEVEL_1,
-        INDEX_LEVEL_2,
-        INDEX_LEVEL_3,
+            INDEX_AUTO,
+            INDEX_LEVEL_1,
+            INDEX_LEVEL_2,
+            INDEX_LEVEL_3,
+            INDEX_LEVEL_4,
+            INDEX_LEVEL_5,
     };
 
     public class FanInfo {
@@ -319,7 +323,7 @@ public class FanSettings extends SettingsPreferenceFragment implements
 
     private static int  getFanLevelProp() {
 
-        int level = SystemProperties.getInt(PROP_FAN_LEVEL, INDEX_LEVEL_1);
+        int level = SystemProperties.getInt(PROP_FAN_LEVEL, INDEX_AUTO);
         return level;
     }
 
@@ -399,6 +403,8 @@ public class FanSettings extends SettingsPreferenceFragment implements
             case INDEX_LEVEL_1:
             case INDEX_LEVEL_2:
             case INDEX_LEVEL_3:
+            case INDEX_LEVEL_4:
+            case INDEX_LEVEL_5:
                     setFanMode(false);
                     setFanLevel(index);
                     setFanModeProp(false);
