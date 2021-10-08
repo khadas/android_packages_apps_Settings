@@ -390,6 +390,8 @@
       <item quantity="other">已設定 <xliff:g id="COUNT_1">%1$d</xliff:g> 個指紋</item>
       <item quantity="one">已設定 <xliff:g id="COUNT_0">%1$d</xliff:g> 個指紋</item>
     </plurals>
+    <string name="khadas_settings_title">Khadas設定</string>
+    <string name="khadas_settings_summary">Khadas添加的設定選項</string>
     <string name="security_settings_fingerprint_preference_summary_none" msgid="1044059475710838504"></string>
     <string name="security_settings_fingerprint_enroll_introduction_title" msgid="521797365974277693">"指紋解鎖"</string>
     <string name="security_settings_fingerprint_enroll_introduction_title_unlock_disabled" msgid="1911710308293783998">"使用您的指紋"</string>
