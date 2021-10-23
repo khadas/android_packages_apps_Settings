@@ -59,8 +59,15 @@ public class TopLevelBatteryPreferenceController extends BasePreferenceControlle
 
     @Override
     public int getAvailabilityStatus() {
-        return mContext.getResources().getBoolean(R.bool.config_show_top_level_battery)
-                ? AVAILABLE : UNSUPPORTED_ON_DEVICE;
+		//add to control battery UI
+		if(android.os.SystemProperties.getInt("persist.sys.show.battery",0) == 1){
+			return mContext.getResources().getBoolean(R.bool.config_show_top_level_battery) ? AVAILABLE : UNSUPPORTED_ON_DEVICE;
+		}else{
+			return UNSUPPORTED_ON_DEVICE;
+		}
+		//add end
+        //return mContext.getResources().getBoolean(R.bool.config_show_top_level_battery)
+        //        ? AVAILABLE : UNSUPPORTED_ON_DEVICE;
     }
 
     @Override
