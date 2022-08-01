@@ -157,6 +157,8 @@
     <string name="desc_current_default_language" msgid="1901157141663662859">"系統語言"</string>
     <string name="locale_remove_menu" msgid="3521546263421387474">"移除"</string>
     <string name="add_a_language" msgid="2126220398077503271">"新增語言"</string>
+    <string name="khadas_settings_title">Khadas設定</string>
+    <string name="khadas_settings_summary">Khadas添加的設定選項</string>
     <string name="app_locale_preference_title" msgid="5513627099300360232">"語言"</string>
     <string name="locale_picker_category_title" msgid="6212064706962721255">"偏好語言"</string>
     <string name="app_locales_picker_menu_title" msgid="7617427959223831373">"應用程式語言"</string>
