@@ -108,7 +108,7 @@ public class FallbackHome extends Activity {
     protected void onResume() {
         super.onResume();
         if (mProvisioned) {
-            mHandler.postDelayed(mProgressTimeoutRunnable, PROGRESS_TIMEOUT);
+            //mHandler.postDelayed(mProgressTimeoutRunnable, PROGRESS_TIMEOUT);
         }
     }
 
