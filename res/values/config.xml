@@ -435,7 +435,7 @@
     <bool name="config_show_top_level_accessibility">true</bool>
 
     <!-- Whether top_level_battery should be shown or not. -->
-    <bool name="config_show_top_level_battery">true</bool>
+    <bool name="config_show_top_level_battery">false</bool>
 
     <!-- Whether top_level_connected_devices should be shown or not. -->
     <bool name="config_show_top_level_connected_devices">true</bool>
