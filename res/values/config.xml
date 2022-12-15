@@ -465,7 +465,7 @@
     <bool name="config_show_top_level_accessibility">true</bool>
 
     <!-- Whether top_level_battery should be shown or not. -->
-    <bool name="config_show_top_level_battery">true</bool>
+    <bool name="config_show_top_level_battery">false</bool>
 
     <!-- Whether to use compact battery status string. -->
     <bool name="config_use_compact_battery_status">false</bool>
