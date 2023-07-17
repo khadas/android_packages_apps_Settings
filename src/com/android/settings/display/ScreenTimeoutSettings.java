@@ -115,8 +115,16 @@ public class ScreenTimeoutSettings extends RadioButtonPickerFragment implements
         super.onAttach(context);
         mContext = context;
         mDevicePolicyManager = mContext.getSystemService(DevicePolicyManager.class);
-        mInitialEntries = getResources().getStringArray(R.array.screen_timeout_entries);
-        mInitialValues = getResources().getStringArray(R.array.screen_timeout_values);
+        //-----------------------rk code----------
+        CharSequence[] tempEntries = context.getResources().getStringArray(R.array.screen_timeout_entries);
+        CharSequence[] tempValues = context.getResources().getStringArray(R.array.screen_timeout_values);
+        mInitialEntries = new CharSequence[tempEntries.length + 1];
+        mInitialEntries[0] = context.getResources().getString(R.string.dark_ui_auto_mode_never);
+        System.arraycopy(tempEntries, 0, mInitialEntries, 1, tempEntries.length);
+        mInitialValues = new CharSequence[tempValues.length + 1];
+        mInitialValues[0] = String.valueOf(Integer.MAX_VALUE);
+        System.arraycopy(tempValues, 0, mInitialValues, 1, tempValues.length);
+        //----------------------------------------
         mAdaptiveSleepController = new AdaptiveSleepPreferenceController(context);
         mAdaptiveSleepPermissionController = new AdaptiveSleepPermissionPreferenceController(
                 context);
@@ -138,7 +146,14 @@ public class ScreenTimeoutSettings extends RadioButtonPickerFragment implements
         final List<CandidateInfo> candidates = new ArrayList<>();
         final long maxTimeout = getMaxScreenTimeout(getContext());
         if (mInitialValues != null) {
-            for (int i = 0; i < mInitialValues.length; ++i) {
+            //-----------------------rk code----------
+            int startPos = 0;
+            if (maxTimeout != Long.MAX_VALUE) {
+                //fix set maximum time to lock test of CtsVerifier
+                startPos = 1;
+            }
+            for (int i = startPos; i < mInitialValues.length; ++i) {
+            //----------------------------------------
                 if (Long.parseLong(mInitialValues[i].toString()) <= maxTimeout) {
                     candidates.add(new TimeoutCandidateInfo(mInitialEntries[i],
                             mInitialValues[i].toString(), true));
@@ -189,7 +204,10 @@ public class ScreenTimeoutSettings extends RadioButtonPickerFragment implements
 
         final long selectedTimeout = Long.parseLong(defaultKey);
         final long maxTimeout = getMaxScreenTimeout(getContext());
-        if (!candidateList.isEmpty() && (selectedTimeout > maxTimeout)) {
+        //-----------------------rk code----------
+        if ((!candidateList.isEmpty()) && ((selectedTimeout > maxTimeout)
+                || (selectedTimeout == Integer.MAX_VALUE && maxTimeout != Long.MAX_VALUE))) {
+        //----------------------------------------
             // The selected time out value is longer than the max timeout allowed by the admin.
             // Select the largest value from the list by default.
             final SelectorWithWidgetPreference preferenceWithLargestTimeout =
