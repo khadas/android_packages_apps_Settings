@@ -74,7 +74,10 @@ public class FaceEnrollPreviewFragment extends InstrumentedPreferenceFragment
 
     // Texture used for showing the camera preview
     private FaceSquareTextureView mTextureView;
-
+    private FacePreviewListener mFacePreviewListener ;
+    public void addFacePreviewListener(FacePreviewListener facePreviewListener){
+        mFacePreviewListener = facePreviewListener;
+    }
     // Listener sent to the animation drawable
     private final ParticleCollection.Listener mAnimationListener
             = new ParticleCollection.Listener() {
@@ -90,7 +93,12 @@ public class FaceEnrollPreviewFragment extends InstrumentedPreferenceFragment
         @Override
         public void onSurfaceTextureAvailable(
                 SurfaceTexture surfaceTexture, int width, int height) {
-            openCamera(width, height);
+            SurfaceTexture texture = mTextureView.getSurfaceTexture();
+
+            // This is the output Surface we need to start preview
+            Surface surface = new Surface(texture);
+            mFacePreviewListener.onPreviewCreate(surface);
+            //openCamera(width, height);
         }
 
         @Override
@@ -129,7 +137,6 @@ public class FaceEnrollPreviewFragment extends InstrumentedPreferenceFragment
                 mPreviewRequestBuilder =
                         mCameraDevice.createCaptureRequest(CameraDevice.TEMPLATE_PREVIEW);
                 mPreviewRequestBuilder.addTarget(surface);
-
                 // Create a CameraCaptureSession for camera preview
                 mCameraDevice.createCaptureSession(Arrays.asList(surface),
                     new CameraCaptureSession.StateCallback() {
@@ -208,7 +215,7 @@ public class FaceEnrollPreviewFragment extends InstrumentedPreferenceFragment
         // a camera and start preview from here (otherwise, we wait until the surface is ready in
         // the SurfaceTextureListener).
         if (mTextureView.isAvailable()) {
-            openCamera(mTextureView.getWidth(), mTextureView.getHeight());
+            //openCamera(mTextureView.getWidth(), mTextureView.getHeight());
         } else {
             mTextureView.setSurfaceTextureListener(mSurfaceTextureListener);
         }
