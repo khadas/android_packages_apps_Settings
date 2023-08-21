@@ -121,6 +121,10 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Set;
 
+//-----------------------rk code----------
+import android.os.SystemProperties;
+//----------------------------------------
+
 public final class Utils extends com.android.settingslib.Utils {
 
     private static final String TAG = "Settings";
@@ -178,6 +182,10 @@ public final class Utils extends com.android.settingslib.Utils {
      */
     public static final String PROPERTY_DELETE_ALL_APP_CLONES_ENABLED =
             "delete_all_app_clones_enabled";
+
+    //-----------------------rk code----------
+    private static final String PROPERTY_RAM_EXTENSION = "persist.sys.ext_ram";
+    //----------------------------------------
 
     /**
      * Finds a matching activity for a preference's intent. If a matching
@@ -1295,4 +1303,35 @@ public final class Utils extends com.android.settingslib.Utils {
                 com.android.internal.R.bool.config_dreamsOnlyEnabledForDockUser);
         return dreamsSupported && (!dreamsOnlyEnabledForDockUser || canCurrentUserDream(context));
     }
+
+    //-----------------------rk code----------
+    /** ram extension */
+    public static boolean isRamExtensionAvailable(Context context) {
+        return context.getResources().getBoolean(
+                com.android.internal.R.bool.config_zramWriteback);
+    }
+
+    public static void setRamExtensionValue(String value) {
+        SystemProperties.set(PROPERTY_RAM_EXTENSION, value);
+    }
+
+    public static boolean isNoneRamExtensionValue(Context context, String value) {
+        return context.getResources().getStringArray(R.array.ram_extension_values)[0].equals(value);
+    }
+
+    public static String getRamExtensionValue() {
+        return SystemProperties.get(PROPERTY_RAM_EXTENSION, "none");
+    }
+
+    public static String getRamExtensionSummary(Context context, String value) {
+        String[] ramExpandEntries = context.getResources().getStringArray(R.array.ram_extension_entries);
+        String[] ramExpandValues = context.getResources().getStringArray(R.array.ram_extension_values);
+        for (int i = 0; i < ramExpandValues.length; i++) {
+            if (ramExpandValues[i].equals(value)) {
+                return ramExpandEntries[i];
+            }
+        }
+        return ramExpandEntries[0];
+    }
+    //----------------------------------------
 }

@@ -528,4 +528,11 @@ public class Settings extends SettingsActivity {
      * Activity for OneHandedSettings
      */
     public static class OneHandedSettingsActivity extends SettingsActivity { /* empty */ }
+
+    //-----------------------rk code----------
+    /**
+     * Activity for RamExtensionActivity
+     */
+    public static class RamExtensionActivity extends SettingsActivity { /* empty */ }
+    //----------------------------------------
 }

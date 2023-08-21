@@ -12129,4 +12129,15 @@
 
     <!-- Warning message when we try to dock an app not supporting multiple instances split into multiple sides [CHAR LIMIT=NONE] -->
     <string name="dock_multi_instances_not_supported_text">"This app can only be opened in 1 window"</string>
+
+    <!-- =======================rk code========== -->
+    <!-- ram extension -->
+    <string name="ram_extension">Memory Extension</string>
+    <string name="ram_extension_title">RAM Expand</string>
+    <string name="ram_extension_info">Convert some storage to running memory to improve system performance</string>
+    <string name="ram_extension_reboot_warn">Restart the device to complete the operation</string>
+    <string name="ram_extension_reboot">Reboot</string>
+    <string name="ram_extension_cancel">Cancel</string>
+    <string name="ram_extension_remain_warn">After configuration, the available storage is less than <xliff:g id="ram_extension_remain">%1$s</xliff:g>, cancel it</string>
+    <!-- ======================================== -->
 </resources>

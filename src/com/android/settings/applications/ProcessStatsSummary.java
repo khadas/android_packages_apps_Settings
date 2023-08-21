@@ -79,6 +79,12 @@ public class ProcessStatsSummary extends ProcessStatsBase implements OnPreferenc
         BytesResult usedResult = Formatter.formatBytes(context.getResources(), (long) usedRam,
                 Formatter.FLAG_SHORTER);
         String totalString = Formatter.formatShortFileSize(context, (long) totalRam);
+        //-----------------------rk code----------
+        String ramExtensionValue = Utils.getRamExtensionValue();
+        if (!Utils.isNoneRamExtensionValue(context, ramExtensionValue)) {
+            totalString = totalString + "+" + Utils.getRamExtensionSummary(context, ramExtensionValue);
+        }
+        //----------------------------------------
         String freeString = Formatter.formatShortFileSize(context, (long) freeRam);
         CharSequence memString;
         CharSequence[] memStatesStr = getResources().getTextArray(R.array.ram_states);

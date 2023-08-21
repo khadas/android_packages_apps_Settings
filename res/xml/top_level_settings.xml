@@ -88,6 +88,16 @@
         settings:highlightableMenuKey="@string/menu_key_storage"
         settings:controller="com.android.settings.deviceinfo.TopLevelStoragePreferenceController"/>
 
+    <!-- =======================rk code========== -->
+    <com.android.settings.widget.HomepagePreference
+        android:fragment="com.android.settings.ramextension.RamExtensionFragment"
+        android:icon="@drawable/ic_settings_memory"
+        android:key="top_level_ram_extension"
+        android:order="-95"
+        android:title="@string/ram_extension"
+        settings:controller="com.android.settings.ramextension.RamExtensionPreferenceController"/>
+    <!-- ======================================== -->
+
     <com.android.settings.widget.HomepagePreference
         android:fragment="com.android.settings.notification.SoundSettings"
         android:icon="@drawable/ic_volume_up_24dp"

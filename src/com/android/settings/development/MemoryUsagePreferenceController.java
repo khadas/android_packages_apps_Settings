@@ -30,6 +30,10 @@ import com.android.settings.core.PreferenceControllerMixin;
 import com.android.settingslib.development.DeveloperOptionsPreferenceController;
 import com.android.settingslib.utils.ThreadUtils;
 
+//-----------------------rk code----------
+import com.android.settings.Utils;
+//----------------------------------------
+
 public class MemoryUsagePreferenceController extends DeveloperOptionsPreferenceController implements
         PreferenceControllerMixin {
 
@@ -63,8 +67,20 @@ public class MemoryUsagePreferenceController extends DeveloperOptionsPreferenceC
             final ProcStatsData.MemInfo memInfo = mProcStatsData.getMemInfo();
             final String usedResult = Formatter.formatShortFileSize(mContext,
                     (long) memInfo.realUsedRam);
-            final String totalResult = Formatter.formatShortFileSize(mContext,
+            //-----------------------rk code----------
+            String memTotalResult = Formatter.formatShortFileSize(mContext,
                     (long) memInfo.realTotalRam);
+            String ramExtensionValue = Utils.getRamExtensionValue();
+            final String totalResult;
+            if (Utils.isNoneRamExtensionValue(mContext, ramExtensionValue)) {
+                totalResult = memTotalResult;
+            } else {
+                totalResult = "("
+                        + memTotalResult + "+"
+                        + Utils.getRamExtensionSummary(mContext, ramExtensionValue)
+                        + ")";
+            }
+            //----------------------------------------
             ThreadUtils.postOnMainThread(
                     () -> mPreference.setSummary(mContext.getString(R.string.memory_summary,
                             usedResult, totalResult)));

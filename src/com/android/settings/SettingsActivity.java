@@ -866,6 +866,13 @@ public class SettingsActivity extends SettingsBaseActivity
                 WifiDisplaySettings.isAvailable(this), isAdmin)
                 || somethingChanged;
 
+        //-----------------------rk code----------
+        somethingChanged = setTileEnabled(changedList, new ComponentName(packageName,
+                        Settings.RamExtensionActivity.class.getName()),
+                Utils.isRamExtensionAvailable(this), isAdmin)
+                || somethingChanged;
+        //----------------------------------------
+
         if (UserHandle.MU_ENABLED && !isAdmin) {
             // When on restricted users, disable all extra categories (but only the settings ones).
             final List<DashboardCategory> categories = mDashboardFeatureProvider.getAllCategories();
