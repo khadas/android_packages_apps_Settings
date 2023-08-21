@@ -194,6 +194,7 @@ import com.android.settings.wifi.tether.WifiTetherSettings;
 
 //-----------------------rk code----------
 import com.android.settings.ramextension.RamExtensionFragment;
+import com.android.settings.screenshot.ScreenshotSettings;
 //----------------------------------------
 
 public class SettingsGateway {
@@ -337,6 +338,7 @@ public class SettingsGateway {
             StorageDashboardFragment.class.getName(),
             //-----------------------rk code----------
             RamExtensionFragment.class.getName(),
+            ScreenshotSettings.class.getName(),
             //----------------------------------------
             SystemDashboardFragment.class.getName(),
             NetworkDashboardFragment.class.getName(),
@@ -398,6 +400,7 @@ public class SettingsGateway {
             Settings.SecurityDashboardActivity.class.getName(),
             Settings.AccessibilitySettingsActivity.class.getName(),
             Settings.SystemDashboardActivity.class.getName(),
+            Settings.ScreenshotSettingsActivity.class.getName(),
             SupportDashboardActivity.class.getName(),
             // Home page > Network & Internet
             Settings.WifiSettingsActivity.class.getName(),

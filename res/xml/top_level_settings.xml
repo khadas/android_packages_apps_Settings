@@ -204,11 +204,19 @@
         android:summary="@string/system_dashboard_summary"
         settings:highlightableMenuKey="@string/menu_key_system"/>
 
+     <com.android.settings.widget.HomepagePreference
+        android:fragment="com.android.settings.screenshot.ScreenshotSettings"
+        android:icon="@drawable/ic_settings_screenshot"
+        android:key="top_level_screenshot"
+        android:order="20"
+        android:title="@string/header_category_screenshot"
+        android:summary="@string/screenshot_dashboard_summary"/>
+
     <com.android.settings.widget.HomepagePreference
         android:fragment="com.android.settings.deviceinfo.aboutphone.MyDeviceInfoFragment"
         android:icon="@drawable/ic_settings_about_device"
         android:key="top_level_about_device"
-        android:order="20"
+        android:order="30"
         android:title="@string/about_settings"
         android:summary="@string/summary_placeholder"
         settings:highlightableMenuKey="@string/menu_key_about_device"

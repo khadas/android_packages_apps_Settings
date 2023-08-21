@@ -12139,5 +12139,15 @@
     <string name="ram_extension_reboot">Reboot</string>
     <string name="ram_extension_cancel">Cancel</string>
     <string name="ram_extension_remain_warn">After configuration, the available storage is less than <xliff:g id="ram_extension_remain">%1$s</xliff:g>, cancel it</string>
+
+    <!--screenshot settings-->
+    <string name="screenshot">Screenshot</string>
+    <string name="header_category_screenshot">Screenshot</string>
+    <string name="screenshot_dashboard_summary">Screenshot</string>
+    <string name="screenshot_settings_activity_title">Screenshot Settings</string>
+    <string name="screenshot_delay_title">Select delay time to capture the screen </string>
+    <string name="screenshot_show_title">Show the screenshot button in the statusbar</string>
+    <string name="later">s later capture</string>
+    <string name="help_url_screenshot" translatable="false"></string>
     <!-- ======================================== -->
 </resources>

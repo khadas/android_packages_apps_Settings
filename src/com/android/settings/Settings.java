@@ -534,5 +534,10 @@ public class Settings extends SettingsActivity {
      * Activity for RamExtensionActivity
      */
     public static class RamExtensionActivity extends SettingsActivity { /* empty */ }
+
+    /**
+     * Activity for Screenshot.
+     */
+    public static class ScreenshotSettingsActivity extends SettingsActivity {}
     //----------------------------------------
 }
