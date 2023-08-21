@@ -4993,6 +4993,21 @@
             android:authorities="${applicationId}.androidx-startup"
             tools:node="remove" />
 
+        <!-- =======================rk code========== -->
+        <activity
+            android:name=".Settings$RamExtensionActivity"
+            android:label="@string/ram_extension"
+            android:icon="@drawable/ic_storage_white"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.android.settings.action.RAM_ESETTINGS"/>
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+            <meta-data android:name="com.android.settings.FRAGMENT_CLASS"
+                android:value="com.android.settings.ramextension.RamExtensionFragment"/>
+        </activity>
+        <!-- ======================================== -->
+
         <!-- This is the longest AndroidManifest.xml ever. -->
     </application>
 </manifest>

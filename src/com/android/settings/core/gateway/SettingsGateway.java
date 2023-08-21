@@ -196,6 +196,10 @@ import com.android.settings.wifi.p2p.WifiP2pSettings;
 import com.android.settings.wifi.savedaccesspoints2.SavedAccessPointsWifiSettings2;
 import com.android.settings.wifi.tether.WifiTetherSettings;
 
+//-----------------------rk code----------
+import com.android.settings.ramextension.RamExtensionFragment;
+//----------------------------------------
+
 public class SettingsGateway {
 
     /**
@@ -337,6 +341,9 @@ public class SettingsGateway {
             ManageDomainUrls.class.getName(),
             AutomaticStorageManagerSettings.class.getName(),
             StorageDashboardFragment.class.getName(),
+            //-----------------------rk code----------
+            RamExtensionFragment.class.getName(),
+            //----------------------------------------
             SystemDashboardFragment.class.getName(),
             NetworkDashboardFragment.class.getName(),
             ConnectedDeviceDashboardFragment.class.getName(),
@@ -390,6 +397,9 @@ public class SettingsGateway {
             Settings.DisplaySettingsActivity.class.getName(),
             Settings.SoundSettingsActivity.class.getName(),
             Settings.StorageDashboardActivity.class.getName(),
+            //-----------------------rk code----------
+            Settings.RamExtensionActivity.class.getName(),
+            //----------------------------------------
             Settings.PowerUsageSummaryActivity.class.getName(),
             Settings.AccountDashboardActivity.class.getName(),
             Settings.PrivacySettingsActivity.class.getName(),
