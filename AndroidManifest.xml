@@ -4925,6 +4925,25 @@
             tools:node="remove" />
 
         <!-- =======================rk code========== -->
+        <!-- HDMI -->
+        <activity
+            android:name="Settings$HdmiSettingsActivity"
+            android:label="@string/hdmi_settings"
+            android:taskAffinity=""
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.VOICE_LAUNCH" />
+                <category android:name="com.android.settings.SHORTCUT" />
+            </intent-filter>
+            <meta-data android:name="com.android.settings.FRAGMENT_CLASS"
+                android:value="com.android.settings.display.HdmiSettings" />
+            <meta-data android:name="com.android.settings.PRIMARY_PROFILE_CONTROLLED"
+                android:value="true" />
+        </activity>
+        <activity android:name="com.android.settings.display.ScreenScaleActivity"/>
+
         <activity
             android:name=".Settings$RamExtensionActivity"
             android:label="@string/ram_extension"

@@ -36,9 +36,17 @@ import com.android.settingslib.search.SearchIndexable;
 import java.util.ArrayList;
 import java.util.List;
 
+//-----------------------rk code----------
+import com.android.settings.display.HdmiSettingsPreferenceController;
+//----------------------------------------
+
 @SearchIndexable(forTarget = SearchIndexable.ALL & ~SearchIndexable.ARC)
 public class DisplaySettings extends DashboardFragment {
     private static final String TAG = "DisplaySettings";
+
+    //-----------------------rk code----------
+    private static final String KET_HDMI_SETTINGS = "hdmi_settings";
+    //----------------------------------------
 
     @Override
     public int getMetricsCategory() {
@@ -80,6 +88,9 @@ public class DisplaySettings extends DashboardFragment {
         controllers.add(new ShowOperatorNamePreferenceController(context));
         controllers.add(new ThemePreferenceController(context));
         controllers.add(new BrightnessLevelPreferenceController(context, lifecycle));
+        //-----------------------rk code----------
+        controllers.add(new HdmiSettingsPreferenceController(context, KET_HDMI_SETTINGS));
+        //----------------------------------------
         return controllers;
     }
 

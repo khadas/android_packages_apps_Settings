@@ -84,6 +84,9 @@ import com.google.android.setupcompat.util.WizardManagerHelper;
 import java.util.ArrayList;
 import java.util.List;
 
+//-----------------------rk code----------
+import com.android.settings.display.HdmiSettings;
+//----------------------------------------
 
 public class SettingsActivity extends SettingsBaseActivity
         implements PreferenceManager.OnPreferenceTreeClickListener,
@@ -870,6 +873,11 @@ public class SettingsActivity extends SettingsBaseActivity
         somethingChanged = setTileEnabled(changedList, new ComponentName(packageName,
                         Settings.RamExtensionActivity.class.getName()),
                 Utils.isRamExtensionAvailable(this), isAdmin)
+                || somethingChanged;
+
+        somethingChanged = setTileEnabled(changedList, new ComponentName(packageName,
+                        Settings.HdmiSettingsActivity.class.getName()),
+                HdmiSettings.isAvailable(), isAdmin)
                 || somethingChanged;
         //----------------------------------------
 

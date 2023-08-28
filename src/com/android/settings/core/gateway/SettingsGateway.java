@@ -193,6 +193,7 @@ import com.android.settings.wifi.savedaccesspoints2.SavedAccessPointsWifiSetting
 import com.android.settings.wifi.tether.WifiTetherSettings;
 
 //-----------------------rk code----------
+import com.android.settings.display.HdmiSettings;
 import com.android.settings.ramextension.RamExtensionFragment;
 import com.android.settings.screenshot.ScreenshotSettings;
 //----------------------------------------
@@ -339,6 +340,7 @@ public class SettingsGateway {
             //-----------------------rk code----------
             RamExtensionFragment.class.getName(),
             ScreenshotSettings.class.getName(),
+            HdmiSettings.class.getName(),
             //----------------------------------------
             SystemDashboardFragment.class.getName(),
             NetworkDashboardFragment.class.getName(),
@@ -393,6 +395,8 @@ public class SettingsGateway {
             Settings.StorageDashboardActivity.class.getName(),
             //-----------------------rk code----------
             Settings.RamExtensionActivity.class.getName(),
+            // Home page > Display
+            Settings.HdmiSettingsActivity.class.getName(),
             //----------------------------------------
             Settings.PowerUsageSummaryActivity.class.getName(),
             Settings.AccountDashboardActivity.class.getName(),
