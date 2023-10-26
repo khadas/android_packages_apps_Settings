@@ -137,6 +137,9 @@ android_app {
     optimize: {
         proguard_flags_files: ["proguard.flags"],
     },
+    dex_preopt: {
+        enabled: false,
+    },
 }
 
 android_library_import {

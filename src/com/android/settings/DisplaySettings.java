@@ -28,6 +28,13 @@ import com.android.settings.display.ShowOperatorNamePreferenceController;
 import com.android.settings.display.TapToWakePreferenceController;
 import com.android.settings.display.ThemePreferenceController;
 import com.android.settings.display.VrDisplayPreferenceController;
+import com.android.settings.display.EyeCarePreferenceController;
+import com.android.settings.display.EyeCaraGainPreferenceController;
+import com.android.settings.display.EBookModePreferenceController;
+import com.android.settings.display.PictureModePreferenceController;
+import com.android.settings.display.DisplayHuePreferenceController;
+import com.android.settings.display.DisplaySaturationPreferenceController;
+import com.android.settings.display.DisplayContrastPreferenceController;
 import com.android.settings.search.BaseSearchIndexProvider;
 import com.android.settingslib.core.AbstractPreferenceController;
 import com.android.settingslib.core.lifecycle.Lifecycle;
@@ -46,6 +53,14 @@ public class DisplaySettings extends DashboardFragment {
 
     //-----------------------rk code----------
     private static final String KET_HDMI_SETTINGS = "hdmi_settings";
+    private static final String KET_EYE_CARE_SETTING = "eye_care_setting";
+    private static final String KET_EYE_CARE_GAIN_SETTING = "eye_care_gain";
+    private static final String KET_EBOOK_MODE_SETTING = "ebook_mode_setting";
+    private static final String KET_PICTURE_MODE_SETTING = "picture_mode_setting";
+    private static final String KET_DISPLAY_HUE_SETTING = "display_hue_setting";
+    private static final String KET_DISPLAY_SATURATION_SETTING = "display_saturation_setting";
+    private static final String KET_DISPLAY_CONTRAST_SETTING = "display_contrast_setting";
+
     //----------------------------------------
 
     @Override
@@ -90,6 +105,13 @@ public class DisplaySettings extends DashboardFragment {
         controllers.add(new BrightnessLevelPreferenceController(context, lifecycle));
         //-----------------------rk code----------
         controllers.add(new HdmiSettingsPreferenceController(context, KET_HDMI_SETTINGS));
+        controllers.add(new EyeCarePreferenceController(context, KET_EYE_CARE_SETTING));
+        controllers.add(new EyeCaraGainPreferenceController(context, KET_EYE_CARE_GAIN_SETTING));
+        controllers.add(new EBookModePreferenceController(context, KET_EBOOK_MODE_SETTING));
+        controllers.add(new PictureModePreferenceController(context, KET_PICTURE_MODE_SETTING));
+        controllers.add(new DisplayHuePreferenceController(context, KET_DISPLAY_HUE_SETTING));
+        controllers.add(new DisplaySaturationPreferenceController(context, KET_DISPLAY_SATURATION_SETTING));
+        controllers.add(new DisplayContrastPreferenceController(context, KET_DISPLAY_CONTRAST_SETTING));
         //----------------------------------------
         return controllers;
     }
