@@ -41,7 +41,7 @@ import android.widget.ImageView;
 import com.android.settings.R;
 import com.android.settings.biometrics.BiometricEnrollSidecar;
 import com.android.settings.core.InstrumentedPreferenceFragment;
-
+import android.view.ViewGroup;
 import java.util.Arrays;
 
 /**
@@ -53,9 +53,9 @@ public class FaceEnrollPreviewFragment extends InstrumentedPreferenceFragment
 
     private static final String TAG = "FaceEnrollPreviewFragment";
 
-    private static final int MAX_PREVIEW_WIDTH = 1920;
-    private static final int MAX_PREVIEW_HEIGHT = 1080;
-
+    private static final int MAX_PREVIEW_WIDTH = 1280;
+    private static final int MAX_PREVIEW_HEIGHT = 720;
+    private static final int PREVIEW_ROTATION_DEGREE = 0;
     private Handler mHandler = new Handler(Looper.getMainLooper());
     private CameraManager mCameraManager;
     private String mCameraId;
@@ -94,6 +94,7 @@ public class FaceEnrollPreviewFragment extends InstrumentedPreferenceFragment
         public void onSurfaceTextureAvailable(
                 SurfaceTexture surfaceTexture, int width, int height) {
             SurfaceTexture texture = mTextureView.getSurfaceTexture();
+            Log.d(TAG, "onSurfaceTextureAvailable");
 
             // This is the output Surface we need to start preview
             Surface surface = new Surface(texture);
@@ -118,6 +119,30 @@ public class FaceEnrollPreviewFragment extends InstrumentedPreferenceFragment
 
         }
     };
+    public void rotateTextureView(TextureView textureView, int degree) {
+        Log.d(TAG, "rotateTextureView degree:"+degree);
+        if (textureView == null) {
+            return;
+        }
+
+        textureView.setRotation(degree);
+        ViewGroup.LayoutParams layoutParams = textureView.getLayoutParams();
+
+        int viewWidth = textureView.getWidth();
+        int viewHeight = textureView.getHeight();
+        int rotation = degree % 360;
+
+        if (rotation == 90 || rotation == 270) {
+            // Swap width and height
+            layoutParams.width = viewHeight;
+            layoutParams.height = viewWidth;
+        } else {
+            layoutParams.width = viewWidth;
+            layoutParams.height = viewHeight;
+        }
+
+        textureView.setLayoutParams(layoutParams);
+    }
 
     private final CameraDevice.StateCallback mCameraStateCallback =
             new CameraDevice.StateCallback() {
@@ -219,6 +244,8 @@ public class FaceEnrollPreviewFragment extends InstrumentedPreferenceFragment
         } else {
             mTextureView.setSurfaceTextureListener(mSurfaceTextureListener);
         }
+        if( PREVIEW_ROTATION_DEGREE != 0 )
+            rotateTextureView(mTextureView,PREVIEW_ROTATION_DEGREE);
     }
 
     @Override
