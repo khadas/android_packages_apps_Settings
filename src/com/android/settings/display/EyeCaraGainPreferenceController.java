@@ -28,6 +28,8 @@ import androidx.preference.PreferenceScreen;
 import com.android.settings.R;
 import com.android.settings.core.SliderPreferenceController;
 import com.android.settings.widget.SeekBarPreference;
+import static com.android.settings.display.EyeCarePreferenceController.PROPERTY_EYE_CARE_MODE;
+import static com.android.settings.DisplaySettings.PROPERTY_SHOW_PICTURE_SETTING;
 
 public class EyeCaraGainPreferenceController extends SliderPreferenceController {
 
@@ -40,7 +42,11 @@ public class EyeCaraGainPreferenceController extends SliderPreferenceController 
 
     @Override
     public int getAvailabilityStatus() {
-        return SystemProperties.getInt("persist.eyecare.mode.enable", 0) == 1 ? AVAILABLE : DISABLED_DEPENDENT_SETTING;
+        if ("true".equals(SystemProperties.get(PROPERTY_SHOW_PICTURE_SETTING))) {
+            return SystemProperties.getInt(PROPERTY_EYE_CARE_MODE, 0) == 1 ? AVAILABLE : DISABLED_DEPENDENT_SETTING;
+        } else {
+            return UNSUPPORTED_ON_DEVICE;
+        }
     }
 
     @Override

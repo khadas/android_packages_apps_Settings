@@ -28,6 +28,8 @@ import androidx.preference.PreferenceScreen;
 import com.android.settings.R;
 import com.android.settings.core.SliderPreferenceController;
 import com.android.settings.widget.SeekBarPreference;
+import static com.android.settings.display.PictureModePreferenceController.PROPERTY_PICTURE_MODE;
+import static com.android.settings.DisplaySettings.PROPERTY_SHOW_PICTURE_SETTING;
 
 public class DisplaySaturationPreferenceController extends SliderPreferenceController {
 
@@ -40,7 +42,11 @@ public class DisplaySaturationPreferenceController extends SliderPreferenceContr
 
     @Override
     public int getAvailabilityStatus() {
-        return SystemProperties.getInt("persist.picture.mode.enable", 0) == 1 ? AVAILABLE : DISABLED_DEPENDENT_SETTING;
+        if ("true".equals(SystemProperties.get(PROPERTY_SHOW_PICTURE_SETTING))) {
+            return SystemProperties.getInt(PROPERTY_PICTURE_MODE, 0) == 1 ? AVAILABLE : DISABLED_DEPENDENT_SETTING;
+        } else {
+            return UNSUPPORTED_ON_DEVICE;
+        }
     }
 
     @Override

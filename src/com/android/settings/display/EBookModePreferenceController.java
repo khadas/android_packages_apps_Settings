@@ -30,9 +30,14 @@ import com.android.settings.widget.SeekBarPreference;
 import com.android.settings.R;
 import com.android.settings.core.TogglePreferenceController;
 import com.android.settingslib.core.lifecycle.LifecycleObserver;
+import static com.android.settings.display.EyeCarePreferenceController.PROPERTY_EYE_CARE_MODE;
+import static com.android.settings.display.PictureModePreferenceController.PROPERTY_PICTURE_MODE;
+import static com.android.settings.DisplaySettings.PROPERTY_SHOW_PICTURE_SETTING;
 
 public class EBookModePreferenceController extends TogglePreferenceController
     implements LifecycleObserver {
+
+    public static final String PROPERTY_EBOOK_MODE = "persist.sys.ebook.mode.enable";
 
     private RkDisplayOutputManager mRkDisplayOutputManager;
     private SwitchPreference mEyeCarePreference;
@@ -48,20 +53,24 @@ public class EBookModePreferenceController extends TogglePreferenceController
 
     @Override
     public int getAvailabilityStatus() {
-        return AVAILABLE;
+        if ("true".equals(SystemProperties.get(PROPERTY_SHOW_PICTURE_SETTING))) {
+            return AVAILABLE;
+        } else {
+            return UNSUPPORTED_ON_DEVICE;
+        }
     }
 
     @Override
     public boolean isChecked() {
-        return SystemProperties.getInt("persist.ebook.mode.enable", 0) == 1;
+        return SystemProperties.getInt(PROPERTY_EBOOK_MODE, 0) == 1;
     }
 
     @Override
     public boolean setChecked(boolean isChecked) {
         int[][] rgb;
         if(isChecked) {
-            SystemProperties.set("persist.eyecare.mode.enable", "0");
-            SystemProperties.set("persist.picture.mode.enable", "0");
+            SystemProperties.set(PROPERTY_EYE_CARE_MODE, "0");
+            SystemProperties.set(PROPERTY_PICTURE_MODE, "0");
             mEyeCarePreference.setChecked(false);
             mPictureModePreference.setChecked(false);
             mHuePreference.setEnabled(false);
@@ -74,13 +83,13 @@ public class EBookModePreferenceController extends TogglePreferenceController
             mRkDisplayOutputManager.setGamma(0, 1024, rgb[0], rgb[1], rgb[2]);
             mRkDisplayOutputManager.setBrightness(0, 90);
             mRkDisplayOutputManager.setSaturation(0, 0);
-            SystemProperties.set("persist.ebook.mode.enable", "1");
+            SystemProperties.set(PROPERTY_EBOOK_MODE, "1");
         } else {
             rgb = ColorTempUtil.colorTemperatureToRGB(1024, 6500);
             mRkDisplayOutputManager.setGamma(0, 1024, rgb[0], rgb[1], rgb[2]);
             mRkDisplayOutputManager.setBrightness(0, 50);
             mRkDisplayOutputManager.setSaturation(0, 50);
-            SystemProperties.set("persist.ebook.mode.enable", "0");
+            SystemProperties.set(PROPERTY_EBOOK_MODE, "0");
         }
         return true;
     }

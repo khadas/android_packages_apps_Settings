@@ -60,7 +60,7 @@ public class DisplaySettings extends DashboardFragment {
     private static final String KET_DISPLAY_HUE_SETTING = "display_hue_setting";
     private static final String KET_DISPLAY_SATURATION_SETTING = "display_saturation_setting";
     private static final String KET_DISPLAY_CONTRAST_SETTING = "display_contrast_setting";
-
+    public static final String PROPERTY_SHOW_PICTURE_SETTING = "ro.vendor.picture_settings";
     //----------------------------------------
 
     @Override

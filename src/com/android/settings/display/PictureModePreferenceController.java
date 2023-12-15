@@ -24,9 +24,14 @@ import com.android.settings.R;
 import com.android.settings.core.TogglePreferenceController;
 import com.android.settingslib.core.lifecycle.LifecycleObserver;
 import com.android.settings.widget.SeekBarPreference;
+import static com.android.settings.display.EBookModePreferenceController.PROPERTY_EBOOK_MODE;
+import static com.android.settings.display.EyeCarePreferenceController.PROPERTY_EYE_CARE_MODE;
+import static com.android.settings.DisplaySettings.PROPERTY_SHOW_PICTURE_SETTING;
 
 public class PictureModePreferenceController extends TogglePreferenceController
     implements LifecycleObserver {
+
+    public static final String PROPERTY_PICTURE_MODE = "persist.sys.picture.mode.enable";
 
     private SwitchPreference mEyeCarePreference;
     private SwitchPreference mEBookPreference;
@@ -42,19 +47,23 @@ public class PictureModePreferenceController extends TogglePreferenceController
 
     @Override
     public int getAvailabilityStatus() {
-        return AVAILABLE;
+        if ("true".equals(SystemProperties.get(PROPERTY_SHOW_PICTURE_SETTING))) {
+            return AVAILABLE;
+        } else {
+            return UNSUPPORTED_ON_DEVICE;
+        }
     }
 
     @Override
     public boolean isChecked() {
-        return SystemProperties.getInt("persist.picture.mode.enable", 0) == 1;
+        return SystemProperties.getInt(PROPERTY_PICTURE_MODE, 0) == 1;
     }
 
     @Override
     public boolean setChecked(boolean isChecked) {
         if(isChecked) {
-            SystemProperties.set("persist.eyecare.mode.enable", "0");
-            SystemProperties.set("persist.ebook.mode.enable", "0");
+            SystemProperties.set(PROPERTY_EYE_CARE_MODE, "0");
+            SystemProperties.set(PROPERTY_EBOOK_MODE, "0");
             mEBookPreference.setChecked(false);
             mEyeCarePreference.setChecked(false);
             mHuePreference.setEnabled(true);
@@ -62,9 +71,9 @@ public class PictureModePreferenceController extends TogglePreferenceController
             mSaturationPreference.setEnabled(true);
             int[][] rgb = ColorTempUtil.gammaColorTempAdjust(256, 256, 256);
             mRkDisplayOutputManager.setGamma(0, 1024, rgb[0], rgb[1], rgb[2]);
-            SystemProperties.set("persist.picture.mode.enable", "1");
+            SystemProperties.set(PROPERTY_PICTURE_MODE, "1");
         } else {
-            SystemProperties.set("persist.picture.mode.enable", "0");
+            SystemProperties.set(PROPERTY_PICTURE_MODE, "0");
             mHuePreference.setEnabled(false);
             mContrastPreference.setEnabled(false);
             mSaturationPreference.setEnabled(false);
