@@ -22,7 +22,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.os.SystemProperties;
 import android.preference.PreferenceManager.OnActivityResultListener;
 import android.text.TextUtils;
 import android.util.ArrayMap;
@@ -394,11 +393,9 @@ public abstract class DashboardFragment extends SettingsPreferenceFragment
     protected void updatePreferenceStates() {
         final PreferenceScreen screen = getPreferenceScreen();
         PackageManager packageManager = getContext().getPackageManager();
-        String strGms = SystemProperties.get("ro.com.google.gmsversion", "null");
-        if (strGms.equals("null") &&
-            !packageManager.hasSystemFeature(PackageManager.FEATURE_TELEPHONY)) {
+        if(!packageManager.hasSystemFeature(PackageManager.FEATURE_TELEPHONY)){
             Preference preference = screen.findPreference(EMERGENCY_KEY);
-            if (preference != null) {
+            if(preference != null){
                 screen.removePreference(preference);
             }
         }
