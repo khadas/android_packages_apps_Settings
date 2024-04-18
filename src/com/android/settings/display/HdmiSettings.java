@@ -29,6 +29,7 @@ import android.os.Message;
 import android.os.ServiceManager;
 import android.os.SystemProperties;
 import android.preference.Preference.OnPreferenceChangeListener;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.IWindowManager;
 import android.view.LayoutInflater;
@@ -462,6 +463,11 @@ public class HdmiSettings extends SettingsPreferenceFragment
                         int display = mSelectDisplayInfo.getDisplayNo();
                         DrmDisplaySetting.updateDisplayInfos();
                         DrmDisplaySetting.updateDisplayModesInfo(mSelectDisplayInfo);
+                        String lastResolution = mSelectDisplayInfo.getLastResolution();
+                        Log.i(TAG, "display " + display + ", lastResolution=" + lastResolution);
+                        if (TextUtils.isEmpty(lastResolution)) {
+                            mSelectDisplayInfo.setLastResolution(mSelectDisplayInfo.getCurrentResolution());
+                        }
                         int status = DrmDisplaySetting.getCurrentDpyConnState(display);
                         mSelectDisplayInfo.setStatus(status);
                         String[] modes = mSelectDisplayInfo.getOrginModes();
