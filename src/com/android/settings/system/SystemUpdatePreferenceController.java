@@ -28,7 +28,7 @@ import android.os.UserManager;
 import android.telephony.CarrierConfigManager;
 import android.text.TextUtils;
 import android.util.Log;
-
+import android.content.ComponentName;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceScreen;
 
@@ -72,14 +72,35 @@ public class SystemUpdatePreferenceController extends BasePreferenceController {
         }
     }
 
+    private boolean checkOTAServiceInstalled(Context context, String pkgName) {
+        if (TextUtils.isEmpty(pkgName)) {
+            return false;
+        }
+        try {
+            context.getPackageManager().getPackageInfo(pkgName, 0);
+        } catch (Exception x) {
+            return false;
+        }
+        return true;
+    }
+
     @Override
     public boolean handlePreferenceTreeClick(Preference preference) {
         if (TextUtils.equals(getPreferenceKey(), preference.getKey())) {
-            CarrierConfigManager configManager =
-                    (CarrierConfigManager) mContext.getSystemService(CARRIER_CONFIG_SERVICE);
-            PersistableBundle b = configManager.getConfig();
-            if (b != null && b.getBoolean(CarrierConfigManager.KEY_CI_ACTION_ON_SYS_UPDATE_BOOL)) {
-                ciActionOnSysUpdate(b);
+            boolean rkUpdateService = checkOTAServiceInstalled(mContext, "android.rockchip.update.service");
+            boolean khadasUpdateService = checkOTAServiceInstalled(mContext, "com.khadas.otaservice");
+            if(rkUpdateService && khadasUpdateService) {
+                ComponentName cn = new ComponentName("com.khadas.otaservice","com.khadas.otaservice.MainActivity") ;
+                Intent intent = new Intent();
+                intent.setComponent(cn);
+                mContext.startActivity(intent);
+                return true;
+            } else {
+                CarrierConfigManager configManager = (CarrierConfigManager) mContext.getSystemService(CARRIER_CONFIG_SERVICE);
+                PersistableBundle b = configManager.getConfig();
+                if (b != null && b.getBoolean(CarrierConfigManager.KEY_CI_ACTION_ON_SYS_UPDATE_BOOL)) {
+                     ciActionOnSysUpdate(b);
+                 }
             }
         }
         // always return false here because this handler does not want to block other handlers.
