@@ -510,9 +510,9 @@
     <!-- Ethernet Tethering subtext for tablet [CHAR LIMIT=NONE]-->
     <string name="ethernet_tethering_subtext" product="tablet">Share tablet\u2019s internet connection via Ethernet</string>
     <!-- Main settings screen, setting title for the user to go into the About phone screen -->
-    <string name="about_settings" product="tablet">About tablet</string>
+    <string name="about_settings" product="tablet">About device</string>
     <!-- Main settings screen, setting title for the user to go into the About phone screen -->
-    <string name="about_settings" product="default">About phone</string>
+    <string name="about_settings" product="default">About device</string>
     <!-- Main settings screen, setting title for the user to go into the About phone screen -->
     <string name="about_settings" product="device">About device</string>
     <!-- Main settings screen, setting title for the user to go into the About phone screen -->
