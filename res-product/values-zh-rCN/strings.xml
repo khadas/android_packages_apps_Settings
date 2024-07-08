@@ -265,8 +265,8 @@
     <string name="bluetooth_tethering_subtext" product="default" msgid="3638886236597805392">"通过蓝牙共享手机的互联网连接"</string>
     <string name="ethernet_tethering_subtext" product="default" msgid="8652438909365718644">"通过以太网共享手机的互联网连接"</string>
     <string name="ethernet_tethering_subtext" product="tablet" msgid="2227710549796706455">"通过以太网共享平板电脑的互联网连接"</string>
-    <string name="about_settings" product="tablet" msgid="1471390492111370330">"关于平板电脑"</string>
-    <string name="about_settings" product="default" msgid="2621311564780208250">"关于手机"</string>
+    <string name="about_settings" product="tablet" msgid="1471390492111370330">"关于设备"</string>
+    <string name="about_settings" product="default" msgid="2621311564780208250">"关于设备"</string>
     <string name="about_settings" product="device" msgid="7595574154492383452">"关于设备"</string>
     <string name="about_settings" product="emulator" msgid="1099246296173401003">"关于模拟设备"</string>
     <string name="install_all_warning" product="tablet" msgid="1732116924846572063">"您的平板电脑和个人数据更容易受到未知应用的攻击。安装来自该来源的应用即表示，您同意对因使用这些应用可能导致的平板电脑损坏或数据丢失承担责任。"</string>
