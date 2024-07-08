@@ -6940,6 +6940,9 @@
     <!-- Text to describe the dashboard fragment title [CHAR LIMIT=16] -->
     <string name="dashboard_title">Settings</string>
 
+    <string name="khadas_settings_title">Khadas settings</string>
+    <string name="khadas_settings_summary">Khadas add some settings</string>
+
     <!-- Title for setting tile leading to network and Internet settings [CHAR LIMIT=40]-->
     <string name="network_dashboard_title">Network &amp; internet</string>
     <!-- Summary for Network and Internet settings, explaining it contains mobile, wifi setting and data usage settings [CHAR LIMIT=NONE]-->
