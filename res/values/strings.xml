@@ -12403,5 +12403,10 @@
     <string name="display_hue_title">Hue</string>
     <string name="display_contrast_title">Contrast</string>
     <string name="display_saturation_title">Saturation</string>
+
+    <!--ai sr settings-->
+    <string name="sr_title">AI SR</string>
+    <string name="sr_on">On</string>
+    <string name="sr_off">Off</string>
     <!-- ======================================== -->
 </resources>

@@ -4841,5 +4841,9 @@
     <string name="display_hue_title">色度</string>
     <string name="display_contrast_title">对比度</string>
     <string name="display_saturation_title">饱和度</string>
+
+    <!--ai sr settings-->
+    <string name="sr_on">已开启</string>
+    <string name="sr_off">已关闭</string>
     <!-- ======================================== -->
 </resources>
