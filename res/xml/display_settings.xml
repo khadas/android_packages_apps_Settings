@@ -21,7 +21,7 @@
     android:title="@string/display_settings"
     settings:keywords="@string/keywords_display">
 
-    <PreferenceCategory
+    /*<PreferenceCategory
         android:title="@string/category_name_brightness">
 
         <com.android.settingslib.RestrictedPreference
@@ -38,7 +38,7 @@
             settings:useAdminDisabledSummary="true"
             settings:userRestriction="no_config_brightness"
             settings:controller="com.android.settings.display.AutoBrightnessPreferenceController" />
-    </PreferenceCategory>
+    </PreferenceCategory>*/
 
     <PreferenceCategory
         android:title="@string/category_name_lock_display">
