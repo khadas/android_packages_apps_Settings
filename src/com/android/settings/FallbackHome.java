@@ -119,7 +119,7 @@ public class FallbackHome extends Activity {
         mHandler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                reStartActivity();
+                //reStartActivity();
             }
         }, 60000);
     }
