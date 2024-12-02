@@ -12408,5 +12408,10 @@
     <string name="sr_title">AI SR</string>
     <string name="sr_on">On</string>
     <string name="sr_off">Off</string>
+
+    <!--ai settings-->
+    <string name="rkai_title">RK AI</string>
+    <string name="rkai_on">On</string>
+    <string name="rkai_off">Off</string>
     <!-- ======================================== -->
 </resources>
