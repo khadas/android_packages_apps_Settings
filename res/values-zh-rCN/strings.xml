@@ -4845,9 +4845,5 @@
     <!--ai sr settings-->
     <string name="sr_on">已开启</string>
     <string name="sr_off">已关闭</string>
-
-    <!--ai settings-->
-    <string name="rkai_on">"已开启"</string>
-    <string name="rkai_off">"已关闭"</string>
     <!-- ======================================== -->
 </resources>
