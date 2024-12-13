@@ -4383,19 +4383,6 @@
             android:exported="true"
             android:permission="android.permission.DUMP" />
 
-        <!-- =========rk code========= -->
-        <service android:name=".display.RkAiQsTile"
-            android:icon="@drawable/ic_settings_rkai"
-            android:label="@string/rkai_title"
-            android:subtitle="@string/rkai_off"
-            android:exported="true"
-            android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
-            <intent-filter>
-                <action android:name="android.service.quicksettings.action.QS_TILE" />
-            </intent-filter>
-        </service>
-        <!-- ========================== -->
-
         <!-- Quick Settings tiles for Developer Options -->
         <service
             android:name=".development.qstile.DevelopmentTiles$ShowLayout"
