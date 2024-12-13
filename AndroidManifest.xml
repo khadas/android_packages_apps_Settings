@@ -736,11 +736,20 @@
             android:label="@string/sr_title"
             android:subtitle="@string/sr_off"
             android:exported="true"
+            android:enabled="false"
             android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
             <intent-filter>
                 <action android:name="android.service.quicksettings.action.QS_TILE" />
             </intent-filter>
         </service>
+
+        <receiver
+            android:name=".display.BootReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+            </intent-filter>
+        </receiver>
 
         <activity android:name=".network.TetherProvisioningActivity"
             android:exported="true"
