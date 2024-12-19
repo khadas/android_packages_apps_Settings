@@ -12408,5 +12408,7 @@
     <string name="sr_title">AI SR</string>
     <string name="sr_on">On</string>
     <string name="sr_off">Off</string>
+    <string name="sr_osd">OSD</string>
+    <string name="sr_contrast">CONTRAST</string>
     <!-- ======================================== -->
 </resources>

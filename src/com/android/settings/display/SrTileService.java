@@ -16,76 +16,85 @@
 
 package com.android.settings.display;
 
-import android.content.Context;
-import android.os.SystemProperties;
 import android.service.quicksettings.TileService;
 import android.service.quicksettings.Tile;
 import android.util.Log;
+
 import com.android.settings.R;
-import java.io.RandomAccessFile;
+import com.android.settings.rk.CmdUtils;
+import com.android.settings.rk.SrQsDialog;
 
-/** TileService for test */
-public class SrTileService extends TileService {
+/**
+ * TileService for test
+ */
+public class SrTileService extends TileService implements
+        SrQsDialog.SrQsDialogListener {
 
-    public static final String PROPERTY_SR_MODE = "persist.sys.svep.mode";
-    public static final String TAG = "SrTileService";
+    private final String TAG = getClass().getSimpleName();
 
     @Override
     public void onCreate() {
         super.onCreate();
+        Log.i(TAG, "onCreate()");
     }
 
     // Called when the user adds your tile.
     @Override
     public void onTileAdded() {
         super.onTileAdded();
-        Tile tile = getQsTile();
-        tile.setSubtitle(SystemProperties.getInt(PROPERTY_SR_MODE, 0) == 1 ?
-            this.getString(R.string.sr_on) : this.getString(R.string.sr_off));
-        tile.updateTile();
-        tile.setState(SystemProperties.getInt(PROPERTY_SR_MODE, 0) == 1 ?
-            Tile.STATE_ACTIVE : Tile.STATE_INACTIVE);
+        Log.i(TAG, "onTileAdded()");
+        refreshTile();
     }
 
     // Called when your app can update your tile.
     @Override
     public void onStartListening() {
         super.onStartListening();
-        Tile tile = getQsTile();
-        tile.setSubtitle(SystemProperties.getInt(PROPERTY_SR_MODE, 0) == 1 ?
-            this.getString(R.string.sr_on) : this.getString(R.string.sr_off));
-        tile.updateTile();
-        tile.setState(SystemProperties.getInt(PROPERTY_SR_MODE, 0) == 1 ?
-            Tile.STATE_ACTIVE : Tile.STATE_INACTIVE);
+        Log.i(TAG, "onStartListening()");
+        refreshTile();
     }
 
     // Called when your app can no longer update your tile.
     @Override
     public void onStopListening() {
         super.onStopListening();
+        Log.i(TAG, "onStopListening()");
+        refreshTile();
     }
 
     // Called when the user taps on your tile in an active or inactive state.
     @Override
     public void onClick() {
         super.onClick();
-        int[][] rgb;
-        Tile tile = getQsTile();
-        if(SystemProperties.getInt(PROPERTY_SR_MODE, 0) == 0) {
-            SystemProperties.set(PROPERTY_SR_MODE, "1");
-            tile.setSubtitle(this.getString(R.string.sr_on));
-            tile.setState(Tile.STATE_ACTIVE);
-        } else {
-            SystemProperties.set(PROPERTY_SR_MODE, "0");
-            tile.setSubtitle(this.getString(R.string.sr_off));
-            tile.setState(Tile.STATE_INACTIVE);
-        }
-        tile.updateTile();
+        Log.i(TAG, "onClick()");
+        //showDialog(new SrQsDialog(this)); may cause SrTileService has leaked IntentReceiver
+        SrQsDialog srQsDialog = new SrQsDialog(this, this);
+        srQsDialog.show();
     }
 
     // Called when the user removes your tile.
     @Override
     public void onTileRemoved() {
         super.onTileRemoved();
+        Log.i(TAG, "onTileRemoved()");
+    }
+
+    private void refreshTile() {
+        try {
+            Tile tile = getQsTile();
+            boolean isSrEnable = SrQsDialog.isSrEnable();
+            tile.setSubtitle(isSrEnable ? getString(R.string.sr_on) : getString(R.string.sr_off));
+            tile.setState(isSrEnable ? Tile.STATE_ACTIVE : Tile.STATE_INACTIVE);
+            tile.updateTile();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void srStateChange() {
+        Log.i(TAG, "srStateChange");
+        refreshTile();
+        CmdUtils.execCmd("cmd statusbar collapse");
     }
 }
