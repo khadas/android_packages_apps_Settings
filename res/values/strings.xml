@@ -2760,6 +2760,8 @@
     <string name="status_wifi_mac_address">Wi\u2011Fi MAC address</string>
     <!-- About phone, status item title.  The device's MAC address of the Wi-Fi network adapter. [CHAR LIMIT=50] -->
     <string name="status_device_wifi_mac_address">Device Wi\u2011Fi MAC address</string>
+	<!-- ethernet mac -->
+    <string name="status_ethernet_mac_address">Ethernet MAC address</string>
     <!-- About phone, status item title.  The bluetooth adapter's hardware address-->
     <string name="status_bt_address">Bluetooth address</string>
     <!-- About phone, status item title.  The hardware serial number. [CHAR LIMIT=30]-->
@@ -12166,7 +12168,7 @@
     <!--Wireless controls screen, settings summary for the item tot ake you to the ethernet settings screen -->
     <string name="ethernet_settings_summary">Manager ethernet</string>
     <!-- ethernet hw address  -->
-    <string name="ethernet_hw_addr">MAC</string>
+    <string name="ethernet_mac_addr">MAC address</string>
     <!-- ethernet network interface  -->
     <string name="ethernet_net_interface">Network interface</string>
     <!-- ethernet ip address  -->
