@@ -736,20 +736,45 @@
             android:label="@string/sr_title"
             android:subtitle="@string/sr_off"
             android:exported="true"
-            android:enabled="false"
+            android:enabled="true"
             android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
             <intent-filter>
                 <action android:name="android.service.quicksettings.action.QS_TILE" />
             </intent-filter>
+            <meta-data
+                android:name="android.service.quicksettings.ACTIVE_TILE"
+                android:value="true" />
         </service>
 
-        <receiver
-            android:name=".display.BootReceiver"
-            android:exported="true">
+        <service android:name=".display.MemcTileService"
+            android:icon="@drawable/ic_settings_memc"
+            android:label="@string/memc_title"
+            android:subtitle="@string/memc_off"
+            android:exported="true"
+            android:enabled="true"
+            android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
             <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+                <action android:name="android.service.quicksettings.action.QS_TILE" />
             </intent-filter>
-        </receiver>
+            <meta-data
+                android:name="android.service.quicksettings.ACTIVE_TILE"
+                android:value="true" />
+        </service>
+
+        <service android:name=".display.AipqTileService"
+            android:icon="@drawable/ic_settings_aipq"
+            android:label="@string/aipq_title"
+            android:subtitle="@string/memc_off"
+            android:exported="true"
+            android:enabled="true"
+            android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
+            <intent-filter>
+                <action android:name="android.service.quicksettings.action.QS_TILE" />
+            </intent-filter>
+            <meta-data
+                android:name="android.service.quicksettings.ACTIVE_TILE"
+                android:value="true" />
+        </service>
 
         <activity android:name=".network.TetherProvisioningActivity"
             android:exported="true"

@@ -28,13 +28,6 @@ import com.android.settings.display.ShowOperatorNamePreferenceController;
 import com.android.settings.display.TapToWakePreferenceController;
 import com.android.settings.display.ThemePreferenceController;
 import com.android.settings.display.VrDisplayPreferenceController;
-import com.android.settings.display.EyeCarePreferenceController;
-import com.android.settings.display.EyeCaraGainPreferenceController;
-import com.android.settings.display.EBookModePreferenceController;
-import com.android.settings.display.PictureModePreferenceController;
-import com.android.settings.display.DisplayHuePreferenceController;
-import com.android.settings.display.DisplaySaturationPreferenceController;
-import com.android.settings.display.DisplayContrastPreferenceController;
 import com.android.settings.search.BaseSearchIndexProvider;
 import com.android.settingslib.core.AbstractPreferenceController;
 import com.android.settingslib.core.lifecycle.Lifecycle;
@@ -44,7 +37,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 //-----------------------rk code----------
+import android.preference.Preference;
+import com.android.settings.display.AipqSettingsPreferenceController;
+import com.android.settings.display.DisplayHuePreferenceController;
+import com.android.settings.display.DisplaySaturationPreferenceController;
+import com.android.settings.display.DisplayContrastPreferenceController;
+import com.android.settings.display.EyeCarePreferenceController;
+import com.android.settings.display.EyeCaraGainPreferenceController;
+import com.android.settings.display.EBookModePreferenceController;
+import com.android.settings.display.MemcSettingsPreferenceController;
 import com.android.settings.display.HdmiSettingsPreferenceController;
+import com.android.settings.display.PictureModePreferenceController;
+import com.android.settings.display.SRSettingsPreferenceController;
+
 //----------------------------------------
 
 @SearchIndexable(forTarget = SearchIndexable.ALL & ~SearchIndexable.ARC)
@@ -52,14 +57,17 @@ public class DisplaySettings extends DashboardFragment {
     private static final String TAG = "DisplaySettings";
 
     //-----------------------rk code----------
-    private static final String KET_HDMI_SETTINGS = "hdmi_settings";
-    private static final String KET_EYE_CARE_SETTING = "eye_care_setting";
-    private static final String KET_EYE_CARE_GAIN_SETTING = "eye_care_gain";
-    private static final String KET_EBOOK_MODE_SETTING = "ebook_mode_setting";
-    private static final String KET_PICTURE_MODE_SETTING = "picture_mode_setting";
-    private static final String KET_DISPLAY_HUE_SETTING = "display_hue_setting";
-    private static final String KET_DISPLAY_SATURATION_SETTING = "display_saturation_setting";
-    private static final String KET_DISPLAY_CONTRAST_SETTING = "display_contrast_setting";
+    private static final String KEY_HDMI_SETTINGS = "hdmi_settings";
+    private static final String KEY_EYE_CARE_SETTING = "eye_care_setting";
+    private static final String KEY_EYE_CARE_GAIN_SETTING = "eye_care_gain";
+    private static final String KEY_EBOOK_MODE_SETTING = "ebook_mode_setting";
+    private static final String KEY_PICTURE_MODE_SETTING = "picture_mode_setting";
+    private static final String KEY_DISPLAY_HUE_SETTING = "display_hue_setting";
+    private static final String KEY_DISPLAY_SATURATION_SETTING = "display_saturation_setting";
+    private static final String KEY_DISPLAY_CONTRAST_SETTING = "display_contrast_setting";
+    private static final String KEY_SR_SETTINGS = "sr_settings";
+    private static final String KEY_MEMC_SETTINGS = "memc_settings";
+    private static final String KEY_AIPQ_SETTINGS = "aipq_settings";
     public static final String PROPERTY_SHOW_PICTURE_SETTING = "ro.vendor.picture_settings";
     //----------------------------------------
 
@@ -104,14 +112,17 @@ public class DisplaySettings extends DashboardFragment {
         controllers.add(new ThemePreferenceController(context));
         controllers.add(new BrightnessLevelPreferenceController(context, lifecycle));
         //-----------------------rk code----------
-        controllers.add(new HdmiSettingsPreferenceController(context, KET_HDMI_SETTINGS));
-        controllers.add(new EyeCarePreferenceController(context, KET_EYE_CARE_SETTING));
-        controllers.add(new EyeCaraGainPreferenceController(context, KET_EYE_CARE_GAIN_SETTING));
-        controllers.add(new EBookModePreferenceController(context, KET_EBOOK_MODE_SETTING));
-        controllers.add(new PictureModePreferenceController(context, KET_PICTURE_MODE_SETTING));
-        controllers.add(new DisplayHuePreferenceController(context, KET_DISPLAY_HUE_SETTING));
-        controllers.add(new DisplaySaturationPreferenceController(context, KET_DISPLAY_SATURATION_SETTING));
-        controllers.add(new DisplayContrastPreferenceController(context, KET_DISPLAY_CONTRAST_SETTING));
+        controllers.add(new HdmiSettingsPreferenceController(context, KEY_HDMI_SETTINGS));
+        controllers.add(new EyeCarePreferenceController(context, KEY_EYE_CARE_SETTING));
+        controllers.add(new EyeCaraGainPreferenceController(context, KEY_EYE_CARE_GAIN_SETTING));
+        controllers.add(new EBookModePreferenceController(context, KEY_EBOOK_MODE_SETTING));
+        controllers.add(new PictureModePreferenceController(context, KEY_PICTURE_MODE_SETTING));
+        controllers.add(new DisplayHuePreferenceController(context, KEY_DISPLAY_HUE_SETTING));
+        controllers.add(new DisplaySaturationPreferenceController(context, KEY_DISPLAY_SATURATION_SETTING));
+        controllers.add(new DisplayContrastPreferenceController(context, KEY_DISPLAY_CONTRAST_SETTING));
+        controllers.add(new SRSettingsPreferenceController(context, KEY_SR_SETTINGS));
+        controllers.add(new MemcSettingsPreferenceController(context, KEY_MEMC_SETTINGS));
+        controllers.add(new AipqSettingsPreferenceController(context, KEY_AIPQ_SETTINGS));
         //----------------------------------------
         return controllers;
     }

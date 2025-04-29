@@ -187,6 +187,24 @@
             settings:keywords="@string/hdmi_settings"
             android:fragment="com.android.settings.display.HdmiSettings" />
 
+        <Preference
+            android:key="sr_settings"
+            android:title="@string/sr_title"
+            settings:keywords="@string/sr_title"
+            android:fragment="com.android.settings.display.SRSettings"/>
+
+        <Preference
+            android:key="memc_settings"
+            android:title="@string/memc_title"
+            settings:keywords="@string/memc_title"
+            android:fragment="com.android.settings.display.MemcSettings"/>
+
+        <Preference
+            android:key="aipq_settings"
+            android:title="@string/aipq_title"
+            settings:keywords="@string/aipq_title"
+            android:fragment="com.android.settings.display.AipqSettings"/>
+
         <SwitchPreference
             android:key="eye_care_setting"
             android:title="@string/eye_care_title"

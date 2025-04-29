@@ -1,5 +1,5 @@
 /*
- * Copyright 2024 Rockchip Electronics S.LSI Co. LTD
+ * Copyright 2025 Rockchip Electronics S.LSI Co. LTD
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -35,25 +35,25 @@ import android.os.RkDisplayOutputManager;
 
 import com.android.settings.R;
 
-public class SrQsDialog extends AlertDialog implements
+public class MemcQsDialog extends AlertDialog implements
         DialogInterface.OnClickListener,
         CompoundButton.OnCheckedChangeListener {
     private final String TAG = getClass().getSimpleName();
 
-    private static final String PROPERTY_SR_MODE = "persist.sys.svep.mode";
-    private static final String PROPERTY_SR_DISABLE_OSD = "persist.sys.svep.disable_sr_osd";
-    private static final String PROPERTY_SR_CONTRAST_MODE = "persist.sys.svep.contrast_mode";
-    private static final String PROPERTY_SR_CONTRAST_OFFSET = "persist.sys.svep.contrast_offset_ratio";
     private static final String PROPERTY_MEMC_MODE = "persist.sys.memc.mode";
+    private static final String PROPERTY_MEMC_DISABLE_OSD = "persist.sys.memc.disable_memc_osd";
+    private static final String PROPERTY_MEMC_CONTRAST_MODE = "persist.sys.memc.contrast_mode";
+    private static final String PROPERTY_MEMC_CONTRAST_OFFSET = "persist.sys.memc.contrast_offset_ratio";
+    private static final String PROPERTY_SR_MODE = "persist.sys.svep.mode";
 
     private View mDialogView;
-    private Switch sr_toggle;
-    private Switch sr_osd_toggle;
-    private Switch sr_contrast_toggle;
+    private Switch memc_toggle;
+    private Switch memc_osd_toggle;
+    private Switch memc_contrast_toggle;
 
     private Context mContext;
     private RkDisplayOutputManager mRkDisplayOutputManager;
-    private SrQsDialogListener mListener;
+    private MemcQsDialogListener mListener;
     private BroadcastReceiver mBroadcastReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -61,14 +61,14 @@ public class SrQsDialog extends AlertDialog implements
         }
     };
 
-    public SrQsDialog(Context context, SrQsDialogListener listener) {
+    public MemcQsDialog(Context context, MemcQsDialogListener listener) {
         super(context);
-        Log.i(TAG, "new SrQsDialog");
+        Log.i(TAG, "new MemcQsDialog");
         mContext = context;
         mListener = listener;
         mRkDisplayOutputManager = new RkDisplayOutputManager();
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-        mDialogView = LayoutInflater.from(mContext).inflate(R.layout.rkai_qs_sr_dialog, null);
+        mDialogView = LayoutInflater.from(mContext).inflate(R.layout.rkai_qs_memc_dialog, null);
         getWindow().setType(WindowManager.LayoutParams.TYPE_STATUS_BAR_SUB_PANEL);
         setView(mDialogView);
         setButton(Dialog.BUTTON_POSITIVE, context.getString(android.R.string.ok), this);
@@ -79,7 +79,6 @@ public class SrQsDialog extends AlertDialog implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.i(TAG, "onCreate");
-
         initView(mDialogView);
     }
 
@@ -109,64 +108,62 @@ public class SrQsDialog extends AlertDialog implements
     }
 
     private void initView(View dialogView) {
-        sr_toggle = dialogView.findViewById(R.id.sr_toggle);
-        sr_osd_toggle = dialogView.findViewById(R.id.sr_osd_toggle);
-        sr_contrast_toggle = dialogView.findViewById(R.id.sr_contrast_toggle);
-
-        boolean isSrEnable = isSrEnable();
-        sr_toggle.setChecked(isSrEnable);
+        memc_toggle = dialogView.findViewById(R.id.memc_toggle);
+        memc_osd_toggle = dialogView.findViewById(R.id.memc_osd_toggle);
+        memc_contrast_toggle = dialogView.findViewById(R.id.memc_contrast_toggle);
+        boolean isMemcEnable = isMemcEnable();
+        memc_toggle.setChecked(isMemcEnable);
         updateConfigToggle();
-        sr_osd_toggle.setChecked(!isSrOsdEnable());
-        sr_contrast_toggle.setChecked(isSrContrastEnable());
-
-        sr_toggle.setOnCheckedChangeListener(this);
+        memc_osd_toggle.setChecked(!isMemcOsdEnable());
+        memc_contrast_toggle.setChecked(isMemcContrastEnable());
+        memc_toggle.setOnCheckedChangeListener(this);
     }
 
     private void updateConfigToggle() {
-        sr_osd_toggle.setEnabled(sr_toggle.isChecked());
-        sr_contrast_toggle.setEnabled(sr_toggle.isChecked());
+        memc_osd_toggle.setEnabled(memc_toggle.isChecked());
+        memc_contrast_toggle.setEnabled(memc_toggle.isChecked());
     }
 
-    public static boolean isSrEnable() {
-        return SystemProperties.getInt(PROPERTY_SR_MODE, 0) == 1;
+    public static boolean isMemcEnable() {
+        return SystemProperties.getInt(PROPERTY_MEMC_MODE, 0) == 1;
     }
 
-    private void enableSr(boolean enable) {
-        SystemProperties.set(PROPERTY_SR_MODE, enable ? "1" : "0");
+    private void enableMemc(boolean enable) {
+        SystemProperties.set(PROPERTY_MEMC_MODE, enable ? "1" : "0");
         if (enable) {
-            SystemProperties.set(PROPERTY_MEMC_MODE, "0");
+            SystemProperties.set(PROPERTY_SR_MODE, "0");
             mRkDisplayOutputManager.setAiPqEnable(false, false, false, false);
         }
     }
 
-    private boolean isSrOsdEnable() {
-        return SystemProperties.getInt(PROPERTY_SR_DISABLE_OSD, 1) != 0;
+    private boolean isMemcOsdEnable() {
+        return SystemProperties.getInt(PROPERTY_MEMC_DISABLE_OSD, 1) != 0;
     }
 
-    private void enableSrOsd(boolean enable) {
-        SystemProperties.set(PROPERTY_SR_DISABLE_OSD, enable ? "0" : "1");
+    private void enableMemcOsd(boolean enable) {
+        SystemProperties.set(PROPERTY_MEMC_DISABLE_OSD, enable ? "0" : "1");
     }
 
-    private boolean isSrContrastEnable() {
-        boolean contrastMode = SystemProperties.getInt(PROPERTY_SR_CONTRAST_MODE, 0) == 1;
-        boolean contrastOffset = SystemProperties.getInt(PROPERTY_SR_CONTRAST_OFFSET, -1) == 0;
+    private boolean isMemcContrastEnable() {
+        boolean contrastMode = SystemProperties.getInt(PROPERTY_MEMC_CONTRAST_MODE, 0) == 1;
+        boolean contrastOffset = SystemProperties.getInt(PROPERTY_MEMC_CONTRAST_OFFSET, -1) == 0;
         return contrastMode && contrastOffset;
     }
 
-    private void enableSrContrast(boolean enable) {
-        SystemProperties.set(PROPERTY_SR_CONTRAST_MODE, enable ? "1" : "0");
-        SystemProperties.set(PROPERTY_SR_CONTRAST_OFFSET, enable ? "0" : "");
+    private void enableMemcContrast(boolean enable) {
+        SystemProperties.set(PROPERTY_MEMC_CONTRAST_MODE, enable ? "1" : "0");
+        SystemProperties.set(PROPERTY_MEMC_CONTRAST_OFFSET, enable ? "0" : "");
     }
 
     @Override
     public void onClick(DialogInterface dialog, int which) {
         switch (which) {
             case Dialog.BUTTON_POSITIVE:
-                enableSr(sr_toggle.isChecked());
-                enableSrOsd(sr_osd_toggle.isChecked());
-                enableSrContrast(sr_contrast_toggle.isChecked());
+                enableMemc(memc_toggle.isChecked());
+                enableMemcOsd(memc_osd_toggle.isChecked());
+                enableMemcContrast(memc_contrast_toggle.isChecked());
                 if (null != mListener) {
-                    mListener.srStateChange();
+                    mListener.memcStateChange();
                 }
                 break;
             default:
@@ -177,12 +174,12 @@ public class SrQsDialog extends AlertDialog implements
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
         int id = buttonView.getId();
-        if (id == R.id.sr_toggle) {
+        if (id == R.id.memc_toggle) {
             updateConfigToggle();
         }
     }
 
-    public interface SrQsDialogListener {
-        void srStateChange();
+    public interface MemcQsDialogListener {
+        void memcStateChange();
     }
 }

@@ -12405,10 +12405,23 @@
     <string name="display_saturation_title">Saturation</string>
 
     <!--ai sr settings-->
-    <string name="sr_title">AI SR</string>
+    <string name="sr_title">SR</string>
     <string name="sr_on">On</string>
     <string name="sr_off">Off</string>
     <string name="sr_osd">OSD</string>
     <string name="sr_contrast">CONTRAST</string>
+    <string name="memc_title">MEMC</string>
+    <string name="memc_on">On</string>
+    <string name="memc_off">Off</string>
+    <string name="memc_osd">OSD</string>
+    <string name="memc_contrast">CONTRAST</string>
+    <string name="aipq_title">AI PQ</string>
+    <string name="aisd_title">AI SD</string>
+    <string name="aisr_title">AI SR</string>
+    <string name="aimemc_title">AI MEMC</string>
+    <string name="aidc_title">AI DC</string>
+    <string name="hwpq_title">HW PQ</string>
+    <string name="aipq_on">On</string>
+    <string name="aipq_off">Off</string>
     <!-- ======================================== -->
 </resources>

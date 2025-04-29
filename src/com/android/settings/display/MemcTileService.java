@@ -24,16 +24,12 @@ import android.util.Log;
 
 import com.android.settings.R;
 import com.android.settings.rk.CmdUtils;
-import com.android.settings.rk.SrQsDialog;
+import com.android.settings.rk.MemcQsDialog;
 
-/**
- * TileService for test
- */
-public class SrTileService extends TileService implements
-        SrQsDialog.SrQsDialogListener {
+public class MemcTileService extends TileService implements MemcQsDialog.MemcQsDialogListener {
 
     private final String TAG = getClass().getSimpleName();
-    private SrQsDialog mSrQsDialog;
+    private MemcQsDialog mMemcQsDialog;
 
     @Override
     public void onCreate() {
@@ -70,11 +66,11 @@ public class SrTileService extends TileService implements
     public void onClick() {
         super.onClick();
         Log.i(TAG, "onClick()");
-        //showDialog(new SrQsDialog(this)); may cause SrTileService has leaked IntentReceiver
-        if (mSrQsDialog == null) {
-            mSrQsDialog = new SrQsDialog(this, this);
+        //showDialog(new MemcQsDialog(this)); may cause MemcTileService has leaked IntentReceiver
+        if (mMemcQsDialog == null) {
+            mMemcQsDialog = new MemcQsDialog(this, this);
         }
-        mSrQsDialog.show();
+        mMemcQsDialog.show();
     }
 
     // Called when the user removes your tile.
@@ -88,9 +84,9 @@ public class SrTileService extends TileService implements
         try {
             Log.i(TAG, "refreshTile");
             Tile tile = getQsTile();
-            boolean isSrEnable = SrQsDialog.isSrEnable();
-            tile.setSubtitle(isSrEnable ? getString(R.string.sr_on) : getString(R.string.sr_off));
-            tile.setState(isSrEnable ? Tile.STATE_ACTIVE : Tile.STATE_INACTIVE);
+            boolean isMemcEnable = MemcQsDialog.isMemcEnable();
+            tile.setSubtitle(isMemcEnable ? getString(R.string.memc_on) : getString(R.string.memc_off));
+            tile.setState(isMemcEnable ? Tile.STATE_ACTIVE : Tile.STATE_INACTIVE);
             tile.updateTile();
         } catch (Exception e) {
             e.printStackTrace();
@@ -98,20 +94,21 @@ public class SrTileService extends TileService implements
     }
 
     @Override
-    public void srStateChange() {
-        Log.i(TAG, "srStateChange");
+    public void memcStateChange() {
+        Log.i(TAG, "memcStateChange");
         refreshTile();
-        TileService.requestListeningState(this, new ComponentName(this, MemcTileService.class));
+        TileService.requestListeningState(this, new ComponentName(this, SrTileService.class));
         TileService.requestListeningState(this, new ComponentName(this, AipqTileService.class));
         CmdUtils.execCmd("cmd statusbar collapse");
     }
 
+    @Override
     public void onDestroy() {
         super.onDestroy();
         Log.i(TAG, "onDestroy()");
-        if (mSrQsDialog != null) {
-            mSrQsDialog.dismiss();
-            mSrQsDialog = null;
+        if (mMemcQsDialog != null) {
+            mMemcQsDialog.dismiss();
+            mMemcQsDialog = null;
         }
     }
 }

@@ -4845,7 +4845,15 @@
     <!--ai sr settings-->
     <string name="sr_on">已开启</string>
     <string name="sr_off">已关闭</string>
-    <string name="sr_osd">"水印"</string>
-    <string name="sr_contrast">"扫描线"</string>
+    <string name="sr_osd">水印</string>
+    <string name="sr_contrast">扫描线</string>
+    <string name="sr_title">视频增强</string>
+    <string name="memc_title">运动补偿</string>
+    <string name="memc_on">已开启</string>
+    <string name="memc_off">已关闭</string>
+    <string name="memc_osd">水印</string>
+    <string name="memc_contrast">扫描线</string>
+    <string name="aipq_on">已开启</string>
+    <string name="aipq_off">已关闭</string>
     <!-- ======================================== -->
 </resources>
