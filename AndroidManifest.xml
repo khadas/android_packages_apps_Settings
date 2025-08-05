@@ -230,6 +230,15 @@
                   android:knownActivityEmbeddingCerts="@array/config_known_host_certs"
                   android:taskAffinity="com.android.settings.root" />
 
+        <!-- rk-code -->
+        <receiver android:name=".rk.SettingsHomepageReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.android.settings.SETTINGS_HOME_REQUEST_FOCUS"/>
+            </intent-filter>
+        </receiver>
+        <!-- ======= -->
+
         <activity android:name=".Settings$CreateShortcutActivity"
                   android:exported="true"
                   android:label="@string/settings_shortcut">

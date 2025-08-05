@@ -22,6 +22,10 @@ import androidx.preference.Preference;
 import androidx.preference.PreferenceViewHolder;
 
 import com.android.settings.R;
+//---------rk-code----------
+import com.android.settings.utils.InputModeManager;
+import com.android.settings.utils.RemoteControlUtil;
+//--------------------------
 
 /** Helper for homepage preference to manage layout. */
 public class HomepagePreferenceLayoutHelper {
@@ -31,6 +35,9 @@ public class HomepagePreferenceLayoutHelper {
     private boolean mIconVisible = true;
     private int mIconPaddingStart = -1;
     private int mTextPaddingStart = -1;
+    //---------rk-code----------
+    private View mItemView;
+    //--------------------------
 
     /** The interface for managing preference layouts on homepage */
     public interface HomepagePreferenceLayout {
@@ -68,11 +75,29 @@ public class HomepagePreferenceLayoutHelper {
         }
     }
 
+    //---------rk-code----------
+    public View getItemView() {
+        return mItemView;
+    }
+    //--------------------------
+
     void onBindViewHolder(PreferenceViewHolder holder) {
         mIcon = holder.findViewById(R.id.icon_frame);
         mText = holder.findViewById(R.id.text_frame);
         setIconVisible(mIconVisible);
         setIconPaddingStart(mIconPaddingStart);
         setTextPaddingStart(mTextPaddingStart);
+
+        //---------rk-code----------
+        mItemView = holder.itemView;
+        if (RemoteControlUtil.isSupportRemoteControl(mItemView.getContext())) {
+            holder.itemView.setOnKeyListener((view, i, keyEvent) -> {
+                if (!InputModeManager.getInstance().isInRemoteInputMode()) {
+                    return true;
+                }
+                return false;
+            });
+        }
+        //--------------------------
     }
 }
