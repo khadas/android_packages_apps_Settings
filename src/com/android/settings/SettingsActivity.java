@@ -87,6 +87,12 @@ import java.util.List;
 
 //-----------------------rk code----------
 import com.android.settings.display.HdmiSettings;
+import com.android.settings.utils.InputModeManager;
+import android.view.MotionEvent;
+import android.view.KeyEvent;
+import com.android.settings.utils.FocusBroadcastUtils;
+import com.android.settings.utils.RemoteControlUtil;
+import com.google.android.material.appbar.AppBarLayout;
 //----------------------------------------
 
 public class SettingsActivity extends SettingsBaseActivity
@@ -187,6 +193,10 @@ public class SettingsActivity extends SettingsBaseActivity
     private BroadcastReceiver mDevelopmentSettingsListener;
 
     private boolean mBatteryPresent = true;
+    //---------rk-code----------
+    private BroadcastReceiver mSubSettingsRequestFocusReceiver;
+    //--------------------------
+
     private BroadcastReceiver mBatteryInfoReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -278,6 +288,9 @@ public class SettingsActivity extends SettingsBaseActivity
 
     @Override
     protected void onCreate(Bundle savedState) {
+        //---------rk-code----------
+        registerSubSettingsFocusReceiver();
+        //--------------------------
         // Should happen before any call to getIntent()
         getMetaData();
         final Intent intent = getIntent();
@@ -292,6 +305,64 @@ public class SettingsActivity extends SettingsBaseActivity
         Log.d(LOG_TAG, "Starting onCreate");
         createUiFromIntent(savedState, intent);
     }
+
+    //---------rk-code----------
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(mSubSettingsRequestFocusReceiver);
+    }
+
+    /**
+     * In a dual-pane scenario, the left pane switches focus to the right pane when the right directional key on the remote control is pressed.
+     */
+    private void registerSubSettingsFocusReceiver() {
+        mSubSettingsRequestFocusReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                if (ActivityEmbeddingUtils.isEmbeddingActivityEnabled(SettingsActivity.this)) {
+                    AppBarLayout appBarLayout = findViewById(R.id.app_bar);
+                    int[] location = new int[2];
+                    appBarLayout.getLocationOnScreen(location);
+                    int absoluteX = location[0];
+                    int absoluteY = location[1];
+                    int right = absoluteX + appBarLayout.getWidth();
+                    int bottom = absoluteY + appBarLayout.getHeight();
+                    RemoteControlUtil.injectClick(right - 10, bottom - 10, SettingsActivity.this);
+                }
+            }
+        };
+        LocalBroadcastManager.getInstance(this).registerReceiver(mSubSettingsRequestFocusReceiver,
+                new IntentFilter(FocusBroadcastUtils.INTENT_ACTION_SUBSETTINGS_REQUEST_FOCUS));
+    }
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        switch (ev.getAction()) {
+            case MotionEvent.ACTION_DOWN:
+                InputModeManager.getInstance().setInputMode(InputModeManager.InputMode.TOUCH);
+                break;
+            case MotionEvent.ACTION_UP:
+                InputModeManager.getInstance().setInputMode(InputModeManager.InputMode.REMOTE);
+            default:
+                break;
+        }
+        return super.dispatchTouchEvent(ev);
+    }
+
+    @Override
+    public boolean dispatchKeyEvent(KeyEvent event) {
+        // Intercept KEYCODE_DPAD_LEFT KeyEvent
+        if (ActivityEmbeddingUtils.isEmbeddingActivityEnabled(this) &&
+                RemoteControlUtil.isSupportRemoteControl(this) &&
+                event.getAction() == KeyEvent.ACTION_DOWN &&
+                event.getKeyCode() == KeyEvent.KEYCODE_DPAD_LEFT) {
+            FocusBroadcastUtils.requestHomepageRequestFocusReceiver(this);
+            return true;
+        }
+        return super.dispatchKeyEvent(event);
+    }
+    //--------------------------
 
     protected void createUiFromIntent(Bundle savedState, Intent intent) {
         long startTime = System.currentTimeMillis();

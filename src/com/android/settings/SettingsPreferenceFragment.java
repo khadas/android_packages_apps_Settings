@@ -58,6 +58,9 @@ import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.setupcompat.util.WizardManagerHelper;
 
 import java.util.UUID;
+//---------rk-code----------
+import com.android.settings.utils.RemoteControlUtil;
+//--------------------------
 
 /**
  * Base class for Settings fragments, with some helper functions and dialog management.
@@ -152,6 +155,17 @@ public abstract class SettingsPreferenceFragment extends InstrumentedPreferenceF
         mAppBarLayout = getActivity().findViewById(R.id.app_bar);
         return root;
     }
+
+    //---------rk-code----------
+    @Override
+    public RecyclerView onCreateRecyclerView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
+        RecyclerView recyclerView = super.onCreateRecyclerView(inflater, parent, savedInstanceState);
+        if (RemoteControlUtil.isSupportRemoteControl(getContext())) {
+            recyclerView.setFocusable(false);
+        }
+        return recyclerView;
+    }
+    //--------------------------
 
     @Override
     public void addPreferencesFromResource(@XmlRes int preferencesResId) {

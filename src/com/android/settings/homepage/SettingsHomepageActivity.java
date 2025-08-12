@@ -78,6 +78,22 @@ import com.google.android.setupcompat.util.WizardManagerHelper;
 
 import java.net.URISyntaxException;
 import java.util.Set;
+//---------rk-code----------
+import androidx.core.content.ContextCompat;
+import com.android.settings.rk.receiver.SettingsHomepageReceiver;
+import android.view.MotionEvent;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.IntentFilter;
+import com.android.settings.widget.HomepagePreference;
+import com.android.settingslib.drawer.CategoryKey;
+import android.widget.LinearLayout;
+import com.android.settings.utils.InputModeManager;
+import android.view.KeyEvent;
+import com.android.settings.utils.RemoteControlUtil;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+import com.android.settings.utils.FocusBroadcastUtils;
+//--------------------------
 
 /** Settings homepage activity */
 public class SettingsHomepageActivity extends FragmentActivity implements
@@ -111,6 +127,28 @@ public class SettingsHomepageActivity extends FragmentActivity implements
     private boolean mIsTwoPane;
     // A regular layout shows icons on homepage, whereas a simplified layout doesn't.
     private boolean mIsRegularLayout = true;
+    //---------rk-code----------
+    private LinearLayout mHomepageContainer;
+    private BroadcastReceiver mHomepageRequestFocusReceiver;
+    private SettingsHomepageReceiver mSettingsHomepageReceiver;
+    private final InputModeManager.OnInputModeChangeListener mInputModeChangeListener = new InputModeManager.OnInputModeChangeListener() {
+        @Override
+        public void onInputModeChanged(InputModeManager.InputMode newMode) {
+            if (RemoteControlUtil.isSupportRemoteControl(getApplicationContext())) {
+                if (mHomepageContainer != null) {
+                    if (newMode == InputModeManager.InputMode.TOUCH) {
+                        // Prevent inner RecyclerView gets focus and invokes scrolling.
+                        mHomepageContainer.setFocusableInTouchMode(true);
+                        mHomepageContainer.requestFocus();
+                    } else {
+                        mHomepageContainer.setFocusable(false);
+                        mHomepageContainer.clearFocus();
+                    }
+                }
+            }
+        }
+    };
+    //--------------------------
 
     /** A listener receiving homepage loaded events. */
     public interface HomepageLoadedListener {
@@ -258,7 +296,148 @@ public class SettingsHomepageActivity extends FragmentActivity implements
         updateSplitLayout();
 
         enableTaskLocaleOverride();
+
+        //---------rk-code----------
+        registerOnInputModeChangeListener();
+        initSearchBarFocusChain();
+        registerHomepageRequestFocusReceiver();
+        //--------------------------
     }
+
+    //---------rk-code----------
+    /**
+     * In a dual-pane scenario, the right pane switches focus to the left pane when the left directional key on the remote control is pressed.
+     */
+    private void registerHomepageRequestFocusReceiver() {
+        mHomepageRequestFocusReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                doRequestFocus();
+            }
+        };
+        LocalBroadcastManager.getInstance(this).registerReceiver(mHomepageRequestFocusReceiver,
+                new IntentFilter(FocusBroadcastUtils.INTENT_ACTION_SETTINGS_HOMEPAGE_REQUEST_FOCUS));
+
+        mSettingsHomepageReceiver = new SettingsHomepageReceiver(this);
+        mSettingsHomepageReceiver.register(this);
+    }
+
+    public void doRequestFocus() {
+        if (mIsEmbeddingActivityEnabled) {
+            final Toolbar toolbarTwoPaneVersion = findViewById(R.id.search_action_bar_two_pane);
+            int[] location = new int[2];
+            toolbarTwoPaneVersion.getLocationOnScreen(location);
+            int absoluteX = location[0];
+            int absoluteY = location[1];
+            int right = absoluteX + toolbarTwoPaneVersion.getWidth();
+            RemoteControlUtil.injectClick(right + 10, absoluteY, SettingsHomepageActivity.this);
+        }
+    }
+
+    /**
+     * Handling the focus traversal path for search controls in both single-pane and dual-pane layouts.
+     */
+    private void initSearchBarFocusChain() {
+        LinearLayout regularSearchLl = findViewById(R.id.search_ll_container);
+        Toolbar reqularToolbar = findViewById(R.id.search_action_bar);
+
+        regularSearchLl.setFocusable(true);
+        regularSearchLl.setClickable(true);
+        regularSearchLl.setOnKeyListener((view, keyCode, keyEvent) -> {
+            if (keyCode == KeyEvent.KEYCODE_ENTER || keyCode == KeyEvent.KEYCODE_DPAD_CENTER) {
+                reqularToolbar.performClick();
+                return true;
+            }
+            return false;
+        });
+        regularSearchLl.postDelayed(() -> {
+            if (mMainFragment != null && mMainFragment.getPreferenceScreen() != null && mMainFragment.getPreferenceScreen().getPreferenceManager() != null &&
+                    mMainFragment.getPreferenceScreen().findPreference(CategoryKey.CATEGORY_NETWORK) instanceof HomepagePreference) {
+                HomepagePreference homepagePreference = mMainFragment.getPreferenceScreen().findPreference(CategoryKey.CATEGORY_NETWORK);
+                View itemView = homepagePreference.getHelper().getItemView();
+                if (itemView != null) {
+                    reqularToolbar.setNextFocusDownId(itemView.getId());
+                    itemView.setNextFocusUpId(reqularToolbar.getId());
+                }
+            }
+        }, 100);
+
+        // 处理双窗格的遥控按键
+        LinearLayout twoPaneSearchLl = findViewById(R.id.homepage_app_bar_two_pane_view);
+        Toolbar toolbarTwoPaneVersion = findViewById(R.id.search_action_bar_two_pane);
+        twoPaneSearchLl.setFocusable(true);
+        twoPaneSearchLl.setClickable(true);
+        twoPaneSearchLl.setOnKeyListener((view, keyCode, keyEvent) -> {
+            // 处理双窗格的遥控按键
+            if (keyCode == KeyEvent.KEYCODE_ENTER || keyCode == KeyEvent.KEYCODE_DPAD_CENTER) {
+                toolbarTwoPaneVersion.performClick();
+                return true;
+            }
+            return false;
+        });
+        twoPaneSearchLl.postDelayed(() -> {
+            if (mMainFragment != null && mMainFragment.getPreferenceScreen() != null && mMainFragment.getPreferenceScreen().getPreferenceManager() != null &&
+                    mMainFragment.getPreferenceScreen().findPreference(CategoryKey.CATEGORY_NETWORK) instanceof HomepagePreference) {
+                HomepagePreference homepagePreference = mMainFragment.getPreferenceScreen().findPreference(CategoryKey.CATEGORY_NETWORK);
+                View itemView = homepagePreference.getHelper().getItemView();
+                if (itemView != null) {
+                    toolbarTwoPaneVersion.setNextFocusDownId(itemView.getId());
+                    itemView.setNextFocusUpId(toolbarTwoPaneVersion.getId());
+                }
+            }
+        }, 100);
+    }
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        switch (ev.getAction()) {
+            case MotionEvent.ACTION_DOWN:
+                InputModeManager.getInstance().setInputMode(InputModeManager.InputMode.TOUCH);
+                break;
+            case MotionEvent.ACTION_UP:
+                InputModeManager.getInstance().setInputMode(InputModeManager.InputMode.REMOTE);
+            default:
+                break;
+        }
+        return super.dispatchTouchEvent(ev);
+    }
+
+    @Override
+    public boolean dispatchKeyEvent(KeyEvent event) {
+        // Intercept KEYCODE_DPAD_RIGHT KeyEvent
+        if (mIsEmbeddingActivityEnabled &&
+                RemoteControlUtil.isSupportRemoteControl(this) &&
+                event.getAction() == KeyEvent.ACTION_DOWN &&
+                event.getKeyCode() == KeyEvent.KEYCODE_DPAD_RIGHT) {
+            String key = mMainFragment.getHighlightMixin().getHighlightPreferenceKey();
+            if (ContextCompat.getString(getApplicationContext(), R.string.menu_key_safety_center).equals(key)) {
+                FocusBroadcastUtils.requestSafetyCenterRequestFocusReceiver(this);
+            } else {
+                FocusBroadcastUtils.requestSubSettingsRequestFocusReceiver(this);
+            }
+            return true;
+        }
+        return super.dispatchKeyEvent(event);
+    }
+
+    private void registerOnInputModeChangeListener() {
+        InputModeManager.getInstance().registerListener(mInputModeChangeListener);
+    }
+
+    private void unRegisterOnInputModeChangeListener() {
+        InputModeManager.getInstance().unregisterListener(mInputModeChangeListener);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unRegisterOnInputModeChangeListener();
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(mHomepageRequestFocusReceiver);
+        if (mSettingsHomepageReceiver != null) {
+            mSettingsHomepageReceiver.unregister(this);
+        }
+    }
+    //--------------------------
 
     @VisibleForTesting
     void initSplitPairRules() {
@@ -669,12 +848,18 @@ public class SettingsHomepageActivity extends FragmentActivity implements
         mMainFragment.reloadHighlightMenuKey();
     }
 
+    //---------rk-code----------
     private void initHomepageContainer() {
-        final View view = findViewById(R.id.homepage_container);
-        // Prevent inner RecyclerView gets focus and invokes scrolling.
-        view.setFocusableInTouchMode(true);
-        view.requestFocus();
+        mHomepageContainer = findViewById(R.id.homepage_container);
+        if (RemoteControlUtil.isSupportRemoteControl(this)) {
+            // Prevent inner RecyclerView gets focus and invokes scrolling.
+            mHomepageContainer.setFocusable(false);
+        } else {
+            mHomepageContainer.setFocusableInTouchMode(true);
+            mHomepageContainer.requestFocus();
+        }
     }
+    //--------------------------
 
     private void updateHomepageAppBar() {
         if (!mIsEmbeddingActivityEnabled) {
